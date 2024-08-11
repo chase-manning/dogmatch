@@ -3,20 +3,24 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     :root {
         --bg: white;
-        --main: black;
-        --sub: grey;
-        --primary: blue;
+        --blue-bg: #DAF0FF;
+        --main: #1D5D9B;
+        --sub: #75C2F6;
+        --light: #ACDAFA;
+        --primary: #F4D160;
     }
 
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-size: 10px;
+        font-size: 8px;
     }
 
     div {
         color: var(--main);
+        font-family: "Kumbh Sans", sans-serif;
+        font-optical-sizing: auto;
     }
 
     button {
