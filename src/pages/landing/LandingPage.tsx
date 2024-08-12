@@ -1,9 +1,55 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Button from "../../components/Button";
 import useDogs from "../../app/use-dogs";
 import DogCard from "../../components/DogCard";
 import { useEffect, useState } from "react";
 import { DogType } from "../../components/DogContext";
+
+import pawImage from "../../assets/paw.svg";
+
+interface PawType {
+  x: number;
+  y: number;
+  rotation: number;
+}
+
+const paws: PawType[] = [
+  {
+    x: -15,
+    y: 30,
+    rotation: 40,
+  },
+  {
+    x: -15,
+    y: 10,
+    rotation: -20,
+  },
+  {
+    x: -10,
+    y: -10,
+    rotation: -5,
+  },
+  {
+    x: 7,
+    y: -17,
+    rotation: 35,
+  },
+  {
+    x: 25,
+    y: -20,
+    rotation: 15,
+  },
+  {
+    x: 43,
+    y: -15,
+    rotation: -5,
+  },
+  {
+    x: 65,
+    y: -25,
+    rotation: 40,
+  },
+];
 
 const StyledLandingPage = styled.div`
   width: 100%;
@@ -22,6 +68,7 @@ const TextSection = styled.div`
 `;
 
 const TextContent = styled.div`
+  position: relative;
   max-width: 60rem;
   display: flex;
   flex-direction: column;
@@ -53,6 +100,23 @@ const ButtonContainer = styled.div`
   margin-top: 3rem;
 `;
 
+const PawContainer = styled.div<{ paw: PawType }>`
+  position: absolute;
+  top: ${(props) => props.paw.y}%;
+  left: ${(props) => props.paw.x}%;
+  transform: rotate(${(props) => props.paw.rotation}deg);
+`;
+
+const plop = keyframes`
+ 0% { opacity: 0 }
+ 100% { opacity: 1 }
+`;
+
+const Paw = styled.img<{ delay: number }>`
+  opacity: 0;
+  animation: ${plop} 1ms ${(props) => props.delay * 0.2}s forwards;
+`;
+
 const LandingPage = () => {
   const { dogs } = useDogs();
 
@@ -79,6 +143,24 @@ const LandingPage = () => {
             <Button primary>Find your dog</Button>
             <Button>All dogs</Button>
           </ButtonContainer>
+          {paws.map((paw, index) => (
+            <PawContainer
+              key={index}
+              paw={paw}
+              style={{
+                opacity: (30 + index * 3) / 100,
+              }}
+            >
+              <Paw
+                delay={index + 3}
+                src={pawImage}
+                alt="paw"
+                style={{
+                  width: `${3 + index}rem`,
+                }}
+              />
+            </PawContainer>
+          ))}
         </TextContent>
       </TextSection>
       <DogSection>
