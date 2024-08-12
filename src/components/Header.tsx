@@ -16,7 +16,7 @@ const NAV_ITEMS: NavItemType[] = [
     path: "quiz",
   },
   {
-    label: "All dogs",
+    label: "all dogs",
     path: "breeds",
   },
 ];
