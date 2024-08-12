@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { DogType } from "./DogContext";
+import Skeleton from "./Skeleton";
+import { BREEDS_PATH } from "../app/paths";
 
-const StyledDogCard = styled.div`
+const StyledDogCard = styled.a`
   width: 47.7rem;
   padding: 3rem 4rem;
   border-radius: 3.5rem;
@@ -10,6 +12,7 @@ const StyledDogCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;
 
 const HeaderContainer = styled.div`
@@ -108,8 +111,6 @@ interface Props {
 }
 
 const DogCard = ({ dog }: Props) => {
-  if (!dog) return null;
-
   interface StatType {
     label: string;
     value: number;
@@ -119,50 +120,65 @@ const DogCard = ({ dog }: Props) => {
   const stats: StatType[] = [
     {
       label: "Size",
-      value: dog.physicalCharacteristics.size,
+      value: dog?.physicalCharacteristics.size ?? 0,
       color: "var(--blue)",
     },
     {
       label: "Child friendly",
-      value: dog.behavioralTraits.childFriendly,
+      value: dog?.behavioralTraits.childFriendly ?? 0,
       color: "var(--yellow)",
     },
     {
       label: "Training Ease",
-      value: dog.careRequirements.trainingEase,
+      value: dog?.careRequirements.trainingEase ?? 0,
       color: "var(--green)",
     },
     {
       label: "Activity Level",
-      value: dog.careRequirements.activityLevel,
+      value: dog?.careRequirements.activityLevel ?? 0,
       color: "var(--orange)",
     },
     {
       label: "Popularity",
-      value: dog.generalInformation.popularity,
+      value: dog?.generalInformation.popularity ?? 0,
       color: "var(--red)",
     },
     {
       label: "Coat Shedding Level",
-      value: dog.careRequirements.coatSheddingLevel,
+      value: dog?.careRequirements.coatSheddingLevel ?? 0,
       color: "var(--purple)",
     },
   ];
 
   return (
     <div>
-      <StyledDogCard>
+      <StyledDogCard href={`/${BREEDS_PATH}/${dog?.id}`}>
         <HeaderContainer>
           <HeaderItem>
             <HeaderLabel>Breed</HeaderLabel>
-            <HeaderValue>{dog.generalInformation.name}</HeaderValue>
+            {dog ? (
+              <HeaderValue>{dog.generalInformation.name}</HeaderValue>
+            ) : (
+              <Skeleton width="17rem" height="2.6rem" />
+            )}
           </HeaderItem>
           <HeaderItem style={{ alignItems: "flex-end" }}>
             <HeaderLabel>Group</HeaderLabel>
-            <HeaderValue>{dog.generalInformation.group}</HeaderValue>
+            {dog ? (
+              <HeaderValue>{dog.generalInformation.group}</HeaderValue>
+            ) : (
+              <Skeleton width="10rem" height="2.6rem" />
+            )}
           </HeaderItem>
         </HeaderContainer>
-        <DogImage src={dog.images.outdoors} alt={dog.generalInformation.name} />
+        {dog ? (
+          <DogImage
+            src={dog.images.outdoors}
+            alt={dog.generalInformation.name}
+          />
+        ) : (
+          <Skeleton width="100%" height="39.5rem" />
+        )}
         <StatsSection>
           <StatContainer>
             {/* First 3 items */}
@@ -201,9 +217,17 @@ const DogCard = ({ dog }: Props) => {
           </StatContainer>
         </StatsSection>
         <Traits>
-          {dog.generalInformation.personalityTraits.map((trait, index) => (
-            <Trait key={index}>{trait.toLowerCase()}</Trait>
-          ))}
+          {dog ? (
+            dog?.generalInformation.personalityTraits.map((trait, index) => (
+              <Trait key={index}>{trait.toLowerCase()}</Trait>
+            ))
+          ) : (
+            <>
+              <Skeleton width="33%" height="3.5rem" />
+              <Skeleton width="33%" height="3.5rem" />
+              <Skeleton width="33%" height="3.5rem" />
+            </>
+          )}
         </Traits>
       </StyledDogCard>
     </div>
