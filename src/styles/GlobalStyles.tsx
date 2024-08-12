@@ -55,6 +55,15 @@ const GlobalStyle = createGlobalStyle`
     a {
         text-decoration: none;
     }
+
+    img {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-touch-callout: none;
+    }
 `;
 
 const GlobalStyles = (): JSX.Element => {
