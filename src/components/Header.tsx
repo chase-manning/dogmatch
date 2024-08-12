@@ -24,10 +24,11 @@ const NAV_ITEMS: NavItemType[] = [
 const StyledHeader = styled.div`
   position: relative;
   width: 100%;
-  padding: 1.5rem 5rem;
+  padding: 0 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 10rem;
 `;
 
 const HeaderBorder = styled.div`
