@@ -8,6 +8,13 @@ const GlobalStyle = createGlobalStyle`
         --sub: #75C2F6;
         --light: #ACDAFA;
         --primary: #F4D160;
+
+        --blue: #0577E5;
+        --green: #1D9B34;
+        --yellow: #F4D160;
+        --orange: #FF9603;
+        --red: #DC2660;
+        --purple: #AC2EE7;
     }
 
     * {
