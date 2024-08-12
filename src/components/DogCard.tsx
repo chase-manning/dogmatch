@@ -202,7 +202,7 @@ const DogCard = ({ dog }: Props) => {
         </StatsSection>
         <Traits>
           {dog.generalInformation.personalityTraits.map((trait, index) => (
-            <Trait key={index}>{trait}</Trait>
+            <Trait key={index}>{trait.toLowerCase()}</Trait>
           ))}
         </Traits>
       </StyledDogCard>
