@@ -20,6 +20,7 @@ const DogMatch = styled.div`
   font-weight: 500;
   color: var(--sub);
   font-family: "Jost", sans-serif;
+  letter-spacing: 0.15rem;
 `;
 
 const Logo = () => {
