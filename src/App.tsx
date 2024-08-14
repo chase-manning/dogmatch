@@ -3,7 +3,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LandingPage from "./pages/landing/LandingPage";
 import { Outlet, Route, Routes } from "react-router-dom";
-import { BREEDS_PATH, QUIZ_PATH } from "./app/paths";
+import { BREEDS_PATH, QUIZ_PATH, SAY_HI_PATH } from "./app/paths";
+import SayHiPage from "./pages/say-hi/SayHiPage";
+import BreedPage from "./pages/breed/BreedPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 const StyledApp = styled.div`
   display: flex;
@@ -18,6 +21,7 @@ const Layout = () => {
       <Header />
       <Outlet />
       <Footer />
+      <ScrollToTop />
     </StyledApp>
   );
 };
@@ -33,7 +37,13 @@ const App = () => {
           <Route path={QUIZ_PATH} element={<LandingPage />} />
 
           {/* TODO */}
-          <Route path={BREEDS_PATH} element={<LandingPage />} />
+          <Route path={BREEDS_PATH}>
+            <Route index element={<LandingPage />} />
+            {/* Sub paths for specific dogs */}
+            <Route path=":breed" element={<BreedPage />} />
+          </Route>
+
+          <Route path={SAY_HI_PATH} element={<SayHiPage />} />
 
           {/* TODO */}
           <Route path="*" element={<LandingPage />} />
