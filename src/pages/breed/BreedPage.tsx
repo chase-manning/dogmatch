@@ -37,6 +37,7 @@ const Section = styled.div`
   padding: 4.5rem 5.5rem;
   display: flex;
   gap: 13rem;
+  align-items: center;
 `;
 
 const HeaderSection = styled.div`

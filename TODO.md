@@ -1,7 +1,5 @@
 # Unsorted
 
-- More padding for sections
-- Center align the ratings
 - Some names are too long
 - Implemnent search
 - About undefined
