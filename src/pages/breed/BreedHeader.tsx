@@ -24,7 +24,7 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   gap: 7rem;
-  max-width: 160rem;
+  max-width: 150rem;
 `;
 
 const ImageContainer = styled.div`

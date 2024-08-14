@@ -29,14 +29,14 @@ const StyledBreed = styled.div`
 
 const Section = styled.div`
   width: 100%;
-  max-width: 160rem;
+  max-width: 150rem;
   border: solid 1px var(--main);
   border-radius: 3rem;
   box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.15);
   margin-bottom: 8rem;
-  padding: 4rem 5rem;
+  padding: 4.5rem 5.5rem;
   display: flex;
-  gap: 8rem;
+  gap: 13rem;
 `;
 
 const HeaderSection = styled.div`
@@ -396,7 +396,7 @@ const BreedPage = () => {
           <Header>{`About ${dog?.generalInformation.name}`}</Header>
           {dog ? (
             dog.generalInformation.longDescription
-              .split("\\n")
+              .split("\n")
               .map((paragraph) => (
                 <AboutBreed key={paragraph}>{paragraph}</AboutBreed>
               ))
