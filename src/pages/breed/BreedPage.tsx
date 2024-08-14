@@ -161,6 +161,7 @@ const BreedPage = () => {
                   label="Group"
                   value={dog.generalInformation.group}
                   icon={paw}
+                  tooltip="The category or classification of a dog based on its purpose or characteristics, such as Terrier, Working, or Companion."
                 />
                 <Stat
                   label="Height"
@@ -168,6 +169,7 @@ const BreedPage = () => {
                     inchesToCentimeters(dog.generalInformation.height)
                   ).toLocaleString()} cm)`}
                   icon={height}
+                  tooltip="This is the typical height of the dog breed measured in inches, representing how tall a dog of this breed usually stands."
                 />
                 <Stat
                   label="Weight"
@@ -175,11 +177,13 @@ const BreedPage = () => {
                     poundsToKilograms(dog.generalInformation.weight)
                   ).toLocaleString()} kg)`}
                   icon={weight}
+                  tooltip="The weight of the dog breed in pounds. This value helps indicate the general size and build of the breed, providing an idea of how heavy an average dog of this breed might be."
                 />
                 <Stat
                   label="Life Expectancy"
                   value={`${dog.generalInformation.lifeExpectancy.toLocaleString()} years`}
                   icon={lifespan}
+                  tooltip="The typical number of years a dog is expected to live, on average."
                 />
               </>
             ) : (
@@ -312,11 +316,13 @@ const BreedPage = () => {
                   label="Coat Style"
                   value={dog.physicalCharacteristics.coatStyle}
                   icon={typeIcon}
+                  tooltip="The typical texture and appearance of a dog's coat, such as wavy, wiry, curly, hairless, or straight."
                 />
                 <Stat
                   label="Coat Texture"
                   value={dog.physicalCharacteristics.coatTexture}
                   icon={texture}
+                  tooltip="Describes the typical texture of a dog's coat, such as rough, silky, or smooth."
                 />
                 <Stat
                   label="Coat Length"
@@ -332,11 +338,13 @@ const BreedPage = () => {
                       : "Long"
                   }
                   icon={length}
+                  tooltip="The length of a dog’s fur from the skin to the tip. It affects the dog's overall appearance and can influence grooming needs and seasonal care."
                 />
                 <Stat
                   label="Double Coat"
                   value={dog.physicalCharacteristics.doubleCoat ? "Yes" : "No"}
                   icon={paw}
+                  tooltip="Double-coated dogs have two layers of fur: a harsh topcoat and a soft undercoat. The soft undercoat is shorter, grows faster, and sheds twice a year, while the topcoat is longer and more protective."
                 />
               </>
             ) : (

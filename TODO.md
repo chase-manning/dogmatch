@@ -1,8 +1,6 @@
 # Unsorted
 
-- Fix issue with dog list page index not resetting
 - Split up about into paragraphs
-- Add tooltips to other items
 - Remove duplicate dog
 - More padding for sections
 - Center align the ratings
