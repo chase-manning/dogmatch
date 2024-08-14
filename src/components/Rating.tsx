@@ -17,6 +17,7 @@ const Label = styled.div`
   font-size: 2.4rem;
   font-weight: 650;
   font-family: "Jost", sans-serif;
+  white-space: nowrap;
 `;
 
 const RatingContainer = styled.div`
