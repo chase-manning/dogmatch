@@ -1,7 +1,5 @@
 # Unsorted
 
-- Split up about into paragraphs
-- Remove duplicate dog
 - More padding for sections
 - Center align the ratings
 - Some names are too long

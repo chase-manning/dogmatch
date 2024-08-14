@@ -206,6 +206,7 @@ const YouMayAlsoLike = ({ dog }: Props) => {
   const sortedDogs = dogs
     .map((d) => ({ dog: d, difference: dogDifference(dog, d) }))
     .sort((a, b) => a.difference - b.difference)
+    .filter((d) => d.dog.id !== dog.id)
     .slice(0 + page * 4, 4 + page * 4)
     .map((d) => d.dog);
 
