@@ -78,7 +78,6 @@ const DogContextProvider = ({ children }: Props) => {
     const fetchDogs = async () => {
       try {
         const response = await fetch(OPEN_DOG_REGISTRY);
-        console.log("Fetching dogs...");
         const data: Response = await response.json();
         setDogs(data.data);
       } catch (error: any) {
