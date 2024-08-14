@@ -1,6 +1,5 @@
 # Unsorted
 
-- Add arrows to dog list
 - Fix issue with dog list page index not resetting
 - Split up about into paragraphs
 - Add tooltips to other items

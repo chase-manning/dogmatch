@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { DogType } from "../../components/DogContext";
 import useDogs from "../../app/use-dogs";
 import DogPreview from "../../components/DogPreview";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import arrow from "../../assets/arrow.svg";
 
 interface TraitType {
   category: string;
@@ -114,6 +116,7 @@ const similarityData: TraitType[] = [
 ];
 
 const StyledYouMayAlsoLike = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 10rem 0;
@@ -148,6 +151,29 @@ const PageIndicator = styled.button<{ $active: boolean }>`
   cursor: pointer;
 `;
 
+const Button = styled.button<{ direction: "left" | "right" }>`
+  background: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: ${(props) => (props.direction === "left" ? "-7rem" : "auto")};
+  right: ${(props) => (props.direction === "right" ? "-7rem" : "auto")};
+  height: 5.7rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonIcon = styled.img<{ direction: "left" | "right" }>`
+  height: 3.6rem;
+  opacity: 0.5;
+  transform: rotate(
+    ${(props) => (props.direction === "right" ? "180deg" : "0")}
+  );
+`;
+
 interface Props {
   dog: DogType | null;
 }
@@ -155,6 +181,10 @@ interface Props {
 const YouMayAlsoLike = ({ dog }: Props) => {
   const { dogs } = useDogs();
   const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    setPage(0);
+  }, [dog]);
 
   if (!dog || dogs.length === 0) return null;
 
@@ -196,6 +226,12 @@ const YouMayAlsoLike = ({ dog }: Props) => {
           />
         ))}
       </PageIndicators>
+      <Button onClick={() => setPage((prev) => prev - 1)} direction="left">
+        <ButtonIcon src={arrow} direction="left" />
+      </Button>
+      <Button onClick={() => setPage((prev) => prev + 1)} direction="right">
+        <ButtonIcon src={arrow} direction="right" />
+      </Button>
     </StyledYouMayAlsoLike>
   );
 };
