@@ -402,7 +402,11 @@ const BreedPage = () => {
       </Section>
       <Section>
         <AboutContainer>
-          <Header>{`About ${dog?.generalInformation.name}`}</Header>
+          {dog ? (
+            <Header>{`About ${dog.generalInformation.name}`}</Header>
+          ) : (
+            <Skeleton width="40rem" height="4rem" />
+          )}
           {dog ? (
             dog.generalInformation.longDescription
               .split("\n")

@@ -1,6 +1,5 @@
 # Unsorted
 
-- About undefined
 - Split up paragraphs
 
 - Add short name and long name, fix the names we broke recently by making them shorter
