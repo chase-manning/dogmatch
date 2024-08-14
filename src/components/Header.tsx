@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import Search from "./Search";
 import { useState } from "react";
 import Logo from "./Logo";
+import useDogs from "../app/use-dogs";
+import levenshtein from "../app/levenshtein";
+import { DogType } from "./DogContext";
 
 interface NavItemType {
   label: string;
@@ -56,8 +59,56 @@ const NavItem = styled(Link)`
   color: var(--main);
 `;
 
+const SearchContainer = styled.div`
+  position: relative;
+`;
+
+const Results = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-radius: 1rem;
+  background: var(--bg);
+  box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Result = styled(Link)`
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--main);
+  padding: 1.5rem 2rem;
+  background: var(--bg);
+
+  &:hover {
+    background: var(--bg-blue);
+  }
+`;
+
 const Header = () => {
   const [searchValue, setSearchValue] = useState(""); // TODO
+  const { dogs } = useDogs();
+
+  const searchScore = (dog: DogType) => {
+    const lowerSearchValue = searchValue.toLowerCase();
+    const lowerDogName = dog.generalInformation.name.toLowerCase();
+    const startsWith = lowerDogName.startsWith(lowerSearchValue);
+    const includes = lowerDogName.includes(lowerSearchValue);
+
+    return (
+      (startsWith ? 0 : 100_000) +
+      (includes ? 0 : 1_000) +
+      levenshtein(lowerDogName, lowerSearchValue)
+    );
+  };
+
+  const topResults =
+    dogs && searchValue
+      ? dogs.sort((a, b) => searchScore(a) - searchScore(b)).slice(0, 5)
+      : null;
 
   return (
     <StyledHeader>
@@ -71,13 +122,28 @@ const Header = () => {
         ))}
       </NavItems>
 
-      <Search
-        value={searchValue}
-        setValue={setSearchValue}
-        placeholder="search"
-        width="27.5rem"
-      />
       <HeaderBorder />
+      <SearchContainer>
+        <Search
+          value={searchValue}
+          setValue={setSearchValue}
+          placeholder="search"
+          width="31rem"
+        />
+        {topResults && (
+          <Results>
+            {topResults.map((dog) => (
+              <Result
+                key={dog.id}
+                to={`/breeds/${dog.id}`}
+                onClick={() => setSearchValue("")}
+              >
+                {dog.generalInformation.name}
+              </Result>
+            ))}
+          </Results>
+        )}
+      </SearchContainer>
     </StyledHeader>
   );
 };

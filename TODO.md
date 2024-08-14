@@ -1,7 +1,5 @@
 # Unsorted
 
-- Some names are too long
-- Implemnent search
 - About undefined
 - Split up paragraphs
 
