@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import pawIcon from "../assets/paw.svg";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import { useState } from "react";
+import Logo from "./Logo";
 
 interface NavItemType {
   label: string;
@@ -40,25 +40,6 @@ const HeaderBorder = styled.div`
   border-bottom: solid 1px var(--sub);
 `;
 
-const LogoContainer = styled(Link)`
-  display: flex;
-  align-items: center;
-`;
-
-const Paw = styled.img`
-  width: 3.6rem;
-  color: pink;
-  fill: red;
-  margin-right: 0.7rem;
-`;
-
-const DogMatch = styled.div`
-  font-size: 4rem;
-  font-weight: 500;
-  color: var(--sub);
-  font-family: "Jost", sans-serif;
-`;
-
 const NavItems = styled.div`
   position: absolute;
   top: 50%;
@@ -80,10 +61,7 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <LogoContainer to="/">
-        <Paw src={pawIcon} alt="paw" />
-        <DogMatch>dogmatch</DogMatch>
-      </LogoContainer>
+      <Logo />
 
       <NavItems>
         {NAV_ITEMS.map((item) => (
