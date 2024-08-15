@@ -38,13 +38,13 @@ const StyledLink = styled(Link)<{ $primary?: boolean; $wide?: boolean }>`
 interface Props {
   children: React.ReactNode;
   primary?: boolean;
-  onClick?: () => void;
+  action?: () => void;
   link?: string;
   submit?: boolean;
   wide?: boolean;
 }
 
-const Button = ({ children, primary, onClick, link, submit, wide }: Props) => {
+const Button = ({ children, primary, action, link, submit, wide }: Props) => {
   const isInternalLink = !link?.startsWith("http");
 
   return (
@@ -54,8 +54,8 @@ const Button = ({ children, primary, onClick, link, submit, wide }: Props) => {
           {children}
         </StyledButton>
       )}
-      {onclick && (
-        <StyledButton $primary={primary} onClick={onClick} $wide={wide}>
+      {action && (
+        <StyledButton $primary={primary} onClick={action} $wide={wide}>
           {children}
         </StyledButton>
       )}
