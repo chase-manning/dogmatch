@@ -7,6 +7,7 @@ import { BREEDS_PATH, QUIZ_PATH, SAY_HI_PATH } from "./app/paths";
 import SayHiPage from "./pages/say-hi/SayHiPage";
 import BreedPage from "./pages/breed/BreedPage";
 import ScrollToTop from "./components/ScrollToTop";
+import QuizPage from "./pages/quiz/QuizPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -33,19 +34,15 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
 
-          {/* TODO */}
-          <Route path={QUIZ_PATH} element={<LandingPage />} />
+          <Route path={QUIZ_PATH} element={<QuizPage />} />
 
-          {/* TODO */}
           <Route path={BREEDS_PATH}>
             <Route index element={<LandingPage />} />
-            {/* Sub paths for specific dogs */}
             <Route path=":breed" element={<BreedPage />} />
           </Route>
 
           <Route path={SAY_HI_PATH} element={<SayHiPage />} />
 
-          {/* TODO */}
           <Route path="*" element={<LandingPage />} />
         </Route>
       </Routes>
