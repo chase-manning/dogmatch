@@ -1,6 +1,7 @@
 # Unsorted
 
 - Quiz
+- Quiz tooltips
 - Breeds
 - Favicon
 - OG image
