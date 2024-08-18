@@ -1,5 +1,13 @@
 # Unsorted
 
+- Do a more even split for buttons
+- Add don't know for dog breeds
+- Move the fun question to the start
+- Center align for less than full width options
+- Don't mind
+- Move some things to the general section (vocal size)
+- Align quez sections with the dog page question
+
 - Quiz
 - Quiz tooltips
 - Breeds
@@ -15,6 +23,8 @@
 - Add pagination to weekly dogs
 - Resize images
 - Add learn more to about
+- Add enter to search to go to directory
+- Add dog allergys
 
 # Needs designs
 
@@ -23,5 +33,7 @@
 - 404 page
 - Fix issue with long names on Dog Card
 - Say Hi design improvements
+- Change red to something more mild
+- Quiz Validation
 
 # Sorted

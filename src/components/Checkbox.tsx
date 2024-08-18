@@ -1,8 +1,17 @@
 import styled from "styled-components";
 
+const MAX_PER_ROW = 5;
+
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 3rem;
+`;
+
+const Row = styled.div`
+  display: flex;
   gap: 3rem;
 `;
 
@@ -15,7 +24,7 @@ const StyledCheckbox = styled.button<{ $selected: boolean }>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 21rem;
+  width: 25.5rem;
   font-family: "Jost", sans-serif;
 
   background: ${(props) => (props.$selected ? "var(--main)" : "var(--bg)")};
@@ -32,16 +41,36 @@ interface Props {
 }
 
 const Checkbox = ({ options, selected, toggle }: Props) => {
+  const rows: { option: string; selected: boolean }[][] = [];
+
+  const targetRows = Math.ceil(options.length / MAX_PER_ROW);
+  const itemsPerRow = Math.ceil(options.length / targetRows);
+
+  for (let i = 0; i < targetRows; i++) {
+    const row = options
+      .slice(i * itemsPerRow, (i + 1) * itemsPerRow)
+      .map((option) => ({
+        option,
+        selected: selected.includes(option),
+      }));
+
+    rows.push(row);
+  }
+
   return (
     <Container>
-      {options.map((option) => (
-        <StyledCheckbox
-          key={option}
-          $selected={selected.includes(option)}
-          onClick={() => toggle(option)}
-        >
-          {option.toLowerCase()}
-        </StyledCheckbox>
+      {rows.map((row, index) => (
+        <Row key={index}>
+          {row.map(({ option, selected }) => (
+            <StyledCheckbox
+              key={option}
+              $selected={selected}
+              onClick={() => toggle(option)}
+            >
+              {option.toLowerCase()}
+            </StyledCheckbox>
+          ))}
+        </Row>
       ))}
     </Container>
   );
