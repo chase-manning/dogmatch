@@ -7,6 +7,8 @@ import useDogs from "../../app/use-dogs";
 import paw from "../../assets/stats/paw.svg";
 import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
+import Button from "../../components/Button";
+import dogRating from "../../app/dog-rating";
 
 const StyledQuizPage = styled.div`
   width: 100%;
@@ -16,7 +18,7 @@ const StyledQuizPage = styled.div`
   flex: 1;
   position: relative;
   width: 100%;
-  padding: 5rem;
+  padding: 10rem;
 `;
 
 const QuizContent = styled.div`
@@ -25,7 +27,7 @@ const QuizContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15rem;
+  gap: 20rem;
 `;
 
 const QuestionContainer = styled.div`
@@ -73,11 +75,25 @@ const Header = styled.div`
   font-weight: 650;
 `;
 
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6rem;
+
+  button {
+    width: 46rem;
+  }
+`;
+
 const QuizPage = () => {
   const { dogs } = useDogs();
   const [started, setStarted] = useState(false);
   const [quiz, setQuiz] = useState<QuizType | null>(null);
   const [sectionIndex, setSectionIndex] = useState(0);
+
+  const dogRatings = quiz ? dogRating(dogs, quiz) : [];
+  const dogRatingsSorted = dogRatings.sort((a, b) => b.rating - a.rating);
 
   useEffect(() => {
     setQuiz(getQuizData(dogs));
@@ -85,82 +101,113 @@ const QuizPage = () => {
 
   return (
     <StyledQuizPage>
-      <QuizContent>
-        {quiz &&
-          quiz.sections[sectionIndex].questions.map((question, index) => {
-            const isRating = !!(question.question as RatingType).min;
-            const ratingQuestion = question.question as RatingType;
-            const isCheckbox = !!(question.question as CheckboxType).options;
-            const checkboxQuestion = question.question as CheckboxType;
+      {started && (
+        <QuizContent>
+          {quiz &&
+            quiz.sections[sectionIndex].questions.map((question, index) => {
+              const isRating = !!(question.question as RatingType).min;
+              const ratingQuestion = question.question as RatingType;
+              const isCheckbox = !!(question.question as CheckboxType).options;
+              const checkboxQuestion = question.question as CheckboxType;
 
-            return (
-              <QuestionContainer key={index}>
-                <HeaderContainer>
-                  <IconContainer>
-                    <Icon src={paw} alt="paw" />
-                    <Number>{index + 1}</Number>
-                  </IconContainer>
-                  <Header>{question.label}</Header>
-                </HeaderContainer>
-                {isRating && (
-                  <Scale
-                    min={ratingQuestion.min}
-                    max={ratingQuestion.max}
-                    value={ratingQuestion.value}
-                    setValue={(value) => {
-                      const newQuiz = { ...quiz };
-                      (
-                        newQuiz.sections[sectionIndex].questions[index]
-                          .question as RatingType
-                      ).value = value;
-                      setQuiz(newQuiz);
-                    }}
-                  />
-                )}
-
-                {isCheckbox && (
-                  <Checkbox
-                    options={checkboxQuestion.options}
-                    selected={checkboxQuestion.selected}
-                    toggle={(option) => {
-                      const newQuiz = { ...quiz };
-                      (
-                        newQuiz.sections[sectionIndex].questions[index]
-                          .question as CheckboxType
-                      ).selected = checkboxQuestion.selected.includes(option)
-                        ? checkboxQuestion.selected.filter(
-                            (selectedOption) => selectedOption !== option
-                          )
-                        : [...checkboxQuestion.selected, option];
-                      setQuiz(newQuiz);
-                    }}
-                  />
-                )}
-
-                {(isRating || isCheckbox) && (
-                  <>
-                    <SubHeaderContainer>
-                      <IconContainer />
-                      <Header>How important is this to you?</Header>
-                    </SubHeaderContainer>
+              return (
+                <QuestionContainer key={index}>
+                  <HeaderContainer>
+                    <IconContainer>
+                      <Icon src={paw} alt="paw" />
+                      <Number>{index + 1}</Number>
+                    </IconContainer>
+                    <Header>{question.label}</Header>
+                  </HeaderContainer>
+                  {isRating && (
                     <Scale
-                      min="Not important"
-                      max="Very important"
-                      value={question.importance}
+                      min={ratingQuestion.min}
+                      max={ratingQuestion.max}
+                      value={ratingQuestion.value}
                       setValue={(value) => {
                         const newQuiz = { ...quiz };
-                        newQuiz.sections[sectionIndex].questions[
-                          index
-                        ].importance = value;
+                        (
+                          newQuiz.sections[sectionIndex].questions[index]
+                            .question as RatingType
+                        ).value = value;
                         setQuiz(newQuiz);
                       }}
                     />
-                  </>
-                )}
-              </QuestionContainer>
-            );
-          })}
-      </QuizContent>
+                  )}
+
+                  {isCheckbox && (
+                    <Checkbox
+                      options={checkboxQuestion.options}
+                      selected={checkboxQuestion.selected}
+                      toggle={(option) => {
+                        const newQuiz = { ...quiz };
+                        (
+                          newQuiz.sections[sectionIndex].questions[index]
+                            .question as CheckboxType
+                        ).selected = checkboxQuestion.selected.includes(option)
+                          ? checkboxQuestion.selected.filter(
+                              (selectedOption) => selectedOption !== option
+                            )
+                          : [...checkboxQuestion.selected, option];
+                        setQuiz(newQuiz);
+                      }}
+                    />
+                  )}
+
+                  {(isRating || isCheckbox) && (
+                    <>
+                      <SubHeaderContainer>
+                        <IconContainer />
+                        <Header>How important is this to you?</Header>
+                      </SubHeaderContainer>
+                      <Scale
+                        min="Not important"
+                        max="Very important"
+                        value={question.importance}
+                        setValue={(value) => {
+                          const newQuiz = { ...quiz };
+                          newQuiz.sections[sectionIndex].questions[
+                            index
+                          ].importance = value;
+                          setQuiz(newQuiz);
+                        }}
+                      />
+                    </>
+                  )}
+                </QuestionContainer>
+              );
+            })}
+          <ButtonContainer>
+            {sectionIndex > 0 ? (
+              <Button
+                action={() => {
+                  window.scrollTo(0, 0);
+                  setSectionIndex(sectionIndex - 1);
+                }}
+              >
+                {`Previous section: ${quiz?.sections[sectionIndex - 1].label}`}
+              </Button>
+            ) : (
+              <div />
+            )}
+            {quiz && sectionIndex === quiz.sections.length - 1 ? (
+              <Button primary action={() => {}}>
+                Find my dream dog!
+              </Button>
+            ) : (
+              <Button
+                primary
+                action={() => {
+                  window.scrollTo(0, 0);
+                  setSectionIndex(sectionIndex + 1);
+                }}
+              >{`Next section: ${
+                quiz?.sections[sectionIndex + 1].label
+              }`}</Button>
+            )}
+          </ButtonContainer>
+        </QuizContent>
+      )}
 
       {!started && <QuizIntro start={() => setStarted(true)} />}
     </StyledQuizPage>
