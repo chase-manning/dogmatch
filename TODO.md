@@ -1,11 +1,5 @@
 # Unsorted
 
-- Move the fun question to the start
-- Center align for less than full width options
-- Don't mind
-- Move some things to the general section (vocal size)
-- Align quez sections with the dog page question
-
 - Quiz
 - Quiz tooltips
 - Breeds

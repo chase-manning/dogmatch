@@ -90,11 +90,6 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             },
             importance: null,
           },
-        ],
-      },
-      {
-        label: "Physical",
-        questions: [
           {
             category: "physicalCharacteristics",
             trait: "size",
@@ -106,6 +101,33 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             },
             importance: null,
           },
+          {
+            category: "behavioralTraits",
+            trait: "adaptabilityRating",
+            label: "How adaptable should your dog be to changes?",
+            question: {
+              min: "Poorly adaptable",
+              max: "Highly adaptable",
+              value: null,
+            },
+            importance: null,
+          },
+          {
+            category: "behavioralTraits",
+            trait: "vocalizationFrequency",
+            label: "How do you feel about a vocal dog?",
+            question: {
+              min: "Prefer quiet",
+              max: "It's fine if they're noisy",
+              value: null,
+            },
+            importance: null,
+          },
+        ],
+      },
+      {
+        label: "Physical",
+        questions: [
           {
             category: "physicalCharacteristics",
             trait: "lifespan",
@@ -222,33 +244,11 @@ const getQuizData = (dogs: DogType[]): QuizType => {
           },
           {
             category: "behavioralTraits",
-            trait: "adaptabilityRating",
-            label: "How adaptable should your dog be to changes?",
-            question: {
-              min: "Poorly adaptable",
-              max: "Highly adaptable",
-              value: null,
-            },
-            importance: null,
-          },
-          {
-            category: "behavioralTraits",
             trait: "friendlinessToStrangers",
             label: "How would you like your dog to react to strangers?",
             question: {
               min: "Prefer reserved or cautious",
               max: "Prefer very friendly and welcoming",
-              value: null,
-            },
-            importance: null,
-          },
-          {
-            category: "behavioralTraits",
-            trait: "vocalizationFrequency",
-            label: "How do you feel about a vocal dog?",
-            question: {
-              min: "Prefer quiet",
-              max: "It's fine if they're noisy",
               value: null,
             },
             importance: null,
