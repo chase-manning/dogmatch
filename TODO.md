@@ -1,7 +1,5 @@
 # Unsorted
 
-- Do a more even split for buttons
-- Add don't know for dog breeds
 - Move the fun question to the start
 - Center align for less than full width options
 - Don't mind

@@ -70,16 +70,6 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         questions: [
           {
             category: "generalInformation",
-            trait: "group",
-            label: "Which dog groups do you prefer?",
-            question: {
-              options: allGroups,
-              selected: [],
-            },
-            importance: null,
-          },
-          {
-            category: "generalInformation",
             trait: "personalityTraits",
             label:
               "Which personality traits are most important to you in a dog?",
@@ -325,20 +315,20 @@ const getQuizData = (dogs: DogType[]): QuizType => {
           },
         ],
       },
-      {
-        label: "Visual",
-        questions: [
-          {
-            category: "",
-            trait: "",
-            label: "Which dog do you like the look of the most?",
-            question: {
-              rankings: dogRatings,
-            },
-            importance: null,
-          },
-        ],
-      },
+      // {
+      //   label: "Visual",
+      //   questions: [
+      //     {
+      //       category: "",
+      //       trait: "",
+      //       label: "Which dog do you like the look of the most?",
+      //       question: {
+      //         rankings: dogRatings,
+      //       },
+      //       importance: null,
+      //     },
+      //   ],
+      // },
     ],
   };
 
