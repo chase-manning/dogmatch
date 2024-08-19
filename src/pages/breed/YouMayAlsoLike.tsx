@@ -5,115 +5,7 @@ import DogPreview from "../../components/DogPreview";
 import { useEffect, useState } from "react";
 
 import arrow from "../../assets/arrow.svg";
-
-interface TraitType {
-  category: string;
-  trait: string;
-  important: number;
-}
-
-const similarityData: TraitType[] = [
-  {
-    category: "generalInformation",
-    trait: "popularity",
-    important: 1,
-  },
-  {
-    category: "generalInformation",
-    trait: "group",
-    important: 10,
-  },
-  {
-    category: "physicalCharacteristics",
-    trait: "size",
-    important: 18,
-  },
-  {
-    category: "physicalCharacteristics",
-    trait: "lifespan",
-    important: 1,
-  },
-  {
-    category: "physicalCharacteristics",
-    trait: "salivationTendency",
-    important: 5,
-  },
-  {
-    category: "physicalCharacteristics",
-    trait: "coatStyle",
-    important: 10,
-  },
-  {
-    category: "physicalCharacteristics",
-    trait: "coatTexture",
-    important: 5,
-  },
-  {
-    category: "physicalCharacteristics",
-    trait: "coatLength",
-    important: 8,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "familyAffectionLevel",
-    important: 4,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "childFriendly",
-    important: 6,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "dogSociability",
-    important: 2,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "friendlinessToStrangers",
-    important: 5,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "playfulnessLevel",
-    important: 8,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "protectiveInstincts",
-    important: 6,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "adaptabilityRating",
-    important: 2,
-  },
-  {
-    category: "behavioralTraits",
-    trait: "vocalizationFrequency",
-    important: 6,
-  },
-  {
-    category: "careRequirements",
-    trait: "coatSheddingLevel",
-    important: 8,
-  },
-  {
-    category: "careRequirements",
-    trait: "activityLevel",
-    important: 8,
-  },
-  {
-    category: "careRequirements",
-    trait: "mentalStimulationRequirements",
-    important: 8,
-  },
-  {
-    category: "careRequirements",
-    trait: "trainingEase",
-    important: 4,
-  },
-];
+import dogSimilarity from "../../app/dog-similarity";
 
 const StyledYouMayAlsoLike = styled.div`
   position: relative;
@@ -188,24 +80,9 @@ const YouMayAlsoLike = ({ dog }: Props) => {
 
   if (!dog || dogs.length === 0) return null;
 
-  const dogDifference = (dog1: any, dog2: any) => {
-    let difference = 0;
-
-    similarityData.forEach((trait) => {
-      const value1 = dog1[trait.category][trait.trait];
-      const value2 = dog2[trait.category][trait.trait];
-      if (typeof value1 === "number") {
-        difference += Math.abs(value1 - value2) * trait.important;
-      } else {
-        difference += value1 === value2 ? 0 : trait.important * 2;
-      }
-    });
-    return difference;
-  };
-
   const sortedDogs = dogs
-    .map((d) => ({ dog: d, difference: dogDifference(dog, d) }))
-    .sort((a, b) => a.difference - b.difference)
+    .map((d) => ({ dog: d, difference: dogSimilarity(dog, d, true) }))
+    .sort((a, b) => b.difference - a.difference)
     .filter((d) => d.dog.id !== dog.id)
     .slice(0 + page * 4, 4 + page * 4)
     .map((d) => d.dog);
