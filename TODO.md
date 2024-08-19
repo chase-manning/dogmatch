@@ -17,6 +17,7 @@
 - Add learn more to about
 - Add enter to search to go to directory
 - Add dog allergys
+- Issue with You May Like, you can go back when there are none before
 
 # Needs designs
 
