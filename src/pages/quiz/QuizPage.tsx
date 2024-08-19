@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import QuizIntro from "./QuizIntro";
 import { useEffect, useState } from "react";
-import getQuizData, { CheckboxType, QuizType, RatingType } from "./quiz-data";
+import getQuizData, {
+  CheckboxType,
+  EloType,
+  LooksType,
+  QuizType,
+  RatingType,
+} from "./quiz-data";
 import useDogs from "../../app/use-dogs";
 
 import paw from "../../assets/stats/paw.svg";
@@ -9,6 +15,7 @@ import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
 import dogRating from "../../app/dog-rating";
+import Tournament from "./Tournament";
 
 const StyledQuizPage = styled.div`
   width: 100%;
@@ -37,11 +44,11 @@ const QuestionContainer = styled.div`
   width: 100%;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.div<{ $looks?: boolean }>`
   display: flex;
   align-items: center;
   gap: 2rem;
-  width: 100%;
+  width: ${({ $looks }) => ($looks ? "auto" : "100%")};
   margin-bottom: 3rem;
 `;
 
@@ -109,13 +116,15 @@ const QuizPage = () => {
               const ratingQuestion = question.question as RatingType;
               const isCheckbox = !!(question.question as CheckboxType).options;
               const checkboxQuestion = question.question as CheckboxType;
+              const isLooks = !!(question.question as LooksType).rankings;
+              const looksQuestion = question.question as LooksType;
 
               return (
                 <QuestionContainer key={index}>
-                  <HeaderContainer>
+                  <HeaderContainer $looks={isLooks}>
                     <IconContainer>
                       <Icon src={paw} alt="paw" />
-                      <Number>{index + 1}</Number>
+                      {!isLooks && <Number>{index + 1}</Number>}
                     </IconContainer>
                     <Header>{question.label}</Header>
                   </HeaderContainer>
@@ -154,7 +163,26 @@ const QuizPage = () => {
                     />
                   )}
 
-                  {(isRating || isCheckbox) && (
+                  {isLooks && (
+                    <Tournament
+                      quiz={quiz}
+                      updateRankings={(rankings: EloType[]) => {
+                        const newQuiz = { ...quiz };
+                        (
+                          newQuiz.sections[sectionIndex].questions[index]
+                            .question as LooksType
+                        ).rankings = rankings;
+                        (
+                          newQuiz.sections[sectionIndex].questions[index]
+                            .question as LooksType
+                        ).rounds++;
+                        setQuiz(newQuiz);
+                      }}
+                      question={looksQuestion}
+                    />
+                  )}
+
+                  {!question.looks && (
                     <>
                       <SubHeaderContainer>
                         <IconContainer />
