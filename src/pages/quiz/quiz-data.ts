@@ -3,10 +3,12 @@ import { DogType } from "../../components/DogContext";
 export interface EloType {
   breed: string;
   elo: number;
+  rounds: number;
 }
 
 export interface LooksType {
   rankings: EloType[];
+  rounds: number;
 }
 
 export interface RatingType {
@@ -26,6 +28,7 @@ export interface QuestionType {
   label: string;
   question: RatingType | CheckboxType | LooksType;
   importance: number | null;
+  looks?: boolean;
 }
 
 export interface SectionType {
@@ -60,7 +63,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         allPersonalityTraits.push(trait);
       }
     }
-    dogRatings.push({ breed: dog.id, elo: 1500 });
+    dogRatings.push({ breed: dog.id, elo: 1500, rounds: 0 });
   }
 
   const quizData: QuizType = {
@@ -122,6 +125,18 @@ const getQuizData = (dogs: DogType[]): QuizType => {
               value: null,
             },
             importance: null,
+          },
+          {
+            category: "",
+            trait: "",
+            label: "How important is the look of the dog?",
+            question: {
+              min: "Looks don't matter",
+              max: "Looks are very important",
+              value: null,
+            },
+            importance: null,
+            looks: true,
           },
         ],
       },
@@ -315,20 +330,22 @@ const getQuizData = (dogs: DogType[]): QuizType => {
           },
         ],
       },
-      // {
-      //   label: "Visual",
-      //   questions: [
-      //     {
-      //       category: "",
-      //       trait: "",
-      //       label: "Which dog do you like the look of the most?",
-      //       question: {
-      //         rankings: dogRatings,
-      //       },
-      //       importance: null,
-      //     },
-      //   ],
-      // },
+      {
+        label: "Visual",
+        questions: [
+          {
+            category: "",
+            trait: "",
+            label: "Which dog do you like the look of the most?",
+            question: {
+              rankings: dogRatings,
+              rounds: 0,
+            },
+            importance: null,
+            looks: true,
+          },
+        ],
+      },
     ],
   };
 
