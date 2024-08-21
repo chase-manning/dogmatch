@@ -129,7 +129,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
           {
             category: "",
             trait: "",
-            label: "How important is the look of the dog?",
+            label: "Visually, How important is the look of the dog?",
             question: {
               min: "Looks don't matter",
               max: "Looks are very important",

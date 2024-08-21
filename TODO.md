@@ -2,6 +2,9 @@
 
 - Quiz
 - Quiz tooltips
+- Calc looks into final score
+- Change quiz button designs
+- Implement tournament matching algoritm
 - Breeds
 - Favicon
 - OG image
@@ -18,15 +21,12 @@
 - Add enter to search to go to directory
 - Add dog allergys
 - Issue with You May Like, you can go back when there are none before
+- Fix issue with long names on Dog Card
 
 # Needs designs
 
 - Privacy policy
 - Terms and Conditions
 - 404 page
-- Fix issue with long names on Dog Card
-- Say Hi design improvements
-- Change red to something more mild
-- Quiz Validation
 
 # Sorted
