@@ -15,6 +15,7 @@ const StyledQuizIntro = styled.div`
   height: calc(100dvh - 10rem);
   background: var(--bg);
   padding: 5rem 5rem;
+  z-index: 2;
 `;
 
 const PawPrints = styled.img`
