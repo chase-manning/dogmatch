@@ -11,6 +11,7 @@ import getQuizData, {
 import useDogs from "../../app/use-dogs";
 
 import paw from "../../assets/stats/paw.svg";
+import lightPaw from "../../assets/paw.svg";
 import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
@@ -58,9 +59,10 @@ const SubHeaderContainer = styled(HeaderContainer)`
   margin-top: 10rem;
 `;
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<{ $small: boolean }>`
   position: relative;
   width: 12rem;
+  width: ${({ $small }) => ($small ? "10rem" : "12rem")};
 `;
 
 const Icon = styled.img`
@@ -124,8 +126,8 @@ const QuizPage = () => {
               return (
                 <QuestionContainer key={index}>
                   <HeaderContainer $looks={isLooks}>
-                    <IconContainer>
-                      <Icon src={paw} alt="paw" />
+                    <IconContainer $small={isLooks}>
+                      <Icon src={isLooks ? lightPaw : paw} alt="paw" />
                       {!isLooks && <Number>{index + 1}</Number>}
                     </IconContainer>
                     <Header>{question.label}</Header>
@@ -187,7 +189,7 @@ const QuizPage = () => {
                   {!question.looks && (
                     <>
                       <SubHeaderContainer>
-                        <IconContainer />
+                        <IconContainer $small={false} />
                         <Header>How important is this to you?</Header>
                       </SubHeaderContainer>
                       <Scale
