@@ -9,6 +9,7 @@ import getNewElo from "../../app/new-elo";
 const FIRST_ROUND = 12;
 const SECOND_ROUND = 6;
 const THIRD_ROUND = 3;
+export const TOTAL_ROUNDS = FIRST_ROUND + SECOND_ROUND + THIRD_ROUND;
 
 const StyledTournament = styled.div`
   width: 100%;
@@ -19,6 +20,17 @@ const StyledTournament = styled.div`
 const DogButton = styled.button<{ $disabled: boolean }>`
   cursor: ${({ $disabled }) => ($disabled ? "auto" : "pointer")};
   opacity: ${({ $disabled }) => ($disabled ? 0 : 1)};
+
+  transform: ${({ $disabled }) => ($disabled ? "scale(0)" : "scale(1)")};
+  opacity: 1;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+
+  :hover {
+    transition: all 0.3s;
+    transform: scale(1.03);
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const DogImage = styled.img`
@@ -90,15 +102,10 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
             onClick={() => {
               if (disabled) return;
 
-              if (order.length < 2) {
+              if (order.length < 3) {
                 setOrder([...order, dog.id]);
               } else {
-                const remainingDog = candidates.find(
-                  (candidate) =>
-                    !order.includes(candidate.id) && candidate.id !== dog.id
-                );
-                if (!remainingDog) throw new Error("Remaining dog not found");
-                const newOrder = [...order, dog.id, remainingDog.id];
+                const newOrder = [...order, dog.id];
                 let newRankings = [...rankings];
                 for (let i = 0; i < newOrder.length - 1; i++) {
                   const winner = newOrder[i];
@@ -108,8 +115,6 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
                   if (winnerEloIndex === -1) throw new Error("Elo not found 3");
                   for (let j = i + 1; j < newOrder.length; j++) {
                     const loser = newOrder[j];
-                    console.log("Loser", loser);
-                    console.log("meow", newRankings);
                     const loserEloIndex = newRankings.findIndex(
                       (ranking) => ranking.breed === loser
                     );
