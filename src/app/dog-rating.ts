@@ -1,9 +1,19 @@
 import { DogType } from "../components/DogContext";
-import { CheckboxType, QuizType, RatingType } from "../pages/quiz/quiz-data";
+import {
+  CheckboxType,
+  LooksType,
+  QuizType,
+  RatingType,
+} from "../pages/quiz/quiz-data";
+
+const MIN_LOOKS_PERCENT = 0.05;
+const MAX_LOOKS_PERCENT = 0.5;
 
 interface DogRatingType {
   dogId: string;
   rating: number;
+  elo: number;
+  percent: number;
 }
 
 const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
@@ -11,6 +21,8 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
     return {
       dogId: dog.id,
       rating: 0,
+      elo: 0,
+      percent: 0,
     };
   });
 
@@ -20,38 +32,75 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
       const ratingQuestion = question.question as RatingType;
       const isCheckbox = !!(question.question as CheckboxType).options;
       const checkboxQuestion = question.question as CheckboxType;
+      const isLooks = !!(question.question as LooksType).rankings;
+      const looksQuestion = question.question as LooksType;
 
       for (let i = 0; i < dogs.length; i++) {
         const { category, trait } = question;
-        const dogValue = (dogs[i] as any)[category][trait];
 
         if (isRating) {
+          if (question.looks) continue;
+          const dogValue = (dogs[i] as any)[category][trait];
           if (ratingQuestion.value) {
+            const importance = question.importance || 3;
             const closeness = 4 - Math.abs(dogValue - ratingQuestion.value);
-            dogRatings[i].rating += closeness * (question.importance || 2);
+            dogRatings[i].rating += closeness * importance;
           }
         }
 
         if (isCheckbox) {
+          const dogValue = (dogs[i] as any)[category][trait];
           const selected = checkboxQuestion.selected;
           if (selected.length > 0) {
             if (typeof dogValue === "string") {
               if (selected.includes(dogValue)) {
-                dogRatings[i].rating += (question.importance || 2) * 2;
+                const importance = question.importance || 3;
+                dogRatings[i].rating += importance * 2;
               }
             }
 
             if (Array.isArray(dogValue)) {
               for (const t of dogValue) {
                 if (selected.includes(t)) {
-                  dogRatings[i].rating += question.importance || 2;
+                  const importance = question.importance || 3;
+                  dogRatings[i].rating += importance;
                 }
               }
             }
           }
         }
+
+        if (isLooks) {
+          const dogElo = looksQuestion.rankings.find(
+            (ranking) => ranking.breed === dogs[i].id
+          );
+          if (!dogElo) throw new Error("Elo not found");
+          dogRatings[i].elo += dogElo.elo;
+        }
       }
     }
+  }
+
+  const maxRating = Math.max(...dogRatings.map((rating) => rating.rating));
+  const minRating = Math.min(...dogRatings.map((rating) => rating.rating));
+  const maxElo = Math.max(...dogRatings.map((rating) => rating.elo));
+  const minElo = Math.min(...dogRatings.map((rating) => rating.elo));
+  const importanceQuestion = quiz.sections[0].questions.find(
+    (question) => question.looks
+  );
+  if (!importanceQuestion) throw new Error("Importance question not found");
+  const importance = (importanceQuestion.question as RatingType).value || 3;
+  const looksPercent =
+    (MAX_LOOKS_PERCENT - MIN_LOOKS_PERCENT) * ((importance - 1) / 4) +
+    MIN_LOOKS_PERCENT;
+
+  for (let i = 0; i < dogs.length; i++) {
+    dogRatings[i].rating =
+      (dogRatings[i].rating - minRating) / (maxRating - minRating);
+    dogRatings[i].elo = (dogRatings[i].elo - minElo) / (maxElo - minElo);
+    dogRatings[i].percent =
+      dogRatings[i].rating * (1 - looksPercent) +
+      dogRatings[i].elo * looksPercent;
   }
 
   return dogRatings;
