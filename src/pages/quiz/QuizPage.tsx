@@ -16,6 +16,7 @@ import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
 import dogRating from "../../app/dog-rating";
 import Tournament from "./Tournament";
+import ProgressBar from "./ProgressBar";
 
 const StyledQuizPage = styled.div`
   width: 100%;
@@ -25,10 +26,10 @@ const StyledQuizPage = styled.div`
   flex: 1;
   position: relative;
   width: 100%;
-  padding: 10rem;
 `;
 
 const QuizContent = styled.div`
+  padding: 10rem;
   width: 100%;
   max-width: 180rem;
   display: flex;
@@ -108,6 +109,7 @@ const QuizPage = () => {
 
   return (
     <StyledQuizPage>
+      <ProgressBar quiz={quiz} sectionIndex={sectionIndex} />
       {started && (
         <QuizContent>
           {quiz &&
