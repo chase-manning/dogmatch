@@ -74,8 +74,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
           const dogElo = looksQuestion.rankings.find(
             (ranking) => ranking.breed === dogs[i].id
           );
-          if (!dogElo) throw new Error("Elo not found");
-          dogRatings[i].elo += dogElo.elo;
+          dogRatings[i].elo += dogElo?.elo || 1500;
         }
       }
     }
