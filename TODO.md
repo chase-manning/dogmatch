@@ -22,6 +22,7 @@
 - Add dog allergys
 - Issue with You May Like, you can go back when there are none before
 - Fix issue with long names on Dog Card
+- Add background to looks quiz (Tournament)
 
 # Needs designs
 

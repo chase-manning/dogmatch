@@ -12,12 +12,14 @@ const THIRD_ROUND = 3;
 export const TOTAL_ROUNDS = FIRST_ROUND + SECOND_ROUND + THIRD_ROUND;
 
 const StyledTournament = styled.div`
+  display: relative;
   width: 100%;
   display: flex;
   gap: 3rem;
 `;
 
 const DogButton = styled.button<{ $disabled: boolean }>`
+  display: relative;
   cursor: ${({ $disabled }) => ($disabled ? "auto" : "pointer")};
   opacity: ${({ $disabled }) => ($disabled ? 0 : 1)};
 
@@ -25,6 +27,8 @@ const DogButton = styled.button<{ $disabled: boolean }>`
   opacity: 1;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25);
   transition: all 0.3s;
+  width: 100%;
+  aspect-ratio: 1/1;
 
   :hover {
     transition: all 0.3s;
