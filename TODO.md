@@ -23,6 +23,9 @@
 - Issue with You May Like, you can go back when there are none before
 - Fix issue with long names on Dog Card
 - Add background to looks quiz (Tournament)
+- Add 'swoop' to tournament images
+- Add click function to progress bar
+- Consider changing the rating algorigm to better take into account what was highe rated earlier
 
 # Needs designs
 

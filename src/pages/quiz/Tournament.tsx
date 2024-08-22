@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import { DogType } from "../../components/DogContext";
 import getNewElo from "../../app/new-elo";
 
-const FIRST_ROUND = 12;
-const SECOND_ROUND = 6;
-const THIRD_ROUND = 3;
-export const TOTAL_ROUNDS = FIRST_ROUND + SECOND_ROUND + THIRD_ROUND;
+const SAMPLE_RANGE = 30;
+export const TOTAL_ROUNDS = Math.floor((SAMPLE_RANGE / 4) * 3);
 
 const StyledTournament = styled.div`
   display: relative;
@@ -54,10 +52,6 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
   const [candidates, setCandidates] = useState<DogType[]>([]);
 
   const { rounds, rankings } = question;
-  const isFirstRound = rounds < FIRST_ROUND;
-  const isSecondRound = rounds < SECOND_ROUND + FIRST_ROUND;
-  const isThirdRound = rounds < THIRD_ROUND + SECOND_ROUND + FIRST_ROUND;
-  const isFinished = rounds === FIRST_ROUND + SECOND_ROUND + THIRD_ROUND;
 
   const dogRatings = dogRating(dogs, quiz);
 
@@ -65,14 +59,11 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
     if (dogs.length === 0) return;
     if (rankings.length === 0) return;
 
-    const candidates_ = dogs
+    const topDogs = dogs
       .filter((dog) => {
-        const dogElo = rankings.find((ranking) => ranking.breed === dog.id);
-        if (!dogElo) throw new Error("Elo not found 1");
-        if (isFirstRound) return dogElo.rounds < 1;
-        if (isSecondRound) return dogElo.rounds < 2;
-        if (isThirdRound) return dogElo.rounds < 3;
-        return false;
+        const ranking = rankings.find((ranking) => ranking.breed === dog.id);
+        if (!ranking) throw new Error("Ranking not found");
+        return ranking.rounds < 3;
       })
       .sort((a, b) => {
         const aRating = dogRatings.find((rating) => rating.dogId === a.id);
@@ -80,11 +71,35 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
 
         if (!aRating || !bRating) throw new Error("Rating not found");
 
-        return bRating.rating - aRating.rating;
+        return bRating.percent - aRating.percent;
       })
-      .slice(0, 4);
+      .slice(0, 10);
 
-    setCandidates(candidates_);
+    const firstRound = topDogs.filter((dog) => {
+      const ranking = rankings.find((ranking) => ranking.breed === dog.id);
+      if (!ranking) throw new Error("Ranking not found");
+      return ranking.rounds === 0;
+    });
+    const secondRound = topDogs.filter((dog) => {
+      const ranking = rankings.find((ranking) => ranking.breed === dog.id);
+      if (!ranking) throw new Error("Ranking not found");
+      return ranking.rounds === 1;
+    });
+    const thirdRound = topDogs.filter((dog) => {
+      const ranking = rankings.find((ranking) => ranking.breed === dog.id);
+      if (!ranking) throw new Error("Ranking not found");
+      return ranking.rounds === 2;
+    });
+    if (firstRound.length >= 4) {
+      setCandidates(firstRound.slice(0, 4));
+    } else if (secondRound.length >= 4) {
+      setCandidates(secondRound.slice(0, 4));
+    } else if (thirdRound.length >= 4) {
+      setCandidates(thirdRound.slice(0, 4));
+    } else {
+      throw new Error("Not enough dogs");
+    }
+
     setOrder([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,11 +126,13 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
               } else {
                 const newOrder = [...order, dog.id];
                 let newRankings = [...rankings];
-                for (let i = 0; i < newOrder.length - 1; i++) {
+                for (let i = 0; i < newOrder.length; i++) {
                   const winner = newOrder[i];
                   const winnerEloIndex = newRankings.findIndex(
                     (ranking) => ranking.breed === winner
                   );
+                  newRankings[winnerEloIndex].rounds += 1;
+                  if (i === newOrder.length - 1) continue;
                   if (winnerEloIndex === -1) throw new Error("Elo not found 3");
                   for (let j = i + 1; j < newOrder.length; j++) {
                     const loser = newOrder[j];
@@ -130,9 +147,7 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
                     );
 
                     newRankings[winnerEloIndex].elo = newWinnerElo;
-                    newRankings[winnerEloIndex].rounds++;
                     newRankings[loserEloIndex].elo = newLoserElo;
-                    newRankings[loserEloIndex].rounds++;
                   }
                 }
                 updateRankings(newRankings);
@@ -143,10 +158,10 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
             <DogImage
               src={
                 dogElo.rounds === 0
-                  ? dog.images.indoors
+                  ? dog.images.outdoors
                   : dogElo.rounds === 1
-                  ? dog.images.studio
-                  : dog.images.indoors
+                  ? dog.images.indoors
+                  : dog.images.studio
               }
               alt={dog.generalInformation.name}
             />
