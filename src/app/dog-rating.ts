@@ -21,7 +21,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
     return {
       dogId: dog.id,
       rating: 0,
-      elo: 0,
+      elo: 1500,
       percent: 0,
     };
   });
@@ -74,7 +74,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
           const dogElo = looksQuestion.rankings.find(
             (ranking) => ranking.breed === dogs[i].id
           );
-          dogRatings[i].elo += dogElo?.elo || 1500;
+          dogRatings[i].elo = dogElo?.elo || 1500;
         }
       }
     }
@@ -94,12 +94,32 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
     MIN_LOOKS_PERCENT;
 
   for (let i = 0; i < dogs.length; i++) {
-    dogRatings[i].rating =
-      (dogRatings[i].rating - minRating) / (maxRating - minRating);
-    dogRatings[i].elo = (dogRatings[i].elo - minElo) / (maxElo - minElo);
+    const ratingDiv = maxRating - minRating;
+    if (ratingDiv !== 0) {
+      dogRatings[i].rating = (dogRatings[i].rating - minRating) / ratingDiv;
+    } else {
+      dogRatings[i].rating = dogRatings[i].rating - minRating;
+    }
+    const eloDiv = maxElo - minElo;
+    if (eloDiv !== 0) {
+      dogRatings[i].elo = (dogRatings[i].elo - minElo) / eloDiv;
+    } else {
+      dogRatings[i].elo = dogRatings[i].elo - minElo;
+    }
     dogRatings[i].percent =
       dogRatings[i].rating * (1 - looksPercent) +
       dogRatings[i].elo * looksPercent;
+  }
+
+  console.log("==== TOP DOGS ====");
+  for (const dog of dogRatings
+    .sort((a, b) => b.percent - a.percent)
+    .slice(0, 20)) {
+    const format = (num: number) => `${Math.round(num * 100)}%`;
+    console.log(
+      dog.dogId,
+      `${format(dog.rating)} ${format(dog.elo)} ${format(dog.percent)}`
+    );
   }
 
   return dogRatings;
