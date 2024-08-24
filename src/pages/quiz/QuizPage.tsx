@@ -3,7 +3,7 @@ import QuizIntro from "./QuizIntro";
 import { useEffect, useState } from "react";
 import getQuizData, {
   CheckboxType,
-  EloType,
+  DogElos,
   LooksType,
   QuizType,
   RatingType,
@@ -15,7 +15,6 @@ import lightPaw from "../../assets/paw.svg";
 import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
-import dogRating from "../../app/dog-rating";
 import Tournament from "./Tournament";
 import ProgressBar from "./ProgressBar";
 
@@ -102,7 +101,7 @@ const QuizPage = () => {
   const [quiz, setQuiz] = useState<QuizType | null>(null);
   const [sectionIndex, setSectionIndex] = useState(0);
 
-  const dogRatings = quiz ? dogRating(dogs, quiz) : {};
+  // const dogRatings = quiz ? dogRating(dogs, quiz) : {};
 
   useEffect(() => {
     setQuiz(getQuizData(dogs));
@@ -119,7 +118,7 @@ const QuizPage = () => {
               const ratingQuestion = question.question as RatingType;
               const isCheckbox = !!(question.question as CheckboxType).options;
               const checkboxQuestion = question.question as CheckboxType;
-              const isLooks = !!(question.question as LooksType).rankings;
+              const isLooks = !!(question.question as LooksType).dogElos;
               const looksQuestion = question.question as LooksType;
 
               return (
@@ -169,12 +168,12 @@ const QuizPage = () => {
                   {isLooks && (
                     <Tournament
                       quiz={quiz}
-                      updateRankings={(rankings: EloType[]) => {
+                      updateElos={(elos: DogElos) => {
                         const newQuiz = { ...quiz };
                         (
                           newQuiz.sections[sectionIndex].questions[index]
                             .question as LooksType
-                        ).rankings = rankings;
+                        ).dogElos = elos;
                         (
                           newQuiz.sections[sectionIndex].questions[index]
                             .question as LooksType

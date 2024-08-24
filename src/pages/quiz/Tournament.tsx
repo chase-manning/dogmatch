@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { EloType, LooksType, QuizType } from "./quiz-data";
+import { DogElos, LooksType, QuizType } from "./quiz-data";
 import useDogs from "../../app/use-dogs";
 import dogRating from "../../app/dog-rating";
 import { useEffect, useState } from "react";
@@ -42,28 +42,27 @@ const DogImage = styled.img`
 
 interface Props {
   quiz: QuizType;
-  updateRankings: (rankings: EloType[]) => void;
+  updateElos: (elos: DogElos) => void;
   question: LooksType;
 }
 
-const Tournament = ({ quiz, updateRankings, question }: Props) => {
+const Tournament = ({ quiz, updateElos, question }: Props) => {
   const { dogs } = useDogs();
   const [order, setOrder] = useState<string[]>([]);
   const [candidates, setCandidates] = useState<DogType[]>([]);
 
-  const { rounds, rankings } = question;
+  const { rounds, dogElos } = question;
 
   const dogRatings = dogRating(dogs, quiz);
 
   useEffect(() => {
     if (dogs.length === 0) return;
-    if (rankings.length === 0) return;
 
     const topDogs = dogs
       .filter((dog) => {
-        const ranking = rankings.find((ranking) => ranking.breed === dog.id);
-        if (!ranking) throw new Error("Ranking not found");
-        return ranking.rounds < 3;
+        const elo = dogElos[dog.id];
+        if (!elo) throw new Error("Ranking not found");
+        return elo.rounds < 3;
       })
       .sort((a, b) => {
         const aRating = dogRatings[a.id];
@@ -76,19 +75,19 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
       .slice(0, 10);
 
     const firstRound = topDogs.filter((dog) => {
-      const ranking = rankings.find((ranking) => ranking.breed === dog.id);
-      if (!ranking) throw new Error("Ranking not found");
-      return ranking.rounds === 0;
+      const elo = dogElos[dog.id];
+      if (!elo) throw new Error("Ranking not found");
+      return elo.rounds === 0;
     });
     const secondRound = topDogs.filter((dog) => {
-      const ranking = rankings.find((ranking) => ranking.breed === dog.id);
-      if (!ranking) throw new Error("Ranking not found");
-      return ranking.rounds === 1;
+      const elo = dogElos[dog.id];
+      if (!elo) throw new Error("Ranking not found");
+      return elo.rounds === 1;
     });
     const thirdRound = topDogs.filter((dog) => {
-      const ranking = rankings.find((ranking) => ranking.breed === dog.id);
-      if (!ranking) throw new Error("Ranking not found");
-      return ranking.rounds === 2;
+      const elo = dogElos[dog.id];
+      if (!elo) throw new Error("Ranking not found");
+      return elo.rounds === 2;
     });
     if (firstRound.length >= 4) {
       setCandidates(firstRound.slice(0, 4));
@@ -112,7 +111,7 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
 
         const rating = dogRatings[dog.id];
         if (!rating) throw new Error("Rating not found");
-        const dogElo = rankings.find((ranking) => ranking.breed === dog.id);
+        const dogElo = dogElos[dog.id];
         if (!dogElo) throw new Error("Elo not found 2");
 
         return (
@@ -125,32 +124,23 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
                 setOrder([...order, dog.id]);
               } else {
                 const newOrder = [...order, dog.id];
-                let newRankings = [...rankings];
+                let newDogElos = { ...dogElos };
                 for (let i = 0; i < newOrder.length; i++) {
                   const winner = newOrder[i];
-                  const winnerEloIndex = newRankings.findIndex(
-                    (ranking) => ranking.breed === winner
-                  );
-                  newRankings[winnerEloIndex].rounds += 1;
+                  newDogElos[winner].rounds += 1;
                   if (i === newOrder.length - 1) continue;
-                  if (winnerEloIndex === -1) throw new Error("Elo not found 3");
                   for (let j = i + 1; j < newOrder.length; j++) {
                     const loser = newOrder[j];
-                    const loserEloIndex = newRankings.findIndex(
-                      (ranking) => ranking.breed === loser
-                    );
-                    if (loserEloIndex === -1)
-                      throw new Error("Elo not found 4");
                     const [newWinnerElo, newLoserElo] = getNewElo(
-                      newRankings[winnerEloIndex].elo,
-                      newRankings[loserEloIndex].elo
+                      newDogElos[winner].elo,
+                      newDogElos[loser].elo
                     );
 
-                    newRankings[winnerEloIndex].elo = newWinnerElo;
-                    newRankings[loserEloIndex].elo = newLoserElo;
+                    newDogElos[winner].elo = newWinnerElo;
+                    newDogElos[loser].elo = newLoserElo;
                   }
                 }
-                updateRankings(newRankings);
+                updateElos(newDogElos);
               }
             }}
             $disabled={disabled}

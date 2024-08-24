@@ -14,7 +14,7 @@ const questionCompletion = (question: QuestionType) => {
   const ratingQuestion = question.question as RatingType;
   const isCheckbox = !!(question.question as CheckboxType).options;
   const checkboxQuestion = question.question as CheckboxType;
-  const isLooks = !!(question.question as LooksType).rankings;
+  const isLooks = !!(question.question as LooksType).dogElos;
   if (question.looks && isRating) return (!!ratingQuestion.value ? 0.5 : 0) * 2;
   if (isRating) return (!!ratingQuestion.value ? 0.5 : 0) + importantPercent;
   if (isCheckbox)

@@ -1,13 +1,14 @@
 import { DogType } from "../../components/DogContext";
 
 export interface EloType {
-  breed: string;
   elo: number;
   rounds: number;
 }
 
+export type DogElos = Record<string, EloType>;
+
 export interface LooksType {
-  rankings: EloType[];
+  dogElos: DogElos;
   rounds: number;
 }
 
@@ -45,7 +46,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
   const allPersonalityTraits: string[] = [];
   const allCoatStyles: string[] = [];
   const allCoatTextures: string[] = [];
-  const dogRatings: EloType[] = [];
+  const dogElos: DogElos = {};
   for (const dog of dogs) {
     const { group, personalityTraits } = dog.generalInformation;
     const { coatStyle, coatTexture } = dog.physicalCharacteristics;
@@ -63,7 +64,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         allPersonalityTraits.push(trait);
       }
     }
-    dogRatings.push({ breed: dog.id, elo: 1500, rounds: 0 });
+    dogElos[dog.id] = { elo: 1500, rounds: 0 };
   }
 
   const quizData: QuizType = {
@@ -338,7 +339,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             trait: "",
             label: "Which dog do you like the look of the most?",
             question: {
-              rankings: dogRatings,
+              dogElos,
               rounds: 0,
             },
             importance: null,

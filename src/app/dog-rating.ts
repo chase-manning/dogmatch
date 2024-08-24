@@ -41,7 +41,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
         const ratingQuestion = question.question as RatingType;
         const isCheckbox = !!(question.question as CheckboxType).options;
         const checkboxQuestion = question.question as CheckboxType;
-        const isLooks = !!(question.question as LooksType).rankings;
+        const isLooks = !!(question.question as LooksType).dogElos;
         const looksQuestion = question.question as LooksType;
 
         const { category, trait } = question;
@@ -79,9 +79,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
         }
 
         if (isLooks) {
-          const dogElo = looksQuestion.rankings.find(
-            (ranking) => ranking.breed === dogs[i].id
-          );
+          const dogElo = looksQuestion.dogElos[dogs[i].id];
           dogRating.elo = dogElo?.elo || 1500;
         }
       }
