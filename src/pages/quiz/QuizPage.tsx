@@ -102,8 +102,7 @@ const QuizPage = () => {
   const [quiz, setQuiz] = useState<QuizType | null>(null);
   const [sectionIndex, setSectionIndex] = useState(0);
 
-  const dogRatings = quiz ? dogRating(dogs, quiz) : [];
-  const dogRatingsSorted = dogRatings.sort((a, b) => b.rating - a.rating);
+  const dogRatings = quiz ? dogRating(dogs, quiz) : {};
 
   useEffect(() => {
     setQuiz(getQuizData(dogs));

@@ -66,8 +66,8 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
         return ranking.rounds < 3;
       })
       .sort((a, b) => {
-        const aRating = dogRatings.find((rating) => rating.dogId === a.id);
-        const bRating = dogRatings.find((rating) => rating.dogId === b.id);
+        const aRating = dogRatings[a.id];
+        const bRating = dogRatings[b.id];
 
         if (!aRating || !bRating) throw new Error("Rating not found");
 
@@ -110,7 +110,7 @@ const Tournament = ({ quiz, updateRankings, question }: Props) => {
       {candidates.map((dog) => {
         const disabled = order.includes(dog.id);
 
-        const rating = dogRatings.find((rating) => rating.dogId === dog.id);
+        const rating = dogRatings[dog.id];
         if (!rating) throw new Error("Rating not found");
         const dogElo = rankings.find((ranking) => ranking.breed === dog.id);
         if (!dogElo) throw new Error("Elo not found 2");

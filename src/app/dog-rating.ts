@@ -9,15 +9,17 @@ import {
 const MIN_LOOKS_PERCENT = 0.05;
 const MAX_LOOKS_PERCENT = 0.5;
 
-interface DogRatingType {
-  dogId: string;
+export interface DogRatingType {
   rating: number;
   elo: number;
   percent: number;
 }
 
-const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
-  let dogRatings: DogRatingType[] = dogs.map((dog) => {
+export type DogRatings = Record<string, DogRatingType>;
+
+const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
+  let dogRatings: DogRatings = {};
+  dogs.map((dog) => {
     return {
       dogId: dog.id,
       rating: 0,
@@ -26,16 +28,22 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
     };
   });
 
-  for (const section of quiz.sections) {
-    for (const question of section.questions) {
-      const isRating = !!(question.question as RatingType).min;
-      const ratingQuestion = question.question as RatingType;
-      const isCheckbox = !!(question.question as CheckboxType).options;
-      const checkboxQuestion = question.question as CheckboxType;
-      const isLooks = !!(question.question as LooksType).rankings;
-      const looksQuestion = question.question as LooksType;
+  for (let i = 0; i < dogs.length; i++) {
+    let dogRating: DogRatingType = {
+      rating: 0,
+      elo: 1500,
+      percent: 0,
+    };
 
-      for (let i = 0; i < dogs.length; i++) {
+    for (const section of quiz.sections) {
+      for (const question of section.questions) {
+        const isRating = !!(question.question as RatingType).min;
+        const ratingQuestion = question.question as RatingType;
+        const isCheckbox = !!(question.question as CheckboxType).options;
+        const checkboxQuestion = question.question as CheckboxType;
+        const isLooks = !!(question.question as LooksType).rankings;
+        const looksQuestion = question.question as LooksType;
+
         const { category, trait } = question;
 
         if (isRating) {
@@ -44,7 +52,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
           if (ratingQuestion.value) {
             const importance = question.importance || 3;
             const closeness = 4 - Math.abs(dogValue - ratingQuestion.value);
-            dogRatings[i].rating += closeness * importance;
+            dogRating.rating += closeness * importance;
           }
         }
 
@@ -55,7 +63,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
             if (typeof dogValue === "string") {
               if (selected.includes(dogValue)) {
                 const importance = question.importance || 3;
-                dogRatings[i].rating += importance * 2;
+                dogRating.rating += importance * 2;
               }
             }
 
@@ -63,7 +71,7 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
               for (const t of dogValue) {
                 if (selected.includes(t)) {
                   const importance = question.importance || 3;
-                  dogRatings[i].rating += importance;
+                  dogRating.rating += importance;
                 }
               }
             }
@@ -74,16 +82,18 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
           const dogElo = looksQuestion.rankings.find(
             (ranking) => ranking.breed === dogs[i].id
           );
-          dogRatings[i].elo = dogElo?.elo || 1500;
+          dogRating.elo = dogElo?.elo || 1500;
         }
       }
     }
+
+    dogRatings[dogs[i].id] = dogRating;
   }
 
-  const maxRating = Math.max(...dogRatings.map((rating) => rating.rating));
-  const minRating = Math.min(...dogRatings.map((rating) => rating.rating));
-  const maxElo = Math.max(...dogRatings.map((rating) => rating.elo));
-  const minElo = Math.min(...dogRatings.map((rating) => rating.elo));
+  const maxRating = Math.max(...dogs.map((dog) => dogRatings[dog.id].rating));
+  const minRating = Math.min(...dogs.map((dog) => dogRatings[dog.id].rating));
+  const maxElo = Math.max(...dogs.map((dog) => dogRatings[dog.id].elo));
+  const minElo = Math.min(...dogs.map((dog) => dogRatings[dog.id].elo));
   const importanceQuestion = quiz.sections[0].questions.find(
     (question) => question.looks
   );
@@ -94,31 +104,38 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatingType[] => {
     MIN_LOOKS_PERCENT;
 
   for (let i = 0; i < dogs.length; i++) {
+    const dogId = dogs[i].id;
     const ratingDiv = maxRating - minRating;
     if (ratingDiv !== 0) {
-      dogRatings[i].rating = (dogRatings[i].rating - minRating) / ratingDiv;
+      dogRatings[dogId].rating =
+        (dogRatings[dogId].rating - minRating) / ratingDiv;
     } else {
-      dogRatings[i].rating = dogRatings[i].rating - minRating;
+      dogRatings[dogId].rating = dogRatings[dogId].rating - minRating;
     }
     const eloDiv = maxElo - minElo;
     if (eloDiv !== 0) {
-      dogRatings[i].elo = (dogRatings[i].elo - minElo) / eloDiv;
+      dogRatings[dogId].elo = (dogRatings[dogId].elo - minElo) / eloDiv;
     } else {
-      dogRatings[i].elo = dogRatings[i].elo - minElo;
+      dogRatings[dogId].elo = dogRatings[dogId].elo - minElo;
     }
-    dogRatings[i].percent =
-      dogRatings[i].rating * (1 - looksPercent) +
-      dogRatings[i].elo * looksPercent;
+    dogRatings[dogId].percent =
+      dogRatings[dogId].rating * (1 - looksPercent) +
+      dogRatings[dogId].elo * looksPercent;
   }
 
   console.log("==== TOP DOGS ====");
-  for (const dog of dogRatings
-    .sort((a, b) => b.percent - a.percent)
+  for (const dog of dogs
+    .sort((a, b) => dogRatings[b.id].percent - dogRatings[a.id].percent)
+    .map((dog) => {
+      return { dog: dog.id, rating: dogRatings[dog.id] };
+    })
     .slice(0, 20)) {
     const format = (num: number) => `${Math.round(num * 100)}%`;
     console.log(
-      dog.dogId,
-      `${format(dog.rating)} ${format(dog.elo)} ${format(dog.percent)}`
+      dog.dog,
+      `${format(dog.rating.rating)} ${format(dog.rating.elo)} ${format(
+        dog.rating.percent
+      )}`
     );
   }
 
