@@ -1,6 +1,6 @@
 # Unsorted
 
-- Quiz
+- Quiz Results
 - Quiz tooltips
 - Calc looks into final score
 - Change quiz button designs
