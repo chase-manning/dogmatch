@@ -35,7 +35,7 @@ const sfc32 = (a: number, b: number, c: number, d: number) => {
   };
 };
 
-const getRand = (seed: string): (() => number) => {
+const getRand = (seed = "woof"): (() => number) => {
   const seedArr = cyrb128(seed);
   return sfc32(seedArr[0], seedArr[1], seedArr[2], seedArr[3]);
 };
