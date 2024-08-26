@@ -13,6 +13,7 @@ import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
 import Tournament from "./Tournament";
+import { getItemMetadata, ItemType } from "../../app/item-metadata";
 
 const StyledQuizContent = styled.div`
   padding: 10rem;
@@ -100,10 +101,15 @@ const QuizContent = ({
     <StyledQuizContent>
       {quiz &&
         quiz.sections[sectionIndex].questions.map((question, index) => {
-          const isRating = !!(question.question as RatingType).min;
+          const metadata = getItemMetadata(question.category, question.trait);
+          if (!metadata) throw new Error("Item metadata not found");
+          const isRating = metadata.type === ItemType.RATING;
           const ratingQuestion = question.question as RatingType;
-          const isCheckbox = !!(question.question as CheckboxType).options;
+          const isCheckbox =
+            metadata.type === ItemType.STRING ||
+            metadata.type === ItemType.LIST;
           const checkboxQuestion = question.question as CheckboxType;
+          const isLooksImportance = metadata.type === ItemType.IMPORTANCE;
           const isLooks = !!(question.question as LooksType).dogElos;
           const looksQuestion = question.question as LooksType;
 
@@ -114,12 +120,12 @@ const QuizContent = ({
                   <Icon src={isLooks ? lightPaw : paw} alt="paw" />
                   {!isLooks && <Number>{index + 1}</Number>}
                 </IconContainer>
-                <Header>{question.label}</Header>
+                <Header>{metadata.question}</Header>
               </HeaderContainer>
-              {isRating && (
+              {(isRating || isLooksImportance) && (
                 <Scale
-                  min={ratingQuestion.min}
-                  max={ratingQuestion.max}
+                  min={metadata.min!}
+                  max={metadata.max!}
                   value={ratingQuestion.value}
                   setValue={(value) => {
                     const newQuiz = { ...quiz };
@@ -170,7 +176,10 @@ const QuizContent = ({
                 />
               )}
 
-              {!question.looks && (
+              {!(
+                metadata.type === ItemType.IMPORTANCE ||
+                metadata.type === ItemType.TOURNAMENT
+              ) && (
                 <>
                   <SubHeaderContainer>
                     <IconContainer $small={false} />

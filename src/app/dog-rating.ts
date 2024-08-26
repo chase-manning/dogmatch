@@ -5,6 +5,7 @@ import {
   QuizType,
   RatingType,
 } from "../pages/quiz/quiz-data";
+import { getItemMetadata, ItemType } from "./item-metadata";
 
 const MIN_LOOKS_PERCENT = 0.05;
 const MAX_LOOKS_PERCENT = 0.5;
@@ -37,17 +38,19 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
 
     for (const section of quiz.sections) {
       for (const question of section.questions) {
-        const isRating = !!(question.question as RatingType).min;
+        const metadata = getItemMetadata(question.category, question.trait);
+        if (!metadata) throw new Error("metadata not found");
+        const isRating = metadata.type === ItemType.RATING;
         const ratingQuestion = question.question as RatingType;
-        const isCheckbox = !!(question.question as CheckboxType).options;
+        const isCheckbox =
+          metadata.type === ItemType.STRING || metadata.type === ItemType.LIST;
         const checkboxQuestion = question.question as CheckboxType;
-        const isLooks = !!(question.question as LooksType).dogElos;
+        const isLooks = metadata.type === ItemType.TOURNAMENT;
         const looksQuestion = question.question as LooksType;
 
         const { category, trait } = question;
 
         if (isRating) {
-          if (question.looks) continue;
           const dogValue = (dogs[i] as any)[category][trait];
           if (ratingQuestion.value) {
             const importance = question.importance || 3;
@@ -93,7 +96,9 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
   const maxElo = Math.max(...dogs.map((dog) => dogRatings[dog.id].elo));
   const minElo = Math.min(...dogs.map((dog) => dogRatings[dog.id].elo));
   const importanceQuestion = quiz.sections[0].questions.find(
-    (question) => question.looks
+    (question) =>
+      getItemMetadata(question.category, question.trait)?.type ===
+      ItemType.IMPORTANCE
   );
   if (!importanceQuestion) throw new Error("Importance question not found");
   const importance = (importanceQuestion.question as RatingType).value || 3;

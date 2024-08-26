@@ -6,16 +6,21 @@ import {
   SectionType,
 } from "../pages/quiz/quiz-data";
 import { TOTAL_ROUNDS } from "../pages/quiz/Tournament";
+import { getItemMetadata, ItemType } from "./item-metadata";
 
 const questionCompletion = (question: QuestionType) => {
+  const metadata = getItemMetadata(question.category, question.trait);
+  if (!metadata) throw new Error("no metadata found");
   const hasImportant = !!question.importance;
   const importantPercent = hasImportant ? 0.5 : 0;
-  const isRating = !!(question.question as RatingType).min;
+  const isRating = metadata.type === ItemType.RATING;
   const ratingQuestion = question.question as RatingType;
-  const isCheckbox = !!(question.question as CheckboxType).options;
+  const isCheckbox =
+    metadata.type === ItemType.STRING || metadata.type === ItemType.LIST;
   const checkboxQuestion = question.question as CheckboxType;
-  const isLooks = !!(question.question as LooksType).dogElos;
-  if (question.looks && isRating) return (!!ratingQuestion.value ? 0.5 : 0) * 2;
+  const isLooksImportance = metadata.type === ItemType.IMPORTANCE;
+  const isLooks = metadata.type === ItemType.TOURNAMENT;
+  if (isLooksImportance) return (!!ratingQuestion.value ? 0.5 : 0) * 2;
   if (isRating) return (!!ratingQuestion.value ? 0.5 : 0) + importantPercent;
   if (isCheckbox)
     return (checkboxQuestion.selected.length > 0 ? 0.5 : 0) + importantPercent;
