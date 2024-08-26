@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledButton = styled.button<{ $primary?: boolean; $wide?: boolean }>`
+const StyledButton = styled.button<{
+  $primary?: boolean;
+  $wide?: boolean;
+  $sub?: boolean;
+}>`
   height: 6.7rem;
   border-radius: 1rem;
   font-size: 2.4rem;
@@ -13,12 +17,18 @@ const StyledButton = styled.button<{ $primary?: boolean; $wide?: boolean }>`
   width: ${(props) => (props.$wide ? "100%" : "23rem")};
   font-family: "Jost", sans-serif;
 
-  background: ${(props) => (props.$primary ? "var(--main)" : "var(--bg)")};
-  color: ${(props) => (props.$primary ? "var(--bg)" : "var(--main)")};
-  border: solid 2px var(--main);
+  background: ${(props) =>
+    props.$primary ? (props.$sub ? "var(--sub)" : "var(--main)") : "var(--bg)"};
+  color: ${(props) =>
+    props.$primary ? "var(--bg)" : props.$sub ? "var(--sub)" : "var(--main)"};
+  border: solid 2px ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
 `;
 
-const StyledLink = styled(Link)<{ $primary?: boolean; $wide?: boolean }>`
+const StyledLink = styled(Link)<{
+  $primary?: boolean;
+  $wide?: boolean;
+  $sub?: boolean;
+}>`
   height: 6.7rem;
   border-radius: 1rem;
   font-size: 2.4rem;
@@ -30,32 +40,48 @@ const StyledLink = styled(Link)<{ $primary?: boolean; $wide?: boolean }>`
   width: ${(props) => (props.$wide ? "100%" : "23rem")};
   font-family: "Jost", sans-serif;
 
-  background: ${(props) => (props.$primary ? "var(--main)" : "var(--bg)")};
-  color: ${(props) => (props.$primary ? "var(--bg)" : "var(--main)")};
-  border: solid 2px var(--main);
+  background: ${(props) =>
+    props.$primary ? (props.$sub ? "var(--sub)" : "var(--main)") : "var(--bg)"};
+  color: ${(props) =>
+    props.$primary ? "var(--bg)" : props.$sub ? "var(--sub)" : "var(--main)"};
+  border: solid 2px ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
 `;
 
 interface Props {
   children: React.ReactNode;
   primary?: boolean;
+  sub?: boolean;
   action?: () => void;
   link?: string;
   submit?: boolean;
   wide?: boolean;
 }
 
-const Button = ({ children, primary, action, link, submit, wide }: Props) => {
+const Button = ({
+  children,
+  primary,
+  sub,
+  action,
+  link,
+  submit,
+  wide,
+}: Props) => {
   const isInternalLink = !link?.startsWith("http");
 
   return (
     <>
       {submit && (
-        <StyledButton $primary={primary} type="submit" $wide={wide}>
+        <StyledButton $primary={primary} $sub={sub} type="submit" $wide={wide}>
           {children}
         </StyledButton>
       )}
       {action && (
-        <StyledButton $primary={primary} onClick={action} $wide={wide}>
+        <StyledButton
+          $primary={primary}
+          $sub={sub}
+          onClick={action}
+          $wide={wide}
+        >
           {children}
         </StyledButton>
       )}
@@ -63,6 +89,7 @@ const Button = ({ children, primary, action, link, submit, wide }: Props) => {
         <StyledLink
           to={link}
           $primary={primary}
+          $sub={sub}
           target={isInternalLink ? "" : "_blank"}
           $wide={wide}
         >
