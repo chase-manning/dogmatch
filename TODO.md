@@ -1,6 +1,5 @@
 # Unsorted
 
-- Quiz tooltips
 - Calc looks into final score
 - Change quiz button designs
 - Implement tournament matching algoritm

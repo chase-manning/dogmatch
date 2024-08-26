@@ -14,6 +14,7 @@ import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
 import Tournament from "./Tournament";
 import { getItemMetadata, ItemType } from "../../app/item-metadata";
+import Tooltip from "../../components/Tooltip";
 
 const StyledQuizContent = styled.div`
   padding: 10rem;
@@ -121,6 +122,7 @@ const QuizContent = ({
                   {!isLooks && <Number>{index + 1}</Number>}
                 </IconContainer>
                 <Header>{metadata.question}</Header>
+                <Tooltip>{metadata.tooltip}</Tooltip>
               </HeaderContainer>
               {(isRating || isLooksImportance) && (
                 <Scale
