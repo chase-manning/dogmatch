@@ -1,7 +1,5 @@
 # Unsorted
 
-- Calc looks into final score
-- Change quiz button designs
 - Implement tournament matching algoritm
 - Breeds
 - Favicon
@@ -33,6 +31,7 @@
 - Cache the quiz results. And have an option to go back to it when visiting with cache
 - Add Google Analytics
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
+- Add arrows to quiz navigation buttons
 
 # Needs designs
 

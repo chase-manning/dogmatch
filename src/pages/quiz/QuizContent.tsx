@@ -207,28 +207,30 @@ const QuizContent = ({
       <ButtonContainer>
         {sectionIndex > 0 ? (
           <Button
+            sub
             action={() => {
               window.scrollTo(0, 0);
               setSectionIndex(sectionIndex - 1);
             }}
           >
-            {`Previous section: ${quiz?.sections[sectionIndex - 1].label}`}
+            {`Back: ${quiz?.sections[sectionIndex - 1].label}`}
           </Button>
         ) : (
           <div />
         )}
         {quiz && sectionIndex === quiz.sections.length - 1 ? (
-          <Button primary action={() => setShowResults(true)}>
+          <Button primary sub action={() => setShowResults(true)}>
             Find my dream dog!
           </Button>
         ) : (
           <Button
+            sub
             primary
             action={() => {
               window.scrollTo(0, 0);
               setSectionIndex(sectionIndex + 1);
             }}
-          >{`Next section: ${quiz?.sections[sectionIndex + 1].label}`}</Button>
+          >{`Next: ${quiz?.sections[sectionIndex + 1].label}`}</Button>
         )}
       </ButtonContainer>
     </StyledQuizContent>
