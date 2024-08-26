@@ -4,6 +4,8 @@ import useDogs from "../../app/use-dogs";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import Winner, { Placement } from "./Winner";
+import TopTenDogs from "./TopTenDogs";
+import { QuizType } from "./quiz-data";
 
 const StyledResult = styled.div`
   width: 100%;
@@ -31,9 +33,10 @@ const Winners = styled.div`
 interface Props {
   ratings: DogRatings;
   show: boolean;
+  quiz: QuizType;
 }
 
-const Results = ({ ratings, show }: Props) => {
+const Results = ({ ratings, show, quiz }: Props) => {
   const { dogs } = useDogs();
   const [loading, setLoading] = useState(true);
 
@@ -47,6 +50,8 @@ const Results = ({ ratings, show }: Props) => {
     .slice(0, 10);
 
   if (winners.length < 10) throw new Error("Not enough winners");
+
+  if (loading) return <Loading>Calculating your perfect match...</Loading>;
 
   return (
     <StyledResult>
@@ -68,7 +73,7 @@ const Results = ({ ratings, show }: Props) => {
           rating={ratings[winners[2].id]}
         />
       </Winners>
-      {loading && <Loading>Calculating your perfect match...</Loading>}
+      <TopTenDogs ratings={ratings} quiz={quiz} />
     </StyledResult>
   );
 };

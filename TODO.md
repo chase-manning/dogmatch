@@ -26,6 +26,9 @@
 - Add 'swoop' to tournament images
 - Add click function to progress bar
 - Consider changing the rating algorigm to better take into account what was highe rated earlier
+- Add button events to progress bar
+- Add a labradoodle
+- Hyperallogenic
 
 # Needs designs
 

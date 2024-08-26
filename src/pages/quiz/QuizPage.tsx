@@ -34,7 +34,11 @@ const QuizPage = () => {
 
   return (
     <StyledQuizPage>
-      <ProgressBar quiz={quiz} sectionIndex={sectionIndex} />
+      <ProgressBar
+        quiz={quiz}
+        sectionIndex={sectionIndex}
+        showResults={showResults}
+      />
       {started && !showResults && (
         <QuizContent
           quiz={quiz}
@@ -47,7 +51,7 @@ const QuizPage = () => {
 
       {!started && <QuizIntro start={() => setStarted(true)} />}
       {started && quiz && showResults && (
-        <Results ratings={dogRatings} show={showResults} />
+        <Results ratings={dogRatings} show={showResults} quiz={quiz} />
       )}
     </StyledQuizPage>
   );

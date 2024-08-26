@@ -108,9 +108,10 @@ const PercentageIndicator = styled.div`
 interface Props {
   quiz: QuizType | null;
   sectionIndex: number;
+  showResults: boolean;
 }
 
-const ProgressBar = ({ quiz, sectionIndex }: Props) => {
+const ProgressBar = ({ quiz, sectionIndex, showResults }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFixed, setIsFixed] = useState(false);
 
@@ -131,7 +132,9 @@ const ProgressBar = ({ quiz, sectionIndex }: Props) => {
     };
   }, []);
 
-  const percentComplete = quiz
+  const percentComplete = showResults
+    ? 1
+    : quiz
     ? quizCompletionPercent(quiz.sections[sectionIndex])
     : 0;
 
@@ -142,7 +145,9 @@ const ProgressBar = ({ quiz, sectionIndex }: Props) => {
           <ContentInner>
             <ContentInnerInner>
               {quiz?.sections.map((section, index) => {
-                const sectionComplete = quiz
+                const sectionComplete = showResults
+                  ? 1
+                  : quiz
                   ? quizCompletionPercent(section)
                   : 0;
                 return (
@@ -173,7 +178,7 @@ const ProgressBar = ({ quiz, sectionIndex }: Props) => {
                   {Math.round(((percentComplete + sectionIndex) / 5) * 100)}%
                 </PercentageIndicator>
               </PercentIndicatorContainer>
-              <Dot style={{ left: `${100}%` }}>
+              <Dot style={{ left: `${100}%` }} $active={showResults}>
                 <Label>Your dream dog!</Label>
               </Dot>
             </ContentInnerInner>
