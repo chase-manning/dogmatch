@@ -7,6 +7,7 @@ import second from "../../assets/second.svg";
 import third from "../../assets/third.svg";
 import { DogRatingType } from "../../app/dog-rating";
 import { useState } from "react";
+import { BREEDS_PATH } from "../../app/paths";
 
 const turnCardAnimation = keyframes`
   0% {
@@ -120,14 +121,19 @@ interface Props {
 
 const Winner = ({ dog, placement, rating }: Props) => {
   const [show, setShow] = useState(false);
+  const [showing, setShowing] = useState(false);
 
   return (
     <StyledWinner
       onClick={(e) => {
-        // prevent default
-        e.preventDefault();
-
-        setShow(true);
+        if (showing) {
+          window.open(`${BREEDS_PATH}/${dog.id}`, "_blank")?.focus();
+        } else {
+          setShow(true);
+          setTimeout(() => {
+            setShowing(true);
+          }, 500);
+        }
       }}
     >
       <DogCardContainer $show={show}>
