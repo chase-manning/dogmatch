@@ -1,9 +1,11 @@
-enum ItemType {
+export enum ItemType {
   RATING,
   STRING,
   LIST,
   NUMBER,
   BOOLEAN,
+  IMPORTANCE,
+  TOURNAMENT,
 }
 
 interface Metadata {
@@ -16,6 +18,24 @@ interface Metadata {
 }
 
 const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
+  custom: {
+    looksImportance: {
+      type: ItemType.IMPORTANCE,
+      label: "Looks Importance",
+      question: "Visually, How important is the look of the dog?",
+      min: "Looks don't matter",
+      max: "Looks are very important",
+      tooltip:
+        "How important the look of the dog breed is to you relative to other characteristics such as physical characteristics and behavioral traits.",
+    },
+    looks: {
+      type: ItemType.TOURNAMENT,
+      label: "Dog Looks",
+      question: "Which dog do you like the look of the most?",
+      tooltip:
+        "Click on the dog you like the look of the most. That dog will then go away. Continue to select the next dog that is your favourite. This process will continue until enough data is gathered to complete your profile.",
+    },
+  },
   generalInformation: {
     name: {
       type: ItemType.STRING,
@@ -258,3 +278,14 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
 };
 
 export default ITEM_METADATA;
+
+export const getItemMetadata = (
+  category: string,
+  trait: string
+): Metadata | null => {
+  const categoryData = ITEM_METADATA[category];
+  if (!categoryData) return null;
+  const metadata = categoryData[trait];
+  if (!metadata) return null;
+  return metadata;
+};
