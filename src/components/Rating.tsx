@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
 import Skeleton from "./Skeleton";
+import { getItemMetadata } from "../app/item-metadata";
 
 const StyledRating = styled.div`
   display: flex;
@@ -35,18 +36,21 @@ const RatingItem = styled.div<{ $active: boolean; $color: string }>`
 `;
 
 interface Props {
-  label: string;
-  tooltip: string;
+  category: string;
+  trait: string;
   value: number | null;
   color: string;
 }
 
-const Rating = ({ label, tooltip, value, color }: Props) => {
+const Rating = ({ category, trait, value, color }: Props) => {
+  const metadata = getItemMetadata(category, trait);
+  if (!metadata) throw new Error("no metadata found");
+
   return (
     <StyledRating>
       <LabelContainer>
-        <Label>{label}</Label>
-        <Tooltip>{tooltip}</Tooltip>
+        <Label>{metadata.label}</Label>
+        <Tooltip>{metadata.tooltip}</Tooltip>
       </LabelContainer>
       <RatingContainer>
         {value ? (

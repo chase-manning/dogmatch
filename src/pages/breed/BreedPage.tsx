@@ -159,32 +159,32 @@ const BreedPage = () => {
             {dog ? (
               <>
                 <Stat
-                  label="Group"
+                  category="generalInformation"
+                  trait="group"
                   value={dog.generalInformation.group}
                   icon={paw}
-                  tooltip="The category or classification of a dog based on its purpose or characteristics, such as Terrier, Working, or Companion."
                 />
                 <Stat
-                  label="Height"
+                  category="generalInformation"
+                  trait="height"
                   value={`${dog.generalInformation.height.toLocaleString()} inches (${Math.round(
                     inchesToCentimeters(dog.generalInformation.height)
                   ).toLocaleString()} cm)`}
                   icon={height}
-                  tooltip="This is the typical height of the dog breed measured in inches, representing how tall a dog of this breed usually stands."
                 />
                 <Stat
-                  label="Weight"
+                  category="generalInformation"
+                  trait="weight"
                   value={`${dog.generalInformation.weight.toLocaleString()} pounds (${Math.round(
                     poundsToKilograms(dog.generalInformation.weight)
                   ).toLocaleString()} kg)`}
                   icon={weight}
-                  tooltip="The weight of the dog breed in pounds. This value helps indicate the general size and build of the breed, providing an idea of how heavy an average dog of this breed might be."
                 />
                 <Stat
-                  label="Life Expectancy"
+                  category="generalInformation"
+                  trait="lifeExpectancy"
                   value={`${dog.generalInformation.lifeExpectancy.toLocaleString()} years`}
                   icon={lifespan}
-                  tooltip="The typical number of years a dog is expected to live, on average."
                 />
               </>
             ) : (
@@ -200,40 +200,40 @@ const BreedPage = () => {
         </HeaderSection>
         <RatingColumn>
           <Rating
-            label="Popularity"
-            tooltip="How popular the breed is. How many people know about that breed. How common it is to have that breed as a pet. How easy it is to get this breed."
+            category="generalInformation"
+            trait="popularity"
             value={dog?.generalInformation.popularity ?? null}
             color="var(--red)"
           />
           <Rating
-            label="Lifespan"
-            tooltip="How long the breed lives relative to other dogs. A high value is a long living dog, a low value is a short living dog."
+            category="physicalCharacteristics"
+            trait="lifespan"
             value={dog?.physicalCharacteristics.lifespan ?? null}
             color="var(--green)"
           />
           <Rating
-            label="Adaptability Rating"
-            tooltip="This rating indicates how easily a breed adapts to changes in their environment, including living conditions, noise levels, weather, daily schedules, and other day-to-day variations."
+            category="behavioralTraits"
+            trait="adaptabilityRating"
             value={dog?.behavioralTraits.adaptabilityRating ?? null}
             color="var(--orange)"
           />
         </RatingColumn>
         <RatingColumn>
           <Rating
-            label="Size"
-            tooltip="A breeds relative size to other breeds. A high value is a very large dog, a low value is a small dog."
+            category="physicalCharacteristics"
+            trait="size"
             value={dog?.physicalCharacteristics.size ?? null}
             color="var(--brown)"
           />
           <Rating
-            label="Coat Length"
-            tooltip="This label describes the length of a dog's fur from the skin to the tip. It affects the dog's overall appearance and can influence grooming needs and seasonal care."
+            category="physicalCharacteristics"
+            trait="coatLength"
             value={dog?.physicalCharacteristics.coatLength ?? null}
             color="var(--teal)"
           />
           <Rating
-            label="Vocalization Frequency"
-            tooltip="This measures how frequently a breed vocalizes, including barking and howling. While some breeds are highly vocal and bark at almost anything, others are more reserved and only bark in specific situations. Note that even barkless breeds may use other sounds to express themselves."
+            category="behavioralTraits"
+            trait="vocalizationFrequency"
             value={dog?.behavioralTraits.vocalizationFrequency ?? null}
             color="var(--yellow)"
           />
@@ -261,40 +261,40 @@ const BreedPage = () => {
         </HeaderSection>
         <RatingColumn>
           <Rating
-            label="Family Affection Level"
-            tooltip="Indicates how affectionate a breed is likely to be with family members or other familiar people. Some breeds may show affection primarily to their owner, while others are friendly and affectionate with everyone they know well."
+            category="behavioralTraits"
+            trait="familyAffectionLevel"
             value={dog?.behavioralTraits.familyAffectionLevel ?? null}
             color="var(--red)"
           />
           <Rating
-            label="Dog Sociability"
-            tooltip="Indicates how friendly and social a breed typically is with other dogs. While supervision is always recommended during interactions and introductions, some breeds naturally tend to get along well with other dogs, whether at home or in public settings."
+            category="behavioralTraits"
+            trait="dogSociability"
             value={dog?.behavioralTraits.dogSociability ?? null}
             color="var(--teal)"
           />
           <Rating
-            label="Friendliness to Strangers"
-            tooltip="This metric indicates how welcoming a breed is likely to be towards strangers. Some breeds may be reserved or cautious around new people, while others will be eager and happy to meet someone new, regardless of the location."
+            category="behavioralTraits"
+            trait="friendlinessToStrangers"
             value={dog?.behavioralTraits.friendlinessToStrangers ?? null}
             color="var(--yellow)"
           />
         </RatingColumn>
         <RatingColumn>
           <Rating
-            label="Child-Friendly"
-            tooltip="This rating indicates a breed's tolerance and patience with young children's behavior and its overall family-friendly nature. Always supervise interactions between dogs and young children, or any children who are not familiar with dogs."
+            category="behavioralTraits"
+            trait="childFriendly"
             value={dog?.behavioralTraits.childFriendly ?? null}
             color="var(--green)"
           />
           <Rating
-            label="Playfulness Level"
-            tooltip="Indicates how enthusiastic a breed is about play, even beyond puppyhood. Some breeds remain eager to engage in activities like tug-of-war or fetch well into their adult years, while others may prefer to relax more often."
+            category="behavioralTraits"
+            trait="playfulnessLevel"
             value={dog?.behavioralTraits.playfulnessLevel ?? null}
             color="var(--orange)"
           />
           <Rating
-            label="Protective Instincts"
-            tooltip="This measures a breed's tendency to alert you to the presence of strangers or potential threats. Breeds with strong protective instincts are more likely to react to unfamiliar people or animals, whether it's the mailman or a squirrel outside. They typically become friendly towards strangers who are welcomed by their family."
+            category="behavioralTraits"
+            trait="protectiveInstincts"
             value={dog?.behavioralTraits.protectiveInstincts ?? null}
             color="var(--brown)"
           />
@@ -314,19 +314,20 @@ const BreedPage = () => {
             {dog ? (
               <>
                 <Stat
-                  label="Coat Style"
+                  category="physicalCharacteristics"
+                  trait="coatStyle"
                   value={dog.physicalCharacteristics.coatStyle}
                   icon={typeIcon}
-                  tooltip="The typical texture and appearance of a dog's coat, such as wavy, wiry, curly, hairless, or straight."
                 />
                 <Stat
-                  label="Coat Texture"
+                  category="physicalCharacteristics"
+                  trait="coatTexture"
                   value={dog.physicalCharacteristics.coatTexture}
                   icon={texture}
-                  tooltip="Describes the typical texture of a dog's coat, such as rough, silky, or smooth."
                 />
                 <Stat
-                  label="Coat Length"
+                  category="physicalCharacteristics"
+                  trait="coatLength"
                   value={
                     dog.physicalCharacteristics.coatLength === 1
                       ? "Short"
@@ -339,13 +340,12 @@ const BreedPage = () => {
                       : "Long"
                   }
                   icon={length}
-                  tooltip="The length of a dog’s fur from the skin to the tip. It affects the dog's overall appearance and can influence grooming needs and seasonal care."
                 />
                 <Stat
-                  label="Double Coat"
+                  category="physicalCharacteristics"
+                  trait="doubleCoat"
                   value={dog.physicalCharacteristics.doubleCoat ? "Yes" : "No"}
                   icon={paw}
-                  tooltip="Double-coated dogs have two layers of fur: a harsh topcoat and a soft undercoat. The soft undercoat is shorter, grows faster, and sheds twice a year, while the topcoat is longer and more protective."
                 />
               </>
             ) : (
@@ -361,40 +361,40 @@ const BreedPage = () => {
         </HeaderSection>
         <RatingColumn>
           <Rating
-            label="Activity Level"
-            tooltip="Indicates the required amount of physical exercise and mental stimulation for a dog breed. High activity level dogs are lively, always ready for their next adventure, and need plenty of playtime. Low activity level dogs are more laid-back and content with minimal activity."
+            category="careRequirements"
+            trait="activityLevel"
             value={dog?.careRequirements.activityLevel ?? null}
             color="var(--red)"
           />
           <Rating
-            label="Coat Grooming Frequency"
-            tooltip="This indicates how often a breed needs bathing, brushing, trimming, or other types of coat maintenance. Consider your available time, patience, and budget for grooming when evaluating this aspect. Note that all breeds need regular nail trimming."
+            category="careRequirements"
+            trait="coatGroomingFrequency"
             value={dog?.careRequirements.coatGroomingFrequency ?? null}
             color="var(--purple)"
           />
           <Rating
-            label="Mental Stimulation Requirements"
-            tooltip="Indicates how much mental stimulation a breed needs to stay happy and healthy. Breeds with high mental stimulation needs may require activities that involve decision-making, problem-solving, and concentration. Without sufficient mental engagement, these dogs might create their own activities, which may be undesirable."
+            category="careRequirements"
+            trait="mentalStimulationRequirements"
             value={dog?.careRequirements.mentalStimulationRequirements ?? null}
             color="var(--blue)"
           />
         </RatingColumn>
         <RatingColumn>
           <Rating
-            label="Coat Shedding Level"
-            tooltip="Indicates the amount of fur and hair the breed typically sheds. Higher shedding levels mean more frequent brushing is needed, higher chances of triggering allergies, and more frequent cleaning tasks like vacuuming and lint-rolling."
+            category="careRequirements"
+            trait="coatSheddingLevel"
             value={dog?.careRequirements.coatSheddingLevel ?? null}
             color="var(--brown)"
           />
           <Rating
-            label="Training Ease"
-            tooltip="Indicates how easy it is to train your dog and their willingness to learn new commands and behaviors. Some breeds are eager to please and quick to learn, while others may be more independent and stubborn."
+            category="careRequirements"
+            trait="trainingEase"
             value={dog?.careRequirements.trainingEase ?? null}
             color="var(--green)"
           />
           <Rating
-            label="Salivation Tendency"
-            tooltip="This indicates how likely a breed is to drool. For those who prefer a tidier environment, breeds with high salivation tendencies may not be ideal as they can leave drool on your clothes and furniture."
+            category="physicalCharacteristics"
+            trait="salivationTendency"
             value={dog?.physicalCharacteristics.salivationTendency ?? null}
             color="var(--yellow)"
           />

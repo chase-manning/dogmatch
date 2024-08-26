@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
+import { getItemMetadata } from "../app/item-metadata";
 
 const StyledStat = styled.div`
   display: flex;
@@ -24,19 +25,22 @@ const Value = styled.div`
 `;
 
 interface Props {
+  category: string;
+  trait: string;
   icon: string;
-  label: string;
   value: string;
-  tooltip: string;
 }
 
-const Stat = ({ icon, label, value, tooltip }: Props) => {
+const Stat = ({ category, trait, icon, value }: Props) => {
+  const metadata = getItemMetadata(category, trait);
+  if (!metadata) throw new Error("metadata not found");
+
   return (
     <StyledStat>
-      <Icon src={icon} alt={`${label} icon`} />
-      <Label>{label}:</Label>
+      <Icon src={icon} alt={`${metadata.label} icon`} />
+      <Label>{metadata.label}:</Label>
       <Value>{value}</Value>
-      <Tooltip>{tooltip}</Tooltip>
+      <Tooltip>{metadata.tooltip}</Tooltip>
     </StyledStat>
   );
 };
