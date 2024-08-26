@@ -29,6 +29,7 @@
 - Add button events to progress bar
 - Add a labradoodle
 - Hyperallogenic
+- Implement key contributors to score in the dog row (currently shows characteristics)
 
 # Needs designs
 
