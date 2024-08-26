@@ -7,14 +7,16 @@ import gold from "../../assets/gold.svg";
 import silver from "../../assets/silver.svg";
 import bronze from "../../assets/bronze.svg";
 import white from "../../assets/white.svg";
+import { BREEDS_PATH } from "../../app/paths";
 
-const StyledDogRow = styled.div`
+const StyledDogRow = styled.a`
   width: 100%;
   display: flex;
   align-items: center;
   height: 8.2rem;
   position: relative;
   margin: 1.6rem 0;
+  cursor: pointer;
 `;
 
 const Section = styled.div<{ $flex: number }>`
@@ -82,6 +84,25 @@ const Match = styled.div`
   font-family: "Jost", sans-serif;
 `;
 
+const KeyAttributes = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const Attribute = styled.div`
+  height: 3.45rem;
+  width: 19rem;
+  padding: 0 2rem;
+  background: var(--bg);
+  border: solid 1px var(--main);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 650;
+`;
+
 interface Props {
   dog: DogType;
   rating: DogRatingType;
@@ -91,7 +112,7 @@ interface Props {
 
 const DogRow = ({ dog, rating, quiz, place }: Props) => {
   return (
-    <StyledDogRow>
+    <StyledDogRow href={`/${BREEDS_PATH}/${dog.id}`} target="_blank">
       <Background />
       <Section $flex={1}>
         <AwardContainer>
@@ -118,7 +139,13 @@ const DogRow = ({ dog, rating, quiz, place }: Props) => {
       <Section $flex={1}>
         <Match>{Math.round(rating.percent * 100)}%</Match>
       </Section>
-      <Section $flex={4}>meow</Section>
+      <Section $flex={4}>
+        <KeyAttributes>
+          {dog.generalInformation.personalityTraits.map((trait) => (
+            <Attribute key={trait}>{trait}</Attribute>
+          ))}
+        </KeyAttributes>
+      </Section>
     </StyledDogRow>
   );
 };
