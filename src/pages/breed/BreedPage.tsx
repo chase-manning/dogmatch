@@ -227,7 +227,7 @@ const BreedPage = () => {
           />
           <Rating
             label="Coat Length"
-            tooltip="This label describes the length of a dog’s fur from the skin to the tip. It affects the dog's overall appearance and can influence grooming needs and seasonal care."
+            tooltip="This label describes the length of a dog's fur from the skin to the tip. It affects the dog's overall appearance and can influence grooming needs and seasonal care."
             value={dog?.physicalCharacteristics.coatLength ?? null}
             color="var(--teal)"
           />
