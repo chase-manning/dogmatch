@@ -12,7 +12,7 @@ import lightPaw from "../../assets/paw.svg";
 import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
-import Tournament from "./Tournament";
+import Tournament, { TOTAL_ROUNDS } from "./Tournament";
 import { getItemMetadata, ItemType } from "../../app/item-metadata";
 import Tooltip from "../../components/Tooltip";
 
@@ -173,6 +173,14 @@ const QuizContent = ({
                         .question as LooksType
                     ).rounds++;
                     setQuiz(newQuiz);
+                    if (
+                      (
+                        newQuiz.sections[sectionIndex].questions[index]
+                          .question as LooksType
+                      ).rounds === TOTAL_ROUNDS
+                    ) {
+                      setShowResults(true);
+                    }
                   }}
                   question={looksQuestion}
                 />

@@ -36,6 +36,8 @@
 - Get domain
 - Set up hosting
 - Do name change from dogmatch to something else
+- Last tournament doesn't shoop
+- Add some message that the tournament is finnished and some cleaner handling there
 
 # Needs designs
 
