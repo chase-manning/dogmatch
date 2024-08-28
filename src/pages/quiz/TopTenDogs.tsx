@@ -36,6 +36,7 @@ const RowHeader = styled.div`
   border-bottom: solid 1px var(--sub);
   align-items: center;
   height: 5rem;
+  margin-bottom: 1rem;
 `;
 
 const RowItem = styled.div<{ $flex: number }>`
