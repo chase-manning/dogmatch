@@ -1,6 +1,7 @@
 # Unsorted
 
-- Implement tournament matching algoritm
+- Add background to tournament images
+- Add finished state for tournament
 - Breeds
 - Favicon
 - OG image
@@ -32,6 +33,9 @@
 - Add Google Analytics
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Add arrows to quiz navigation buttons
+- Get domain
+- Set up hosting
+- Do name change from dogmatch to something else
 
 # Needs designs
 

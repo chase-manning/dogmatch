@@ -38,6 +38,7 @@ const DogButton = styled.button<{ $disabled: boolean }>`
 const DogImage = styled.img`
   border-radius: 2rem;
   width: 100%;
+  background: var(--bg-image);
 `;
 
 interface Props {
