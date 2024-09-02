@@ -32,6 +32,12 @@
 
 # Unsorted (Optimisations)
 
+- Add image options to dog directory
+- Add sort option to dog directory
+- Add option for large dog images on dog directory
+- Add list option to dog directory
+- Add image scroll buttons to dog card
+- Add filters to dog directory
 - Add short name and long name, fix the names we broke recently by making them shorter
 - Add card stack and animation to hero
 - Add pagination to weekly dogs
