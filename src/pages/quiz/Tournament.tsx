@@ -149,10 +149,10 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
             <DogImage
               src={
                 dogElo.rounds === 0
-                  ? dog.images.outdoors
+                  ? dog.images.small.outdoors
                   : dogElo.rounds === 1
-                  ? dog.images.indoors
-                  : dog.images.studio
+                  ? dog.images.small.indoors
+                  : dog.images.small.studio
               }
               alt={dog.generalInformation.name}
             />

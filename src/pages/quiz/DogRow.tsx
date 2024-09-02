@@ -131,7 +131,7 @@ const DogRow = ({ dog, rating, quiz, place }: Props) => {
         </AwardContainer>
       </Section>
       <Section $flex={1}>
-        <Image src={dog.images.outdoors} />
+        <Image src={dog.images.small.outdoors} />
       </Section>
       <Section $flex={4}>
         <Name>{dog.generalInformation.name}</Name>

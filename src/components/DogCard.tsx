@@ -162,7 +162,7 @@ const DogCard = ({ dog }: Props) => {
         </HeaderContainer>
         {dog ? (
           <DogImage
-            src={dog.images.outdoors}
+            src={dog.images.small.outdoors}
             alt={dog.generalInformation.name}
           />
         ) : (

@@ -45,7 +45,10 @@ const DogPreview = ({ dog }: Props) => {
         </Header>
       )}
       {dog ? (
-        <Image src={dog.images.outdoors} alt={dog.generalInformation.name} />
+        <Image
+          src={dog.images.small.outdoors}
+          alt={dog.generalInformation.name}
+        />
       ) : (
         <Skeleton width="30rem" height="30rem" />
       )}

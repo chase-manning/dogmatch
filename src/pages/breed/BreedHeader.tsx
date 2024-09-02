@@ -120,7 +120,7 @@ const BreedHeader = ({ dog }: Props) => {
         <ImageContainer>
           {dog ? (
             <>
-              <Image src={dog.images[imageStyle]} />
+              <Image src={dog.images.large[imageStyle]} />
               <Button
                 onClick={previousImage}
                 direction="left"

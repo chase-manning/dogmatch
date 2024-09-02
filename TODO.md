@@ -2,9 +2,6 @@
 
 # Sorted (Launch)
 
-- Add tests for duplicate images
-- Welsh Springer Spaniel missing indoor image
-- Resize images
 - Rename find my dog to skip visual section
 - Add some message that the tournament is finnished and some cleaner handling there
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)

@@ -54,9 +54,16 @@ export interface DogType {
     trainingEase: number;
   };
   images: {
-    indoors: string;
-    outdoors: string;
-    studio: string;
+    small: {
+      indoors: string;
+      outdoors: string;
+      studio: string;
+    };
+    large: {
+      indoors: string;
+      outdoors: string;
+      studio: string;
+    };
   };
 }
 
