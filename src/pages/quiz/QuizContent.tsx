@@ -227,8 +227,8 @@ const QuizContent = ({
           <div />
         )}
         {quiz && sectionIndex === quiz.sections.length - 1 ? (
-          <Button primary sub action={() => setShowResults(true)}>
-            Find my dream dog!
+          <Button sub action={() => setShowResults(true)}>
+            Skip visual section
           </Button>
         ) : (
           <Button
