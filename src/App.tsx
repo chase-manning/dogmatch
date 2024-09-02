@@ -8,6 +8,7 @@ import SayHiPage from "./pages/say-hi/SayHiPage";
 import BreedPage from "./pages/breed/BreedPage";
 import ScrollToTop from "./components/ScrollToTop";
 import QuizPage from "./pages/quiz/QuizPage";
+import BreedsPage from "./pages/breeds/BreedsPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -38,7 +39,7 @@ const App = () => {
           <Route path={QUIZ_PATH} element={<QuizPage />} />
 
           <Route path={BREEDS_PATH}>
-            <Route index element={<LandingPage />} />
+            <Route index element={<BreedsPage />} />
             <Route path=":breed" element={<BreedPage />} />
           </Route>
 
