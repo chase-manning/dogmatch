@@ -9,6 +9,9 @@ import useDogs from "../../app/use-dogs";
 import DogCard from "../../components/DogCard";
 import { DogType } from "../../components/DogContext";
 import levenshtein from "../../app/levenshtein";
+import Button from "../../components/Button";
+
+const RESULTS_PER_PAGE = 12;
 
 const StyledBreedsPage = styled.div`
   width: 100%;
@@ -66,9 +69,20 @@ const Dogs = styled.div`
   align-content: center;
 `;
 
+const ButtonContainer = styled.div`
+  width: 100%;
+  max-width: 151.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+`;
+
 const BreedsPage = () => {
+  const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
-  const { dogs } = useDogs();
+  const { dogs, loading } = useDogs();
 
   const searchScore = (dog: DogType) => {
     const lowerSearchValue = search.toLowerCase();
@@ -89,6 +103,11 @@ const BreedsPage = () => {
       : dogs.sort((a, b) =>
           a.generalInformation.name.localeCompare(b.generalInformation.name)
         );
+
+  const setPageAndScroll = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <StyledBreedsPage>
@@ -113,10 +132,35 @@ const BreedsPage = () => {
         />
       </SearchContainer>
       <Dogs>
-        {topResults.map((dog) => (
-          <DogCard key={dog.id} dog={dog} />
-        ))}
+        {!loading
+          ? topResults
+              .slice(page * RESULTS_PER_PAGE, (page + 1) * RESULTS_PER_PAGE)
+              .map((dog) => <DogCard key={dog.id} dog={dog} />)
+          : Array.from({ length: RESULTS_PER_PAGE }).map((_, index) => (
+              <DogCard key={index} dog={null} />
+            ))}
       </Dogs>
+      <ButtonContainer>
+        {page === 0 ? (
+          <div />
+        ) : (
+          <Button
+            sub
+            action={() => {
+              setPageAndScroll(page - 1);
+            }}
+          >
+            Previous page
+          </Button>
+        )}
+        {page * RESULTS_PER_PAGE + RESULTS_PER_PAGE >= topResults.length ? (
+          <div />
+        ) : (
+          <Button primary sub action={() => setPageAndScroll(page + 1)}>
+            Next page
+          </Button>
+        )}
+      </ButtonContainer>
     </StyledBreedsPage>
   );
 };

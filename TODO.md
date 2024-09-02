@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Remove AKC reference
 - Remove group from card
 - Add tests for duplicate images
 - Welsh Springer Spaniel missing indoor image
@@ -46,7 +45,7 @@
 - Add a labradoodle
 - Hyperallogenic
 - Implement key contributors to score in the dog row (currently shows characteristics)
-- Add arrows to quiz navigation buttons
+- Add arrows to quiz navigation buttons (and breeds pagination buttons)
 - Last tournament doesn't shoop
 - Email results
 - Add 3d hover effect to the reveal cards
