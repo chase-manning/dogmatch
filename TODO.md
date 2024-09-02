@@ -3,11 +3,13 @@
 # Sorted (Launch)
 
 - Dog Directory
+- Have Lien review all the copy
 - Issue with You May Like, you can go back when there are none before
 - Remove AKC reference
 - Remove group from card
 - Add tests for duplicate images
 - Welsh Springer Spaniel missing indoor image
+- Resize images
 - Rename find my dog to skip visual section
 - Add some message that the tournament is finnished and some cleaner handling there
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
@@ -16,7 +18,6 @@
 - Add something to explain what the groups are in the tooltip
 - Cache the quiz results. And have an option to go back to it when visiting with cache
 - Add button events to progress bar
-- Resize images
 - Mobile
 - Favicon
 - OG image
