@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Dog Directory
 - Have Lien review all the copy
 - Issue with You May Like, you can go back when there are none before
 - Remove AKC reference
