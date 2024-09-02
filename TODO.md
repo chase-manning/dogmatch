@@ -1,48 +1,55 @@
 # Unsorted
 
-- Add background to tournament images
-- Add finished state for tournament
-- Breeds
+# Sorted (Launch)
+
+- Dog Directory
+- Issue with You May Like, you can go back when there are none before
+- Remove AKC reference
+- Remove group from card
+- Add tests for duplicate images
+- Welsh Springer Spaniel missing indoor image
+- Rename find my dog to skip visual section
+- Add some message that the tournament is finnished and some cleaner handling there
+- Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
+- Add min and max to the tooltips on the breed page.
+- Add something that explains what high and low are in the tooltip
+- Add something to explain what the groups are in the tooltip
+- Cache the quiz results. And have an option to go back to it when visiting with cache
+- Add button events to progress bar
+- Resize images
+- Mobile
 - Favicon
 - OG image
 - Metadata
+- Add that SEO thing with a link to all pages
 - SEO optimise pages
 - SEO optimise images
-- Add that SEO think with a link to all pages
-- Mobile
+- Get domain
+- Set up hosting
+- Add Google Analytics
+- Add a Conversion event for completing the quiz, and donating and maybe some other things
+
+# Unsorted (Optimisations)
+
 - Add short name and long name, fix the names we broke recently by making them shorter
 - Add card stack and animation to hero
 - Add pagination to weekly dogs
-- Resize images
 - Add learn more to about
 - Add enter to search to go to directory
-- Add dog allergys
-- Issue with You May Like, you can go back when there are none before
-- Fix issue with long names on Dog Card
-- Add background to looks quiz (Tournament)
 - Add 'swoop' to tournament images
-- Add click function to progress bar
 - Consider changing the rating algorigm to better take into account what was highe rated earlier
-- Add button events to progress bar
 - Add a labradoodle
 - Hyperallogenic
 - Implement key contributors to score in the dog row (currently shows characteristics)
-- Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
-- Add min and max to the tooltips on the breed page.
-- Cache the quiz results. And have an option to go back to it when visiting with cache
-- Add Google Analytics
-- Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Add arrows to quiz navigation buttons
-- Get domain
-- Set up hosting
-- Do name change from dogmatch to something else
 - Last tournament doesn't shoop
-- Add some message that the tournament is finnished and some cleaner handling there
+- Email results
+- Add 3d hover effect to the reveal cards
+- Add confetti to results page
+- Undo button in visuals
 
-# Needs designs
+# Needs designs (Optimisations)
 
 - Privacy policy
 - Terms and Conditions
 - 404 page
-
-# Sorted
