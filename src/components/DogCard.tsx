@@ -4,6 +4,12 @@ import Skeleton from "./Skeleton";
 import { BREEDS_PATH } from "../app/paths";
 import { Link } from "react-router-dom";
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StyledDogCard = styled(Link)`
   width: 47.7rem;
   padding: 3rem 4rem;
@@ -154,7 +160,7 @@ const DogCard = ({ dog }: Props) => {
   ];
 
   return (
-    <div>
+    <Container>
       <StyledDogCard to={`/${BREEDS_PATH}/${dog?.id}`}>
         <HeaderContainer>
           <HeaderItem>
@@ -233,7 +239,7 @@ const DogCard = ({ dog }: Props) => {
           )}
         </Traits>
       </StyledDogCard>
-    </div>
+    </Container>
   );
 };
 
