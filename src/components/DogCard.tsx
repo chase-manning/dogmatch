@@ -25,35 +25,25 @@ const StyledDogCard = styled(Link)`
 `;
 
 const HeaderContainer = styled.div`
+  margin-bottom: 1.8rem;
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.8rem;
 `;
 
-const HeaderItem = styled.div`
+const Header = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-
-const HeaderLabel = styled.div`
-  font-size: 1.4rem;
-  font-weight: 500;
-  font-style: italic;
-  font-family: "Jost", sans-serif;
-`;
-
-const HeaderValue = styled.div`
-  font-size: 2.4rem;
-  font-weight: 700;
-  font-family: "Jost", sans-serif;
+  line-height: 1;
+  font-size: 2.9rem;
+  white-space: nowrap;
+  font-weight: 650;
+  text-align: center;
 `;
 
 const DogImage = styled.img`
   width: 100%;
   border-radius: 2rem;
-  margin-bottom: 1.8rem;
   aspect-ratio: 1/1;
   background: rgba(0, 0, 0, 0.1);
 `;
@@ -63,6 +53,7 @@ const StatsSection = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 8rem;
+  margin-top: 1.8rem;
 `;
 
 const StatContainer = styled.div`
@@ -163,22 +154,11 @@ const DogCard = ({ dog }: Props) => {
     <Container>
       <StyledDogCard to={`/${BREEDS_PATH}/${dog?.id}`}>
         <HeaderContainer>
-          <HeaderItem>
-            <HeaderLabel>Breed</HeaderLabel>
-            {dog ? (
-              <HeaderValue>{dog.generalInformation.name}</HeaderValue>
-            ) : (
-              <Skeleton width="17rem" height="2.6rem" />
-            )}
-          </HeaderItem>
-          <HeaderItem style={{ alignItems: "flex-end" }}>
-            <HeaderLabel>Group</HeaderLabel>
-            {dog ? (
-              <HeaderValue>{dog.generalInformation.group}</HeaderValue>
-            ) : (
-              <Skeleton width="10rem" height="2.6rem" />
-            )}
-          </HeaderItem>
+          {dog ? (
+            <Header>{dog.generalInformation.name}</Header>
+          ) : (
+            <Skeleton width="80%" height="2.9rem" />
+          )}
         </HeaderContainer>
         {dog ? (
           <DogImage

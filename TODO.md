@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Remove group from card
 - Add tests for duplicate images
 - Welsh Springer Spaniel missing indoor image
 - Resize images
