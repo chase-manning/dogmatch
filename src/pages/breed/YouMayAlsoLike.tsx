@@ -104,12 +104,16 @@ const YouMayAlsoLike = ({ dog }: Props) => {
           />
         ))}
       </PageIndicators>
-      <Button onClick={() => setPage((prev) => prev - 1)} direction="left">
-        <ButtonIcon src={arrow} direction="left" />
-      </Button>
-      <Button onClick={() => setPage((prev) => prev + 1)} direction="right">
-        <ButtonIcon src={arrow} direction="right" />
-      </Button>
+      {page !== 0 && (
+        <Button onClick={() => setPage((prev) => prev - 1)} direction="left">
+          <ButtonIcon src={arrow} direction="left" />
+        </Button>
+      )}
+      {page !== 2 && (
+        <Button onClick={() => setPage((prev) => prev + 1)} direction="right">
+          <ButtonIcon src={arrow} direction="right" />
+        </Button>
+      )}
     </StyledYouMayAlsoLike>
   );
 };

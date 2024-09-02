@@ -2,8 +2,6 @@
 
 # Sorted (Launch)
 
-- Have Lien review all the copy
-- Issue with You May Like, you can go back when there are none before
 - Remove AKC reference
 - Remove group from card
 - Add tests for duplicate images
@@ -14,6 +12,7 @@
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
 - Add min and max to the tooltips on the breed page.
 - Add something that explains what high and low are in the tooltip
+- Have Lien review all the copy
 - Add something to explain what the groups are in the tooltip
 - Cache the quiz results. And have an option to go back to it when visiting with cache
 - Add button events to progress bar
