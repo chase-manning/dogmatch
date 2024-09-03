@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Header3, Paragraph } from "../../styles/Headers";
 
 import goldenRetriever from "../../assets/golden-retriever.jpg";
+import paw from "../../assets/paw.svg";
 
 const StyledAbout = styled.div`
   width: 100%;
@@ -10,6 +11,10 @@ const StyledAbout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 900px) {
+    padding: 4rem 4rem;
+  }
 `;
 
 const Content = styled.div`
@@ -22,12 +27,35 @@ const Content = styled.div`
 const Image = styled.img`
   height: 34rem;
   border-radius: 4rem;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 900px) {
+    margin: 0 auto;
+  }
+`;
+
+const HeaderIcon = styled.img`
+  width: 5.2rem;
+  display: none;
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
 `;
 
 // const LearnMore = styled.a`
@@ -43,7 +71,10 @@ const About = () => {
       <Content>
         <Image src={goldenRetriever} alt="dog" />
         <TextContainer>
-          <Header3>About dogmatch</Header3>
+          <HeaderContainer>
+            <HeaderIcon src={paw} alt="Paw icon" />
+            <Header3>About dogmatch</Header3>
+          </HeaderContainer>
           <Paragraph>
             Take our dogmatch quiz to find your perfect dog from over 200
             different breeds in our dog directory, chosen especially for you
