@@ -52,12 +52,52 @@ const paws: PawType[] = [
   },
 ];
 
+const mobilePaws: PawType[] = [
+  {
+    x: 0,
+    y: 30,
+    rotation: 40,
+  },
+  {
+    x: 12,
+    y: 40,
+    rotation: -5,
+  },
+  {
+    x: 27,
+    y: 17,
+    rotation: 35,
+  },
+  {
+    x: 45,
+    y: 30,
+    rotation: 15,
+  },
+  {
+    x: 63,
+    y: 15,
+    rotation: -5,
+  },
+  {
+    x: 83,
+    y: 25,
+    rotation: 40,
+  },
+];
+
 const StyledHero = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   height: calc(100dvh - 10rem);
   padding: 0 4rem;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 10rem;
+    height: auto;
+    padding: 0 3rem;
+  }
 `;
 
 const TextSection = styled.div`
@@ -76,14 +116,26 @@ const TextContent = styled.div`
 `;
 
 const Header = styled.h1`
+  position: relative;
   font-size: 9.6rem;
   font-weight: 650;
+
+  @media (max-width: 900px) {
+    font-size: 9rem;
+    font-weight: 600;
+    line-height: 1.2r;
+  }
 `;
 
 const SubHeader = styled.h2`
+  position: relative;
   font-size: 2.4rem;
   font-weight: 400;
   margin-top: 2rem;
+
+  @media (max-width: 900px) {
+    margin-top: 4rem;
+  }
 `;
 
 const DogSection = styled.div`
@@ -96,9 +148,39 @@ const DogSection = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  position: relative;
   display: flex;
   gap: 4rem;
   margin-top: 3rem;
+
+  @media (max-width: 900px) {
+    gap: 2rem;
+    margin-top: 6rem;
+  }
+`;
+
+const MobilePaws = styled.div`
+  position: relative;
+  margin-top: 2rem;
+  height: 10rem;
+  width: 100%;
+  display: none;
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
+`;
+
+const DesktopPaws = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const PawContainer = styled.div<{ $paw: PawType }>`
@@ -135,6 +217,46 @@ const Hero = () => {
     <StyledHero>
       <TextSection>
         <TextContent>
+          <MobilePaws>
+            {mobilePaws.map((paw, index) => (
+              <PawContainer
+                key={index}
+                $paw={paw}
+                style={{
+                  opacity: (30 + index * 3) / 100,
+                }}
+              >
+                <Paw
+                  $delay={index + 3}
+                  src={pawImage}
+                  alt="paw"
+                  style={{
+                    width: `${2 + index}rem`,
+                  }}
+                />
+              </PawContainer>
+            ))}
+          </MobilePaws>
+          <DesktopPaws>
+            {paws.map((paw, index) => (
+              <PawContainer
+                key={index}
+                $paw={paw}
+                style={{
+                  opacity: (30 + index * 3) / 100,
+                }}
+              >
+                <Paw
+                  $delay={index + 3}
+                  src={pawImage}
+                  alt="paw"
+                  style={{
+                    width: `${3 + index}rem`,
+                  }}
+                />
+              </PawContainer>
+            ))}
+          </DesktopPaws>
           <Header>The best way to find your dream dog</Header>
           <SubHeader>
             Fluffy, friendly, faithful or all three... Take the dogmatch quiz to
@@ -142,28 +264,10 @@ const Hero = () => {
           </SubHeader>
           <ButtonContainer>
             <Button primary link={QUIZ_PATH}>
-              Find your dog
+              Take the quiz
             </Button>
             <Button link={BREEDS_PATH}>All dogs</Button>
           </ButtonContainer>
-          {paws.map((paw, index) => (
-            <PawContainer
-              key={index}
-              $paw={paw}
-              style={{
-                opacity: (30 + index * 3) / 100,
-              }}
-            >
-              <Paw
-                $delay={index + 3}
-                src={pawImage}
-                alt="paw"
-                style={{
-                  width: `${3 + index}rem`,
-                }}
-              />
-            </PawContainer>
-          ))}
         </TextContent>
       </TextSection>
       <DogSection>
