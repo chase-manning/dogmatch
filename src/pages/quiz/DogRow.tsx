@@ -17,6 +17,14 @@ const StyledDogRow = styled.a`
   position: relative;
   margin: 1.6rem 0;
   cursor: pointer;
+
+  @media (max-width: 900px) {
+    margin: 0;
+
+    > div:last-child {
+      display: none;
+    }
+  }
 `;
 
 const Section = styled.div<{ $flex: number }>`
@@ -27,7 +35,7 @@ const Section = styled.div<{ $flex: number }>`
   align-items: center;
 `;
 
-const Background = styled.div`
+const Background = styled.div<{ $even: boolean }>`
   position: absolute;
   top: 0;
   left: 50%;
@@ -35,6 +43,10 @@ const Background = styled.div`
   width: 200%;
   transform: translateX(-50%);
   background: var(--bg-blue);
+
+  @media (max-width: 900px) {
+    background: ${({ $even }) => ($even ? "var(--bg)" : "var(--bg-blue)")};
+  }
 `;
 
 const AwardContainer = styled.div`
@@ -45,10 +57,18 @@ const AwardContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 900px) {
+    transform: translate(calc(-50% - 1.5rem), -50%);
+  }
 `;
 
 const Award = styled.img`
   width: 9rem;
+
+  @media (max-width: 900px) {
+    width: 6.5rem;
+  }
 `;
 
 const AwardNumber = styled.div<{ $white: boolean }>`
@@ -70,12 +90,24 @@ const Image = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 1.9rem;
+  background: var(--bg-image);
+
+  @media (max-width: 900px) {
+    height: 7rem;
+    width: 7rem;
+    transform: translate(calc(-50% - 1rem), -50%);
+  }
 `;
 
 const Name = styled.div`
   font-size: 3.2rem;
   font-weight: 500;
   font-family: "Jost", sans-serif;
+
+  @media (max-width: 900px) {
+    font-size: 2.8rem;
+    line-height: 1.2;
+  }
 `;
 
 const Match = styled.div`
@@ -113,7 +145,7 @@ interface Props {
 const DogRow = ({ dog, rating, quiz, place }: Props) => {
   return (
     <StyledDogRow href={`/${BREEDS_PATH}/${dog.id}`} target="_blank">
-      <Background />
+      <Background $even={place % 2 === 0} />
       <Section $flex={1}>
         <AwardContainer>
           <Award
