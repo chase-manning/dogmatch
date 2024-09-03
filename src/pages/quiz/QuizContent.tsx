@@ -85,11 +85,10 @@ const ButtonContainer = styled.div`
 
 interface Props {
   quiz: QuizType | null;
-  setShowResults: (showResults: boolean) => void;
   setQuiz: (quiz: QuizType) => void;
 }
 
-const QuizContent = ({ quiz, setShowResults, setQuiz }: Props) => {
+const QuizContent = ({ quiz, setQuiz }: Props) => {
   const looksFinished = quiz
     ? (
         quiz.sections.find(
@@ -223,11 +222,26 @@ const QuizContent = ({ quiz, setShowResults, setQuiz }: Props) => {
         {quiz ? (
           quiz.sectionIndex === quiz.sections.length - 1 ? (
             looksFinished ? (
-              <Button primary sub action={() => setShowResults(true)}>
+              <Button
+                primary
+                sub
+                action={() => {
+                  let newQuiz = { ...quiz };
+                  newQuiz.showResults = true;
+                  setQuiz(newQuiz);
+                }}
+              >
                 Find your dream dog!
               </Button>
             ) : (
-              <Button sub action={() => setShowResults(true)}>
+              <Button
+                sub
+                action={() => {
+                  let newQuiz = { ...quiz };
+                  newQuiz.showResults = true;
+                  setQuiz(newQuiz);
+                }}
+              >
                 Skip visual section
               </Button>
             )

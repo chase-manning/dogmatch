@@ -23,7 +23,6 @@ const QuizPage = () => {
   const { dogs } = useDogs();
   const [started, setStarted] = useState(false);
   const [quiz, setQuiz] = useState<QuizType | null>(null);
-  const [showResults, setShowResults] = useState(false);
 
   const dogRatings = quiz ? dogRating(dogs, quiz) : {};
 
@@ -33,18 +32,14 @@ const QuizPage = () => {
 
   return (
     <StyledQuizPage>
-      <ProgressBar quiz={quiz} showResults={showResults} />
-      {started && !showResults && (
-        <QuizContent
-          quiz={quiz}
-          setShowResults={setShowResults}
-          setQuiz={setQuiz}
-        />
+      <ProgressBar quiz={quiz} />
+      {started && quiz && !quiz.showResults && (
+        <QuizContent quiz={quiz} setQuiz={setQuiz} />
       )}
 
       {!started && <QuizIntro start={() => setStarted(true)} />}
-      {started && quiz && showResults && (
-        <Results ratings={dogRatings} show={showResults} quiz={quiz} />
+      {started && quiz && quiz.showResults && (
+        <Results ratings={dogRatings} show={quiz.showResults} quiz={quiz} />
       )}
     </StyledQuizPage>
   );
