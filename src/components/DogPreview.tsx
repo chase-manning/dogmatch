@@ -15,12 +15,26 @@ const StyledDogPreview = styled(Link)`
   cursor: pointer;
 
   box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.15);
+
+  @media (max-width: 900px) {
+    box-shadow: none;
+    background: none;
+    border: none;
+    padding: 0;
+  }
 `;
 
 const Header = styled.div`
   font-size: 2.4rem;
   font-weight: 650;
   margin-bottom: 2rem;
+
+  @media (max-width: 900px) {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    white-space: nowrap;
+  }
 `;
 
 const Image = styled.img`
@@ -28,6 +42,11 @@ const Image = styled.img`
   height: 30rem;
   border-radius: 2rem;
   background: rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 900px) {
+    width: 24rem;
+    height: 24rem;
+  }
 `;
 
 interface Props {
