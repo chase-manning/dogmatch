@@ -107,11 +107,10 @@ const PercentageIndicator = styled.div`
 
 interface Props {
   quiz: QuizType | null;
-  sectionIndex: number;
   showResults: boolean;
 }
 
-const ProgressBar = ({ quiz, sectionIndex, showResults }: Props) => {
+const ProgressBar = ({ quiz, showResults }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFixed, setIsFixed] = useState(false);
 
@@ -135,7 +134,7 @@ const ProgressBar = ({ quiz, sectionIndex, showResults }: Props) => {
   const percentComplete = showResults
     ? 1
     : quiz
-    ? quizCompletionPercent(quiz.sections[sectionIndex])
+    ? quizCompletionPercent(quiz.sections[quiz.sectionIndex])
     : 0;
 
   return (
@@ -153,7 +152,7 @@ const ProgressBar = ({ quiz, sectionIndex, showResults }: Props) => {
                 return (
                   <Line
                     key={index}
-                    $percent={sectionIndex > index ? 1 : sectionComplete}
+                    $percent={quiz.sectionIndex > index ? 1 : sectionComplete}
                   />
                 );
               })}
@@ -162,7 +161,7 @@ const ProgressBar = ({ quiz, sectionIndex, showResults }: Props) => {
                   <Dot
                     key={`dot-${index}`}
                     style={{ left: `${(index / 5) * 100}%` }}
-                    $active={sectionIndex >= index}
+                    $active={quiz.sectionIndex >= index}
                   >
                     <Label>{section.label}</Label>
                   </Dot>
@@ -170,12 +169,17 @@ const ProgressBar = ({ quiz, sectionIndex, showResults }: Props) => {
               })}
               <PercentIndicatorContainer
                 style={{
-                  left: `${((sectionIndex + percentComplete) / 5) * 100}%`,
+                  left: `${
+                    ((quiz?.sectionIndex || 0 + percentComplete) / 5) * 100
+                  }%`,
                 }}
               >
                 <PercentageIndicatorImage src={drop} alt="drop" />
                 <PercentageIndicator>
-                  {Math.round(((percentComplete + sectionIndex) / 5) * 100)}%
+                  {Math.round(
+                    ((percentComplete + (quiz?.sectionIndex || 0)) / 5) * 100
+                  )}
+                  %
                 </PercentageIndicator>
               </PercentIndicatorContainer>
               <Dot style={{ left: `${100}%` }} $active={showResults}>

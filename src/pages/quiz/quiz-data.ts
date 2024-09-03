@@ -1,5 +1,7 @@
 import { DogType } from "../../components/DogContext";
 
+export const QUIZ_VERSION = 1;
+
 export interface EloType {
   elo: number;
   rounds: number;
@@ -34,6 +36,8 @@ export interface SectionType {
 }
 
 export interface QuizType {
+  version: number;
+  sectionIndex: number;
   sections: SectionType[];
 }
 
@@ -64,6 +68,8 @@ const getQuizData = (dogs: DogType[]): QuizType => {
   }
 
   const quizData: QuizType = {
+    version: QUIZ_VERSION,
+    sectionIndex: 0,
     sections: [
       {
         label: "General",

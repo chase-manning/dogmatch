@@ -87,17 +87,9 @@ interface Props {
   quiz: QuizType | null;
   setShowResults: (showResults: boolean) => void;
   setQuiz: (quiz: QuizType) => void;
-  sectionIndex: number;
-  setSectionIndex: (sectionIndex: number) => void;
 }
 
-const QuizContent = ({
-  quiz,
-  setShowResults,
-  setQuiz,
-  sectionIndex,
-  setSectionIndex,
-}: Props) => {
+const QuizContent = ({ quiz, setShowResults, setQuiz }: Props) => {
   const looksFinished = quiz
     ? (
         quiz.sections.find(
@@ -109,7 +101,7 @@ const QuizContent = ({
   return (
     <StyledQuizContent>
       {quiz &&
-        quiz.sections[sectionIndex].questions.map((question, index) => {
+        quiz.sections[quiz.sectionIndex].questions.map((question, index) => {
           const metadata = getItemMetadata(question.category, question.trait);
           if (!metadata) throw new Error("Item metadata not found");
           const isRating = metadata.type === ItemType.RATING;
@@ -140,7 +132,7 @@ const QuizContent = ({
                   setValue={(value) => {
                     const newQuiz = { ...quiz };
                     (
-                      newQuiz.sections[sectionIndex].questions[index]
+                      newQuiz.sections[quiz.sectionIndex].questions[index]
                         .question as RatingType
                     ).value = value;
                     setQuiz(newQuiz);
@@ -155,7 +147,7 @@ const QuizContent = ({
                   toggle={(option) => {
                     const newQuiz = { ...quiz };
                     (
-                      newQuiz.sections[sectionIndex].questions[index]
+                      newQuiz.sections[quiz.sectionIndex].questions[index]
                         .question as CheckboxType
                     ).selected = checkboxQuestion.selected.includes(option)
                       ? checkboxQuestion.selected.filter(
@@ -173,11 +165,11 @@ const QuizContent = ({
                   updateElos={(elos: DogElos) => {
                     const newQuiz = { ...quiz };
                     (
-                      newQuiz.sections[sectionIndex].questions[index]
+                      newQuiz.sections[quiz.sectionIndex].questions[index]
                         .question as LooksType
                     ).dogElos = elos;
                     (
-                      newQuiz.sections[sectionIndex].questions[index]
+                      newQuiz.sections[quiz.sectionIndex].questions[index]
                         .question as LooksType
                     ).rounds++;
                     setQuiz(newQuiz);
@@ -201,7 +193,7 @@ const QuizContent = ({
                     value={question.importance}
                     setValue={(value) => {
                       const newQuiz = { ...quiz };
-                      newQuiz.sections[sectionIndex].questions[
+                      newQuiz.sections[quiz.sectionIndex].questions[
                         index
                       ].importance = value;
                       setQuiz(newQuiz);
@@ -213,39 +205,46 @@ const QuizContent = ({
           );
         })}
       <ButtonContainer>
-        {sectionIndex > 0 ? (
+        {quiz && quiz.sectionIndex > 0 ? (
           <Button
             sub
             action={() => {
               window.scrollTo(0, 0);
-              setSectionIndex(sectionIndex - 1);
+              let newQuiz = { ...quiz };
+              newQuiz.sectionIndex = quiz.sectionIndex - 1;
+              setQuiz(newQuiz);
             }}
           >
-            {`Back: ${quiz?.sections[sectionIndex - 1].label}`}
+            {`Back: ${quiz.sections[quiz.sectionIndex - 1].label}`}
           </Button>
         ) : (
           <div />
         )}
-        {quiz && sectionIndex === quiz.sections.length - 1 ? (
-          looksFinished ? (
-            <Button primary sub action={() => setShowResults(true)}>
-              Find your dream dog!
-            </Button>
+        {quiz ? (
+          quiz.sectionIndex === quiz.sections.length - 1 ? (
+            looksFinished ? (
+              <Button primary sub action={() => setShowResults(true)}>
+                Find your dream dog!
+              </Button>
+            ) : (
+              <Button sub action={() => setShowResults(true)}>
+                Skip visual section
+              </Button>
+            )
           ) : (
-            <Button sub action={() => setShowResults(true)}>
-              Skip visual section
-            </Button>
+            <Button
+              sub
+              primary
+              action={() => {
+                if (!quiz) return;
+                window.scrollTo(0, 0);
+                let newQuiz = { ...quiz };
+                newQuiz.sectionIndex = quiz.sectionIndex + 1;
+                setQuiz(newQuiz);
+              }}
+            >{`Next: ${quiz.sections[quiz.sectionIndex + 1].label}`}</Button>
           )
-        ) : (
-          <Button
-            sub
-            primary
-            action={() => {
-              window.scrollTo(0, 0);
-              setSectionIndex(sectionIndex + 1);
-            }}
-          >{`Next: ${quiz?.sections[sectionIndex + 1].label}`}</Button>
-        )}
+        ) : null}
       </ButtonContainer>
     </StyledQuizContent>
   );
