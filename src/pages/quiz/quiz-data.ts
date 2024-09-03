@@ -232,7 +232,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         ],
       },
       {
-        label: "Care Requirements",
+        label: "Care",
         questions: [
           {
             category: "careRequirements",
