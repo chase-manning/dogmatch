@@ -44,6 +44,7 @@
 - Add 3d hover effect to the reveal cards
 - Add confetti to results page
 - Undo button in visuals
+- Add mobile nav menu
 
 # Needs designs (Optimisations)
 

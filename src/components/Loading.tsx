@@ -27,6 +27,10 @@ const StyledLoading = styled.div`
   align-items: center;
   z-index: 3;
   padding: 5rem;
+
+  @media (max-width: 900px) {
+    height: calc(100dvh - 8rem);
+  }
 `;
 
 const HeaderContainer = styled.div`
