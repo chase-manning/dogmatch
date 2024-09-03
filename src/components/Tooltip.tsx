@@ -17,6 +17,13 @@ const TooltipContent = styled.div`
   font-size: 1.6rem;
   font-weight: 500;
   border: solid 1px var(--sub);
+
+  @media (max-width: 900px) {
+    top: 50%;
+    transform: translateY(-50%);
+    left: auto;
+    right: 2.5rem;
+  }
 `;
 
 const StyledTooltip = styled.div`
