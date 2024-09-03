@@ -24,6 +24,11 @@ const StyledQuizContent = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20rem;
+
+  @media (max-width: 900px) {
+    padding: 1.5rem 2.5rem;
+    gap: 15rem;
+  }
 `;
 
 const QuestionContainer = styled.div`
@@ -39,17 +44,31 @@ const HeaderContainer = styled.div<{ $looks?: boolean }>`
   gap: 2rem;
   width: ${({ $looks }) => ($looks ? "auto" : "100%")};
   margin-bottom: 3rem;
+
+  @media (max-width: 900px) {
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
 `;
 
 const SubHeaderContainer = styled(HeaderContainer)`
   margin-bottom: 6rem;
   margin-top: 10rem;
+
+  @media (max-width: 900px) {
+    margin-bottom: 5rem;
+    margin-top: 8rem;
+  }
 `;
 
 const IconContainer = styled.div<{ $small: boolean }>`
   position: relative;
   width: 12rem;
   width: ${({ $small }) => ($small ? "10rem" : "12rem")};
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const Icon = styled.img`
@@ -70,6 +89,10 @@ const Number = styled.div`
 const Header = styled.div`
   font-size: 3.2rem;
   font-weight: 650;
+
+  @media (max-width: 900px) {
+    font-size: 2.8rem;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -78,8 +101,10 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 6rem;
 
-  button {
-    width: 46rem;
+  @media (min-width: 900px) {
+    button {
+      width: 46rem;
+    }
   }
 `;
 
