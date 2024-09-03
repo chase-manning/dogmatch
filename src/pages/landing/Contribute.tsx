@@ -10,6 +10,10 @@ const StyledContribute = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 900px) {
+    padding: 4rem 3rem;
+  }
 `;
 
 const Content = styled.div`
@@ -21,10 +25,37 @@ const Content = styled.div`
   align-items: center;
 `;
 
+const MobileParagraphs = styled.div`
+  display: none;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+  }
+`;
+
+const DesktopParagraphs = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   gap: 4rem;
   margin-top: 3rem;
+
+  @media (max-width: 900px) {
+    margin-top: 1rem;
+    gap: 2rem;
+  }
 `;
 
 const Contribute = () => {
@@ -32,11 +63,24 @@ const Contribute = () => {
     <StyledContribute>
       <Content>
         <Header3>Contribute</Header3>
-        <Paragraph style={{ textAlign: "center" }}>
-          If you found your perfect dog on dogmatch and want to help keep us
-          going, consider donating today. We also created a free API for our dog
-          directory in case you want to make your own dog-related website!
-        </Paragraph>
+        <DesktopParagraphs>
+          <Paragraph style={{ textAlign: "center" }}>
+            If you found your perfect dog on dogmatch and want to help keep us
+            going, consider donating today. We also created a free API for our
+            dog directory in case you want to make your own dog-related website!
+          </Paragraph>
+        </DesktopParagraphs>
+        <MobileParagraphs>
+          <Paragraph style={{ textAlign: "center" }}>
+            If you found your perfect dog on dogmatch and want to help keep us
+            going, consider donating today.
+          </Paragraph>
+          <Paragraph style={{ textAlign: "center" }}>
+            We also created a free API for our dog directory in case you want to
+            make your own dog-related website!
+          </Paragraph>
+          <Paragraph style={{ textAlign: "center" }}></Paragraph>
+        </MobileParagraphs>
         <ButtonContainer>
           <Button primary link={DONATE}>
             Donate to us
