@@ -15,6 +15,10 @@ const StyledResult = styled.div`
   background: var(--bg);
   padding: 5rem 0;
   max-width: 180rem;
+
+  @media (max-width: 900px) {
+    padding: 3rem 3rem;
+  }
 `;
 
 const Header = styled.div`
@@ -22,12 +26,23 @@ const Header = styled.div`
   font-weight: 650;
   margin-bottom: 8rem;
   width: 100%;
+
+  @media (max-width: 900px) {
+    font-size: 4rem;
+    margin-bottom: 3.5rem;
+    text-align: center;
+  }
 `;
 
 const Winners = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-evenly;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 4.5rem;
+  }
 `;
 
 interface Props {
