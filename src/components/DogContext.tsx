@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
+import meow from "../app/v1.json";
+
 const OPEN_DOG_REGISTRY = "https://registry.dog/api/v1";
 
 export interface DogContextType {
@@ -84,9 +86,9 @@ const DogContextProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchDogs = async () => {
       try {
-        const response = await fetch(OPEN_DOG_REGISTRY);
-        const data: Response = await response.json();
-        setDogs(data.data);
+        // const response = await fetch(OPEN_DOG_REGISTRY);
+        // const data: Response = await response.json();
+        setDogs(meow);
       } catch (error: any) {
         setError(error.message);
       } finally {

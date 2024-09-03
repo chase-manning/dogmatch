@@ -45,6 +45,7 @@
 - Add confetti to results page
 - Undo button in visuals
 - Add mobile nav menu
+- Add 'qualities you value most' and 'favourite dog looks' to results page
 
 # Needs designs (Optimisations)
 
