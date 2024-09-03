@@ -40,7 +40,12 @@ const Content = styled.div`
   display: flex;
   position: relative;
   max-width: 180rem;
+
+  @media (max-width: 900px) {
+    transform: translateY(-1.5rem);
+  }
 `;
+
 const ContentInner = styled.div`
   width: 100%;
   display: flex;
