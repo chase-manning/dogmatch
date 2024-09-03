@@ -45,6 +45,10 @@ const StyledLink = styled(Link)<{
   color: ${(props) =>
     props.$primary ? "var(--bg)" : props.$sub ? "var(--sub)" : "var(--main)"};
   border: solid 2px ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
+
+  @media (max-width: 900px) {
+    height: 7rem;
+  }
 `;
 
 interface Props {
