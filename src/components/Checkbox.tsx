@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const MAX_PER_ROW = 5;
+const MOBILE_MAX_PER_ROW = 2;
 
 const Container = styled.div`
   display: flex;
@@ -8,11 +9,19 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   gap: 3rem;
+
+  @media (max-width: 900px) {
+    gap: 2rem;
+  }
 `;
 
 const Row = styled.div`
   display: flex;
   gap: 3rem;
+
+  @media (max-width: 900px) {
+    gap: 2rem;
+  }
 `;
 
 const StyledCheckbox = styled.button<{ $selected: boolean }>`
@@ -32,6 +41,12 @@ const StyledCheckbox = styled.button<{ $selected: boolean }>`
   box-shadow: ${(props) =>
     props.$selected ? "4px 4px 4px rgba(0, 0, 0, 0.25)" : "none"};
   border: solid 1px var(--main);
+
+  @media (max-width: 900px) {
+    font-size: 2.8rem;
+    height: 5.5rem;
+    width: 23rem;
+  }
 `;
 
 interface Props {
@@ -43,7 +58,9 @@ interface Props {
 const Checkbox = ({ options, selected, toggle }: Props) => {
   const rows: { option: string; selected: boolean }[][] = [];
 
-  const targetRows = Math.ceil(options.length / MAX_PER_ROW);
+  const maxPerRow = window.innerWidth <= 900 ? MOBILE_MAX_PER_ROW : MAX_PER_ROW;
+
+  const targetRows = Math.ceil(options.length / maxPerRow);
   const itemsPerRow = Math.ceil(options.length / targetRows);
 
   for (let i = 0; i < targetRows; i++) {
