@@ -11,12 +11,32 @@ const StyledWeeklyDogs = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 20rem;
+
+  @media (max-width: 900px) {
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+  }
 `;
 
-const DogContainer = styled.div`
+const MobileDogContainer = styled.div`
+  display: none;
+
+  @media (max-width: 900px) {
+    margin-top: 4rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+`;
+
+const DesktopDogContainer = styled.div`
   margin-top: 8rem;
   display: flex;
   gap: 4rem;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const WeeklyDogs = () => {
@@ -68,12 +88,16 @@ const WeeklyDogs = () => {
   return (
     <StyledWeeklyDogs>
       <Header3>Most popular dogs this week</Header3>
-      <DogContainer>
+      <DesktopDogContainer>
         <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[0]] : null} />
         <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[1]] : null} />
         <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[2]] : null} />
         <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[3]] : null} />
-      </DogContainer>
+      </DesktopDogContainer>
+      <MobileDogContainer>
+        <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[0]] : null} />
+        <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[1]] : null} />
+      </MobileDogContainer>
     </StyledWeeklyDogs>
   );
 };
