@@ -25,6 +25,10 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-size: 8px;
+
+        @media (max-width: 900px) {
+            font-size: 7px;
+        }
     }
 
     div {
