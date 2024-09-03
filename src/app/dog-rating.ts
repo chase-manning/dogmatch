@@ -126,22 +126,6 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
       dogRatings[dogId].elo * looksPercent;
   }
 
-  console.log("==== TOP DOGS ====");
-  for (const dog of dogs
-    .sort((a, b) => dogRatings[b.id].percent - dogRatings[a.id].percent)
-    .map((dog) => {
-      return { dog: dog.id, rating: dogRatings[dog.id] };
-    })
-    .slice(0, 20)) {
-    const format = (num: number) => `${Math.round(num * 100)}%`;
-    console.log(
-      dog.dog,
-      `${format(dog.rating.rating)} ${format(dog.rating.elo)} ${format(
-        dog.rating.percent
-      )}`
-    );
-  }
-
   return dogRatings;
 };
 
