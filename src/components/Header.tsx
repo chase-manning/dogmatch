@@ -32,6 +32,11 @@ const StyledHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 10rem;
+
+  @media (max-width: 900px) {
+    height: 8rem;
+    padding: 0 2rem;
+  }
 `;
 
 const HeaderBorder = styled.div`
@@ -41,6 +46,10 @@ const HeaderBorder = styled.div`
   width: calc(100% - 8rem);
   transform: translateX(-50%);
   border-bottom: solid 1px var(--sub);
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const NavItems = styled.div`
@@ -51,6 +60,10 @@ const NavItems = styled.div`
   display: flex;
   align-items: center;
   gap: 10rem;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const NavItem = styled(Link)`
@@ -61,6 +74,10 @@ const NavItem = styled(Link)`
 
 const SearchContainer = styled.div`
   position: relative;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const Results = styled.div`
