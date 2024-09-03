@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 import styled, { keyframes } from "styled-components";
 
-import paws from "../assets/paws.svg";
+import pawsIcon from "../assets/paws.svg";
 import paw from "../assets/paw.svg";
 import dog from "../assets/dog.svg";
 import randBetween from "../app/rand-between";
 
 const PAWS = 9;
+const MOBILE_PAWS = 6;
 const STARTING_OPACITY = 0.4;
 const MAX_OPACITY = 0.7;
 const MIN_HEIGHT = 0.3;
@@ -30,18 +31,25 @@ const StyledLoading = styled.div`
 
   @media (max-width: 900px) {
     height: calc(100dvh - 8rem);
+    padding: 3rem;
   }
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 
 const PawsContainer = styled.div`
   position: relative;
   height: 15rem;
   width: 101rem;
+
+  @media (max-width: 900px) {
+    height: 15rem;
+    width: calc(100% - 2rem);
+  }
 `;
 
 const plop = keyframes`
@@ -55,6 +63,10 @@ const DogIcon = styled.img`
 
   opacity: 0;
   animation: ${plop} 1ms 2500ms forwards;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const PawContainer = styled.div<{
@@ -88,10 +100,19 @@ const Text = styled.div`
   width: 100%;
   max-width: 95rem;
   text-align: center;
+
+  @media (max-width: 900px) {
+    font-size: 8.5rem;
+  }
 `;
 
 const Paws = styled.img`
   width: 30rem;
+
+  @media (max-width: 900px) {
+    width: 40rem;
+    padding: 5rem 0;
+  }
 `;
 
 interface Props {
@@ -99,28 +120,38 @@ interface Props {
 }
 
 const Loading = ({ children }: Props) => {
+  const paws = window.innerWidth <= 900 ? MOBILE_PAWS : PAWS;
+
   return (
     <StyledLoading>
       <HeaderContainer>
         <PawsContainer>
-          {Array.from({ length: PAWS }).map((_, i) => {
+          {Array.from({ length: paws }).map((_, i) => {
             const even = i % 2 === 0;
             return (
               <PawContainer
                 key={i}
-                top={even ? randBetween(0.1, 0.4) : randBetween(0.6, 0.9)}
-                left={i / PAWS}
-                height={(MAX_HEIGHT - MIN_HEIGHT) * (i / PAWS) + MIN_HEIGHT}
-                rotation={randBetween(MIN_ROTATION, MAX_ROTATION)}
+                top={
+                  even
+                    ? randBetween(0.1, 0.4, Math.random().toString())
+                    : randBetween(0.6, 0.9, Math.random().toString())
+                }
+                left={i / paws}
+                height={(MAX_HEIGHT - MIN_HEIGHT) * (i / paws) + MIN_HEIGHT}
+                rotation={randBetween(
+                  MIN_ROTATION,
+                  MAX_ROTATION,
+                  Math.random().toString()
+                )}
                 opacity={
                   STARTING_OPACITY +
-                  (MAX_OPACITY - STARTING_OPACITY) * (i / PAWS)
+                  (MAX_OPACITY - STARTING_OPACITY) * (i / paws)
                 }
               >
                 <Paw
                   src={paw}
                   alt="paw print assets"
-                  delay={((3000 - 500) / PAWS) * i}
+                  delay={((3000 - 500) / paws) * i}
                 />
               </PawContainer>
             );
@@ -129,7 +160,7 @@ const Loading = ({ children }: Props) => {
         <DogIcon src={dog} alt="dog icon" />
       </HeaderContainer>
       <Text>{children}</Text>
-      <Paws src={paws} alt="paw print assets" />
+      <Paws src={pawsIcon} alt="paw print assets" />
     </StyledLoading>
   );
 };
