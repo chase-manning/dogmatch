@@ -12,6 +12,10 @@ const StyledTopTenDogs = styled.div`
   align-items: center;
   margin: 17.5rem 0;
   width: 100%;
+
+  @media (max-width: 900px) {
+    margin: 12rem 0;
+  }
 `;
 
 const HeaderContainer = styled.div`
@@ -19,6 +23,11 @@ const HeaderContainer = styled.div`
   align-items: center;
   gap: 3rem;
   margin-bottom: 6rem;
+
+  @media (max-width: 900px) {
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
 `;
 
 const Paw = styled.img`
@@ -28,6 +37,11 @@ const Paw = styled.img`
 const Header = styled.div`
   font-size: 4rem;
   font-weight: 650;
+
+  @media (max-width: 900px) {
+    text-align: center;
+    max-width: 32rem;
+  }
 `;
 
 const RowHeader = styled.div`
@@ -37,6 +51,13 @@ const RowHeader = styled.div`
   align-items: center;
   height: 5rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 900px) {
+    height: 4rem;
+    > div:last-child {
+      display: none;
+    }
+  }
 `;
 
 const RowItem = styled.div<{ $flex: number }>`
@@ -44,6 +65,11 @@ const RowItem = styled.div<{ $flex: number }>`
   font-size: 2rem;
   font-weight: 500;
   font-family: "Jost", sans-serif;
+
+  @media (max-width: 900px) {
+    font-size: 1.8rem;
+    white-space: nowrap;
+  }
 `;
 
 interface Props {
