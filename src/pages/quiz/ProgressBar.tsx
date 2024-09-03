@@ -61,7 +61,7 @@ const Line = styled.div<{ $percent: number }>`
   );
 `;
 
-const Dot = styled.button<{ $active?: boolean }>`
+const Dot = styled.div<{ $active?: boolean }>`
   width: 2.2rem;
   height: 2.2rem;
   border-radius: 50%;
@@ -70,6 +70,16 @@ const Dot = styled.button<{ $active?: boolean }>`
   cursor: pointer;
   position: absolute;
   top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const DotButton = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20rem;
+  height: 10rem;
+  cursor: pointer;
   transform: translate(-50%, -50%);
 `;
 
@@ -107,11 +117,20 @@ const PercentageIndicator = styled.div`
 
 interface Props {
   quiz: QuizType | null;
+  setQuiz: (quiz: QuizType) => void;
 }
 
-const ProgressBar = ({ quiz }: Props) => {
+const ProgressBar = ({ quiz, setQuiz }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFixed, setIsFixed] = useState(false);
+
+  const setSectionIndex = (i: number) => {
+    if (!quiz) return;
+    let newQuiz = { ...quiz };
+    newQuiz.sectionIndex = i;
+    newQuiz.showResults = false;
+    setQuiz(newQuiz);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -160,9 +179,14 @@ const ProgressBar = ({ quiz }: Props) => {
                   <Dot
                     key={`dot-${index}`}
                     style={{ left: `${(index / 5) * 100}%` }}
-                    $active={quiz.sectionIndex >= index}
+                    $active={quiz.sectionIndex >= index || quiz.showResults}
                   >
                     <Label>{section.label}</Label>
+                    <DotButton
+                      onClick={() => {
+                        setSectionIndex(index);
+                      }}
+                    />
                   </Dot>
                 );
               })}
@@ -179,7 +203,10 @@ const ProgressBar = ({ quiz }: Props) => {
                   <PercentageIndicatorImage src={drop} alt="drop" />
                   <PercentageIndicator>
                     {Math.round(
-                      ((percentComplete + (quiz.sectionIndex || 0)) / 5) * 100
+                      quiz.showResults
+                        ? 100
+                        : ((percentComplete + (quiz.sectionIndex || 0)) / 5) *
+                            100
                     )}
                     %
                   </PercentageIndicator>
@@ -190,6 +217,15 @@ const ProgressBar = ({ quiz }: Props) => {
                 $active={!!quiz && quiz.showResults}
               >
                 <Label>Your dream dog!</Label>
+                {quiz && (
+                  <DotButton
+                    onClick={() => {
+                      let newQuiz = { ...quiz };
+                      newQuiz.showResults = true;
+                      setQuiz(newQuiz);
+                    }}
+                  />
+                )}
               </Dot>
             </ContentInnerInner>
           </ContentInner>

@@ -2,13 +2,6 @@
 
 # Sorted (Launch)
 
-- Dog images flicker when you do the tournament
-- Have Lien review all the copy
-- Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
-- Add min and max to the tooltips on the breed page.
-- Add something that explains what high and low are in the tooltip
-- Add something to explain what the groups are in the tooltip
-- Add button events to progress bar
 - Mobile
 - Favicon
 - OG image
@@ -20,6 +13,12 @@
 - Set up hosting
 - Add Google Analytics
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
+- Dog images flicker when you do the tournament
+- Have Lien review all the copy
+- Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
+- Add min and max to the tooltips on the breed page.
+- Add something that explains what high and low are in the tooltip
+- Add something to explain what the groups are in the tooltip
 
 # Unsorted (Optimisations)
 

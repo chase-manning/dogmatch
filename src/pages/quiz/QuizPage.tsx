@@ -39,12 +39,13 @@ const QuizPage = () => {
 
   useEffect(() => {
     if (!quiz) return;
+    if (!quiz.started) return;
     writeQuizDataCache(quiz);
   }, [quiz]);
 
   return (
     <StyledQuizPage>
-      <ProgressBar quiz={quiz} />
+      <ProgressBar quiz={quiz} setQuiz={setQuiz} />
       {quiz && started && !quiz.showResults && (
         <QuizContent quiz={quiz} setQuiz={setQuiz} />
       )}
