@@ -1,6 +1,5 @@
+import { getQuizDataCache, QUIZ_VERSION } from "../../app/quiz-data-cache";
 import { DogType } from "../../components/DogContext";
-
-export const QUIZ_VERSION = 1;
 
 export interface EloType {
   elo: number;
@@ -39,10 +38,14 @@ export interface QuizType {
   version: number;
   sectionIndex: number;
   showResults: boolean;
+  started: boolean;
   sections: SectionType[];
 }
 
 const getQuizData = (dogs: DogType[]): QuizType => {
+  const cache = getQuizDataCache();
+  if (cache) return cache;
+
   const allGroups: string[] = [];
   const allPersonalityTraits: string[] = [];
   const allCoatStyles: string[] = [];
@@ -72,6 +75,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
     version: QUIZ_VERSION,
     sectionIndex: 0,
     showResults: false,
+    started: false,
     sections: [
       {
         label: "General",

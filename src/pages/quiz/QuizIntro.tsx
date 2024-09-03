@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "../../components/Button";
 
 import paws from "../../assets/paws.svg";
+import { QuizType } from "./quiz-data";
 
 const StyledQuizIntro = styled.div`
   width: 100%;
@@ -32,21 +33,40 @@ const Header = styled.h1`
 
 const ButtonContainer = styled.div`
   width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 `;
 
 interface Props {
+  quiz: QuizType | null;
   start: () => void;
+  startNewQuiz: () => void;
 }
 
-const QuizIntro = ({ start }: Props) => {
+const QuizIntro = ({ quiz, start, startNewQuiz }: Props) => {
+  const hasOngoing = quiz && quiz.started;
+
   return (
     <StyledQuizIntro>
       <PawPrints src={paws} alt="paw print assets" />
       <Header>Which dog is your perfect match?</Header>
       <ButtonContainer>
-        <Button wide primary action={start}>
-          Start the dogmatch quiz now
-        </Button>
+        {hasOngoing && (
+          <>
+            <Button wide action={start}>
+              Continue where you left off
+            </Button>
+            <Button primary wide action={startNewQuiz}>
+              Start a new quiz
+            </Button>
+          </>
+        )}
+        {!hasOngoing && (
+          <Button wide primary action={start}>
+            Start the dogmatch quiz now
+          </Button>
+        )}
       </ButtonContainer>
       <div />
       <div />

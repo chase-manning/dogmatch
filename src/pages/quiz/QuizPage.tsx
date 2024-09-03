@@ -8,6 +8,7 @@ import ProgressBar from "./ProgressBar";
 import Results from "./Results";
 import dogRating from "../../app/dog-rating";
 import QuizContent from "./QuizContent";
+import { writeQuizDataCache } from "../../app/quiz-data-cache";
 
 const StyledQuizPage = styled.div`
   width: 100%;
@@ -21,24 +22,47 @@ const StyledQuizPage = styled.div`
 
 const QuizPage = () => {
   const { dogs } = useDogs();
-  const [started, setStarted] = useState(false);
   const [quiz, setQuiz] = useState<QuizType | null>(null);
+  const [started, setStarted] = useState(false);
 
   const dogRatings = quiz ? dogRating(dogs, quiz) : {};
+
+  const startNewQuiz = () => {
+    writeQuizDataCache(null);
+    setQuiz(getQuizData(dogs));
+    setStarted(true);
+  };
 
   useEffect(() => {
     setQuiz(getQuizData(dogs));
   }, [dogs]);
 
+  useEffect(() => {
+    if (!quiz) return;
+    writeQuizDataCache(quiz);
+  }, [quiz]);
+
   return (
     <StyledQuizPage>
       <ProgressBar quiz={quiz} />
-      {started && quiz && !quiz.showResults && (
+      {quiz && started && !quiz.showResults && (
         <QuizContent quiz={quiz} setQuiz={setQuiz} />
       )}
 
-      {!started && <QuizIntro start={() => setStarted(true)} />}
-      {started && quiz && quiz.showResults && (
+      {(!quiz || !started) && (
+        <QuizIntro
+          quiz={quiz}
+          start={() => {
+            if (!quiz) return;
+            let newQuiz = { ...quiz };
+            newQuiz.started = true;
+            setQuiz(newQuiz);
+            setStarted(true);
+          }}
+          startNewQuiz={startNewQuiz}
+        />
+      )}
+      {quiz && started && quiz.showResults && (
         <Results ratings={dogRatings} show={quiz.showResults} quiz={quiz} />
       )}
     </StyledQuizPage>
