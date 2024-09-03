@@ -72,6 +72,10 @@ const StyledFooter = styled.div`
   align-items: center;
   justify-content: center;
   background: var(--bg-blue);
+
+  @media (max-width: 900px) {
+    padding: 6rem 4rem;
+  }
 `;
 
 const Content = styled.div`
@@ -79,6 +83,12 @@ const Content = styled.div`
   justify-content: space-between;
   width: 100%;
   max-width: 160rem;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 
 const Section = styled.div`
@@ -86,12 +96,24 @@ const Section = styled.div`
   flex-direction: column;
   gap: 1rem;
   flex: 1;
+
+  @media (max-width: 900px) {
+    flex-direction: row;
+
+    :last-child {
+      border: none;
+    }
+  }
 `;
 
 const SectionHeader = styled.div`
   font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 1rem;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const SectionItem = styled(Link)`
@@ -100,6 +122,12 @@ const SectionItem = styled(Link)`
   color: var(--main);
   text-decoration: none;
   cursor: pointer;
+
+  @media (max-width: 900px) {
+    font-size: 2.2rem;
+    border-right: solid 1.5px var(--main);
+    padding-right: 1rem;
+  }
 `;
 
 const Footer = () => {
