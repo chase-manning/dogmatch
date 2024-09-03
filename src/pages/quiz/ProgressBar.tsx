@@ -28,6 +28,11 @@ const StyledProgressBar = styled.div<{ $fixed: boolean }>`
 
   box-shadow: ${({ $fixed }) =>
     $fixed ? "0 0 1rem rgba(0, 0, 0, 0.1)" : "none"};
+
+  @media (max-width: 900px) {
+    padding: 0 2.5rem;
+    height: 12rem;
+  }
 `;
 
 const Content = styled.div`
@@ -41,6 +46,10 @@ const ContentInner = styled.div`
   display: flex;
   position: relative;
   padding: 0 10rem;
+
+  @media (max-width: 900px) {
+    padding: 0 2.5rem;
+  }
 `;
 
 const ContentInnerInner = styled.div`
@@ -59,6 +68,10 @@ const Line = styled.div<{ $percent: number }>`
     #cfeafc ${({ $percent }) => $percent * 100}%,
     #cfeafc 100%
   );
+
+  @media (max-width: 900px) {
+    height: 0.4rem;
+  }
 `;
 
 const Dot = styled.div<{ $active?: boolean }>`
@@ -71,6 +84,19 @@ const Dot = styled.div<{ $active?: boolean }>`
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+  font-size: 0;
+  color: none;
+
+  @media (max-width: 900px) {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: ${({ $active }) => ($active ? "var(--bg)" : "var(--sub)")};
+  }
 `;
 
 const DotButton = styled.button`
@@ -81,6 +107,11 @@ const DotButton = styled.button`
   height: 10rem;
   cursor: pointer;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 900px) {
+    width: 8rem;
+    height: 12rem;
+  }
 `;
 
 const Label = styled.div`
@@ -92,12 +123,22 @@ const Label = styled.div`
   font-weight: 500;
   color: var(--sub);
   white-space: nowrap;
+
+  @media (max-width: 900px) {
+    font-size: 1.6rem;
+    white-space: wrap;
+    text-align: center;
+  }
 `;
 
 const PercentIndicatorContainer = styled.div`
   position: absolute;
   bottom: calc(50% + 0.4rem);
   transform: translateX(-50%);
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const PercentageIndicatorImage = styled.img`
@@ -181,6 +222,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                     style={{ left: `${(index / 5) * 100}%` }}
                     $active={quiz.sectionIndex >= index || quiz.showResults}
                   >
+                    {index}
                     <Label>{section.label}</Label>
                     <DotButton
                       onClick={() => {
@@ -216,7 +258,8 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                 style={{ left: `${100}%` }}
                 $active={!!quiz && quiz.showResults}
               >
-                <Label>Your dream dog!</Label>
+                {quiz ? quiz.sections.length : 0}
+                <Label>Results</Label>
                 {quiz && (
                   <DotButton
                     onClick={() => {
