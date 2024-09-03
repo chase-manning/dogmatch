@@ -10,7 +10,8 @@ const SAMPLE_RANGE = 30;
 export const TOTAL_ROUNDS = Math.floor((SAMPLE_RANGE / 4) * 3);
 
 const StyledTournament = styled.div`
-  display: relative;
+  position: relative;
+  display: flex;
   width: 100%;
   display: flex;
   gap: 3rem;
@@ -41,6 +42,22 @@ const DogImage = styled.img`
   background: var(--bg-image);
 `;
 
+const FinishedOverlay = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+  height: 110%;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.2rem;
+  font-weight: 650;
+  color: var(--sub);
+`;
+
 interface Props {
   quiz: QuizType;
   updateElos: (elos: DogElos) => void;
@@ -55,6 +72,8 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
   const { rounds, dogElos } = question;
 
   const dogRatings = dogRating(dogs, quiz);
+
+  const finished = rounds === TOTAL_ROUNDS;
 
   useEffect(() => {
     if (dogs.length === 0) return;
@@ -159,6 +178,9 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
           </DogButton>
         );
       })}
+      {finished && (
+        <FinishedOverlay>Ready to find your dream dog!</FinishedOverlay>
+      )}
     </StyledTournament>
   );
 };

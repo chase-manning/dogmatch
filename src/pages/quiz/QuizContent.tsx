@@ -98,6 +98,14 @@ const QuizContent = ({
   sectionIndex,
   setSectionIndex,
 }: Props) => {
+  const looksFinished = quiz
+    ? (
+        quiz.sections.find(
+          (section) => section.label.toLowerCase() === "visual"
+        )?.questions[0].question as LooksType
+      ).rounds === TOTAL_ROUNDS
+    : false;
+
   return (
     <StyledQuizContent>
       {quiz &&
@@ -173,14 +181,6 @@ const QuizContent = ({
                         .question as LooksType
                     ).rounds++;
                     setQuiz(newQuiz);
-                    if (
-                      (
-                        newQuiz.sections[sectionIndex].questions[index]
-                          .question as LooksType
-                      ).rounds === TOTAL_ROUNDS
-                    ) {
-                      setShowResults(true);
-                    }
                   }}
                   question={looksQuestion}
                 />
@@ -227,9 +227,15 @@ const QuizContent = ({
           <div />
         )}
         {quiz && sectionIndex === quiz.sections.length - 1 ? (
-          <Button sub action={() => setShowResults(true)}>
-            Skip visual section
-          </Button>
+          looksFinished ? (
+            <Button primary sub action={() => setShowResults(true)}>
+              Find your dream dog!
+            </Button>
+          ) : (
+            <Button sub action={() => setShowResults(true)}>
+              Skip visual section
+            </Button>
+          )
         ) : (
           <Button
             sub
