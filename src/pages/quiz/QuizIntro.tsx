@@ -17,10 +17,19 @@ const StyledQuizIntro = styled.div`
   background: var(--bg);
   padding: 5rem 5rem;
   z-index: 2;
+
+  @media (max-width: 900px) {
+    padding: 3rem 3rem;
+    height: calc(100dvh - 8rem);
+  }
 `;
 
 const PawPrints = styled.img`
   height: 13.1rem;
+
+  @media (max-width: 900px) {
+    height: 11rem;
+  }
 `;
 
 const Header = styled.h1`
@@ -29,6 +38,12 @@ const Header = styled.h1`
   width: 100%;
   max-width: 105rem;
   text-align: center;
+
+  @media (max-width: 900px) {
+    font-size: 8rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -36,6 +51,10 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+
+  @media (max-width: 900px) {
+    margin-top: 3rem;
+  }
 `;
 
 interface Props {
