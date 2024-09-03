@@ -6,6 +6,10 @@ const StyledScale = styled.div`
   display: flex;
   width: calc(100% - 50rem);
   margin-bottom: 4rem;
+
+  @media (max-width: 900px) {
+    width: calc(100% - 4rem);
+  }
 `;
 
 const Line = styled.div<{ $active: boolean }>`
@@ -14,6 +18,10 @@ const Line = styled.div<{ $active: boolean }>`
   background: var(--main);
 
   opacity: ${(props) => (props.$active ? 1 : 0.5)};
+
+  @media (max-width: 900px) {
+    height: 0.8rem;
+  }
 `;
 
 const Dot = styled.button`
@@ -29,6 +37,12 @@ const Dot = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 900px) {
+    width: 3.2rem;
+    height: 3.2rem;
+    border: solid 2px var(--main);
+  }
 `;
 
 const SelectionIndicator = styled.div<{ $active: boolean }>`
@@ -48,16 +62,28 @@ const Label = styled.div`
   font-size: 2rem;
   font-weight: 400;
   color: var(--main);
+
+  @media (max-width: 900px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const Min = styled(Label)`
   left: 0;
   transform: translateX(-50%);
+
+  @media (max-width: 900px) {
+    transform: translateX(-1.6rem);
+  }
 `;
 
 const Max = styled(Label)`
   right: 0;
   transform: translateX(50%);
+
+  @media (max-width: 900px) {
+    transform: translateX(1.6rem);
+  }
 `;
 
 interface Props {
