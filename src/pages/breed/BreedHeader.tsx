@@ -16,6 +16,13 @@ const StyledBreedHeader = styled.div`
   background: var(--bg-blue);
   padding: 0 5rem;
   height: 33.5rem;
+
+  @media (max-width: 900px) {
+    margin: 0 0;
+    height: auto;
+    background: none;
+    padding: 0;
+  }
 `;
 
 const Content = styled.div`
@@ -25,6 +32,12 @@ const Content = styled.div`
   align-items: center;
   gap: 7rem;
   max-width: 150rem;
+
+  @media (max-width: 900px) {
+    flex-direction: column-reverse;
+    gap: 4rem;
+    margin-bottom: 5rem;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -46,17 +59,32 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    padding: 2rem;
+    background: var(--bg-blue);
+  }
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 900px) {
+    gap: 1rem;
+    margin: auto;
+  }
 `;
 
 const Paw = styled.img`
   width: 10rem;
   opacity: 0.5;
+
+  @media (max-width: 900px) {
+    width: 8rem;
+  }
 `;
 
 const BreedName = styled.h1`
@@ -64,11 +92,36 @@ const BreedName = styled.h1`
   font-weight: 600;
   font-family: "Jost", sans-serif;
   line-height: 1;
+
+  @media (max-width: 900px) {
+    font-size: 6rem;
+    line-height: 1.1;
+  }
 `;
 
 const Text = styled.p`
   font-size: 2.4rem;
   font-weight: 500;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const MobileText = styled.div`
+  display: none;
+
+  @media (max-width: 900px) {
+    font-size: 2.2rem;
+    padding: 0 3rem;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    line-height: 1.5;
+  }
 `;
 
 const Button = styled.button<{ direction: "left" | "right" }>`
@@ -117,6 +170,16 @@ const BreedHeader = ({ dog }: Props) => {
   return (
     <StyledBreedHeader>
       <Content>
+        <MobileText>
+          {dog ? (
+            <>{dog.generalInformation.shortDescription}</>
+          ) : (
+            <>
+              <Skeleton width="40rem" height="2.2rem" />
+              <Skeleton width="30rem" height="2.2rem" />
+            </>
+          )}
+        </MobileText>
         <ImageContainer>
           {dog ? (
             <>
@@ -153,8 +216,8 @@ const BreedHeader = ({ dog }: Props) => {
             <Text>{dog.generalInformation.shortDescription}</Text>
           ) : (
             <>
-              <Skeleton height="2.6rem" width="100rem" />
-              <Skeleton height="2.6rem" width="50rem" />
+              <Skeleton hideMobile height="2.6rem" width="100rem" />
+              <Skeleton hideMobile height="2.6rem" width="50rem" />
             </>
           )}
         </TextContainer>
