@@ -200,6 +200,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
       ? 1
       : quizCompletionPercent(quiz.sections[quiz.sectionIndex])
     : 0;
+  console.log(percentComplete);
 
   return (
     <Container ref={containerRef}>
@@ -243,7 +244,8 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                     left: `${
                       quiz.showResults
                         ? 100
-                        : ((quiz.sectionIndex || 0 + percentComplete) / 5) * 100
+                        : ((quiz.sectionIndex || 0) / 5 + percentComplete / 5) *
+                          100
                     }%`,
                   }}
                 >
@@ -252,7 +254,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                     {Math.round(
                       quiz.showResults
                         ? 100
-                        : ((percentComplete + (quiz.sectionIndex || 0)) / 5) *
+                        : ((quiz.sectionIndex || 0) / 5 + percentComplete / 5) *
                             100
                     )}
                     %

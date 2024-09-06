@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Percentage indicator notmoving
 - Key characteristics on results page should be lower case
 
 - Mobile
