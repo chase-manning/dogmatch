@@ -38,7 +38,10 @@ const StyledLoading = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const PawsContainer = styled.div`

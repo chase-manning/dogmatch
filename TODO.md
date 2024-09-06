@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Fix issue with results loading being off on desktop
 - Percentage indicator notmoving
 - Key characteristics on results page should be lower case
 
