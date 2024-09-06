@@ -9,7 +9,11 @@ const animation = keyframes`
   }
 `;
 
-const StyledSkeleton = styled.div<{ width: string; height: string }>`
+const StyledSkeleton = styled.div<{
+  width: string;
+  height: string;
+  $hideMobile: boolean;
+}>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
 
@@ -17,15 +21,26 @@ const StyledSkeleton = styled.div<{ width: string; height: string }>`
   background-size: 200% 100%;
   animation: ${animation} 1.5s infinite linear;
   border-radius: 1rem;
+
+  @media (max-width: 900px) {
+    display: ${(props) => (props.$hideMobile ? "none" : "block")};
+  }
 `;
 
 interface Props {
   width: string;
   height: string;
+  hideMobile?: boolean;
 }
 
-const Skeleton = ({ width, height }: Props) => {
-  return <StyledSkeleton width={width} height={height} />;
+const Skeleton = ({ width, height, hideMobile }: Props) => {
+  return (
+    <StyledSkeleton
+      width={width}
+      height={height}
+      $hideMobile={hideMobile || false}
+    />
+  );
 };
 
 export default Skeleton;
