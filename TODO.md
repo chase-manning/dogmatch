@@ -2,8 +2,6 @@
 
 # Sorted (Launch)
 
-- Key characteristics on results page should be lower case
-
 - Mobile
 - Stop showing progress line when you go back
 - Favicon

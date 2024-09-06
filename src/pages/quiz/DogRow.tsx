@@ -174,7 +174,7 @@ const DogRow = ({ dog, rating, quiz, place }: Props) => {
       <Section $flex={4}>
         <KeyAttributes>
           {dog.generalInformation.personalityTraits.map((trait) => (
-            <Attribute key={trait}>{trait}</Attribute>
+            <Attribute key={trait}>{trait.toLowerCase()}</Attribute>
           ))}
         </KeyAttributes>
       </Section>
