@@ -2,7 +2,12 @@
 
 # Sorted (Launch)
 
+- Fix issue with results loading being off on desktop
+- Percentage indicator notmoving
+- Key characteristics on results page should be lower case
+
 - Mobile
+- Stop showing progress line when you go back
 - Favicon
 - OG image
 - Metadata
