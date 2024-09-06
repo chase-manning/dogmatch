@@ -90,7 +90,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     lifeExpectancy: {
       type: ItemType.NUMBER,
-      label: "Life Expectancy",
+      label: "Lifespan",
       tooltip:
         "The typical number of years a dog is expected to live, on average.",
     },
