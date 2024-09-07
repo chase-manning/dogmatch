@@ -2,13 +2,17 @@ import styled from "styled-components";
 
 import searchIcon from "../assets/search.svg";
 
-const StyledSearch = styled.div<{ width: string }>`
+const StyledSearch = styled.div<{ width: string; mobileWidth?: string }>`
   border: solid 1px var(--light);
   border-radius: 1rem;
   padding: 0.7rem 1.4rem;
   display: flex;
   align-items: center;
   width: ${(props) => props.width};
+
+  @media (max-width: 900px) {
+    width: ${(props) => props.mobileWidth || props.width};
+  }
 `;
 
 const Icon = styled.img`
@@ -34,11 +38,18 @@ interface Props {
   setValue: (value: string) => void;
   placeholder: string;
   width: string;
+  mobileWidth?: string;
 }
 
-const Search = ({ value, setValue, placeholder, width }: Props) => {
+const Search = ({
+  value,
+  setValue,
+  placeholder,
+  width,
+  mobileWidth,
+}: Props) => {
   return (
-    <StyledSearch width={width}>
+    <StyledSearch width={width} mobileWidth={mobileWidth}>
       <Icon src={searchIcon} alt="search" />
       <Input
         type="text"
