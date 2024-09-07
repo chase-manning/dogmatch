@@ -14,6 +14,7 @@ export const Header3 = styled.h3`
 export const Paragraph = styled.p`
   font-size: 2.4rem;
   font-weight: 400;
+  line-height: 1.4;
 
   @media (max-width: 900px) {
     font-size: 2.2rem;
