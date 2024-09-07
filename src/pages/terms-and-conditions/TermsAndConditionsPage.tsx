@@ -89,20 +89,29 @@ const TermsAndConditionsPage = () => {
         We do not warrant that the website will always be uninterrupted, timely,
         secure, or error-free.
       </Paragraph>
-      <SubHeader>8. Changes to Terms and Conditions</SubHeader>
+      <SubHeader>8. Limitation of Liability</SubHeader>
+      <Paragraph>
+        You acknowledge that you are solely liable for any decisions that you
+        make based on the information on this website. In no event shall we be
+        liable to you for anything arising out of or in any way connected with
+        your use of this website. We shall not be liable for any indirect,
+        consequential, or special liability arising out of or in any way related
+        to your use of this website.
+      </Paragraph>
+      <SubHeader>9. Changes to Terms and Conditions</SubHeader>
       <Paragraph>
         We reserve the right to modify these terms at any time. As there is no
         account system in place, we encourage you to review our terms
         periodically for any changes. Changes to these terms are effective when
         they are posted on this page.
       </Paragraph>
-      <SubHeader>9. Governing Law</SubHeader>
+      <SubHeader>10. Governing Law</SubHeader>
       <Paragraph>
         These terms shall be governed by and construed in accordance with the
         laws of the United Kingdom, without regard to its conflict of law
         provisions.
       </Paragraph>
-      <SubHeader>10. Contact Us</SubHeader>
+      <SubHeader>11. Contact Us</SubHeader>
       <Paragraph>
         For any questions or suggestions about our Terms and Conditions, please
         contact us through the form provided on our website.
