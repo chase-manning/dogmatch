@@ -21,12 +21,16 @@ const StyledBreedsPage = styled.div`
   flex: 1;
   position: relative;
   width: 100%;
-  padding: 3rem;
+  padding: 2.5rem;
 `;
 
 const Paws = styled.img`
   width: 43rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const Header = styled.h1`
@@ -34,6 +38,10 @@ const Header = styled.h1`
   font-size: 9.6rem;
   font-weight: 600;
   text-align: center;
+
+  @media (max-width: 900px) {
+    font-size: 6.2rem;
+  }
 `;
 
 const Paragraph = styled.p`
@@ -43,6 +51,11 @@ const Paragraph = styled.p`
   max-width: 125rem;
   margin-top: 3rem;
   line-height: 1.4;
+
+  @media (max-width: 900px) {
+    font-size: 2.2rem;
+    font-weight: 400;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -50,6 +63,11 @@ const StyledLink = styled(Link)`
   font-weight: 600;
   text-decoration: underline;
   color: var(--main);
+
+  @media (max-width: 900px) {
+    font-size: 2.2rem;
+    font-weight: 400;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -129,6 +147,7 @@ const BreedsPage = () => {
           setValue={setSearch}
           placeholder="Search by name"
           width="57rem"
+          mobileWidth="43rem"
         />
       </SearchContainer>
       <Dogs>
