@@ -22,7 +22,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     looksImportance: {
       type: ItemType.IMPORTANCE,
       label: "Looks Importance",
-      question: "Visually, How important is the look of the dog?",
+      question: "Visually, how important is the look of the dog?",
       min: "Looks don't matter",
       max: "Looks are very important",
       tooltip:

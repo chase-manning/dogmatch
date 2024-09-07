@@ -2,8 +2,6 @@
 
 # Sorted (Launch)
 
-- Remove references to america and Usa
-- 'Visually' the H is a capital when it should be a small
 - Privacy policy
 - Terms and conditions
 - Stop showing progress line when you go back
