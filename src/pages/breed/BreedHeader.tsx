@@ -44,6 +44,11 @@ const ImageContainer = styled.div`
   position: relative;
   height: 48rem;
   width: 48rem;
+
+  @media (max-width: 900px) {
+    height: auto;
+    width: calc(100%-6rem);
+  }
 `;
 
 const Image = styled.img`
@@ -52,6 +57,11 @@ const Image = styled.img`
   border-radius: 2rem;
   box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.15);
   background: var(--bg-image);
+
+  @media (max-width: 900px) {
+    height: auto;
+    width: 100%;
+  }
 `;
 
 const TextContainer = styled.div`
