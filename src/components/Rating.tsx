@@ -25,6 +25,10 @@ const RatingContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 1rem;
+
+  @media (max-width: 900px) {
+    gap: 1.5rem;
+  }
 `;
 
 const RatingItem = styled.div<{ $active: boolean; $color: string }>`
