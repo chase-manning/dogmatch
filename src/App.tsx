@@ -17,6 +17,7 @@ import QuizPage from "./pages/quiz/QuizPage";
 import BreedsPage from "./pages/breeds/BreedsPage";
 import PrivacyPolicyPage from "./pages/privacy-policy/PrivacyPolicyPage";
 import TermsAndConditionsPage from "./pages/terms-and-conditions/TermsAndConditionsPage";
+import NotFoundPage from "./pages/not-found-page/NotFoundPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -58,7 +59,7 @@ const App = () => {
             element={<TermsAndConditionsPage />}
           />
 
-          <Route path="*" element={<LandingPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </StyledApp>

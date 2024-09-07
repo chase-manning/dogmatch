@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- 404 page
 - Stop showing progress line when you go back
 - Favicon
 - OG image
@@ -52,5 +51,6 @@
 - Add 'qualities you value most' and 'favourite dog looks' to results page
 - Search button on breeds page is too light and small (Lien)
 - Add share your results section to results page
+- Update generic page design, based on the one in the Figma
 
 # Needs designs (Optimisations)
