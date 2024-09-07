@@ -8,6 +8,10 @@ const StyledSayHiPage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 900px) {
+    padding: 3rem;
+  }
 `;
 
 const StyledForm = styled.form`
@@ -18,6 +22,10 @@ const StyledForm = styled.form`
 
   h3 {
     margin-bottom: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
   }
 `;
 
@@ -38,6 +46,10 @@ const Input = styled.input`
   &::placeholder {
     color: var(--light);
   }
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const StyledTextArea = styled.textarea`
@@ -56,6 +68,10 @@ const StyledTextArea = styled.textarea`
 
   &::placeholder {
     color: var(--light);
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
   }
 `;
 

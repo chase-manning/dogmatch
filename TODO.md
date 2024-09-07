@@ -2,9 +2,6 @@
 
 # Sorted (Launch)
 
-- Mobile
-  - Dog directory
-  - Contact us
 - Remove references to america and Usa
 - 'Visually' the H is a capital when it should be a small
 - Privacy policy
