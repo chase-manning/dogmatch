@@ -34,7 +34,7 @@ const Sections = styled.div`
   align-items: center;
 
   @media (max-width: 900px) {
-    padding: 0 2rem;
+    padding: 0 3rem;
   }
 `;
 
@@ -51,10 +51,11 @@ const Section = styled.div`
   align-items: center;
 
   @media (max-width: 900px) {
-    padding: 1.5rem 2.5rem;
+    padding: 2rem 3rem;
     border: solid 0.5px var(--main);
     box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.15);
     flex-direction: column;
+    gap: 2rem;
   }
 `;
 
@@ -68,6 +69,7 @@ const HeaderSection = styled.div`
   @media (max-width: 900px) {
     height: auto;
     width: 100%;
+    margin-bottom: 6rem;
   }
 `;
 
@@ -95,11 +97,25 @@ const SectionColumn = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
+    margin-bottom: 2rem;
   }
 `;
 
 const RatingColumn = styled(SectionColumn)`
   gap: 4rem;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const TraitsColumn = styled(SectionColumn)`
+  @media (max-width: 900px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Behaviour = styled.div`
@@ -114,6 +130,10 @@ const Behaviour = styled.div`
   font-family: "Jost", sans-serif;
   color: var(--bg);
   font-weight: 600;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const StyledMaintenance = styled.div<{ $maintenance: Maintenance }>`
@@ -133,6 +153,13 @@ const StyledMaintenance = styled.div<{ $maintenance: Maintenance }>`
   color: var(--bg);
   font-weight: 600;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 900px) {
+    width: 100%;
+
+    // Take up two grid items
+    grid-column: span 2;
+  }
 `;
 
 const AboutContainer = styled.div`
@@ -278,7 +305,7 @@ const BreedPage = () => {
         <Section>
           <HeaderSection>
             <Header>Behavioral Traits</Header>
-            <SectionColumn>
+            <TraitsColumn>
               {dog ? (
                 <>
                   {dog.generalInformation.personalityTraits.map((trait) => (
@@ -292,7 +319,7 @@ const BreedPage = () => {
                   <Skeleton width="30rem" height="5rem" />
                 </>
               )}
-            </SectionColumn>
+            </TraitsColumn>
             <div />
           </HeaderSection>
           <RatingColumn>
