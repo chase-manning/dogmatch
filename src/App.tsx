@@ -3,12 +3,18 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LandingPage from "./pages/landing/LandingPage";
 import { Outlet, Route, Routes } from "react-router-dom";
-import { BREEDS_PATH, QUIZ_PATH, SAY_HI_PATH } from "./app/paths";
+import {
+  BREEDS_PATH,
+  PRIVACY_POLICY_PATH,
+  QUIZ_PATH,
+  SAY_HI_PATH,
+} from "./app/paths";
 import SayHiPage from "./pages/say-hi/SayHiPage";
 import BreedPage from "./pages/breed/BreedPage";
 import ScrollToTop from "./components/ScrollToTop";
 import QuizPage from "./pages/quiz/QuizPage";
 import BreedsPage from "./pages/breeds/BreedsPage";
+import PrivacyPolicyPage from "./pages/privacy-policy/PrivacyPolicyPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -44,6 +50,7 @@ const App = () => {
           </Route>
 
           <Route path={SAY_HI_PATH} element={<SayHiPage />} />
+          <Route path={PRIVACY_POLICY_PATH} element={<PrivacyPolicyPage />} />
 
           <Route path="*" element={<LandingPage />} />
         </Route>

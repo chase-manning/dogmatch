@@ -2,8 +2,8 @@
 
 # Sorted (Launch)
 
-- Privacy policy
 - Terms and conditions
+- 404 page
 - Stop showing progress line when you go back
 - Favicon
 - OG image
@@ -21,6 +21,9 @@
 - Add min and max to the tooltips on the breed page.
 - Add something that explains what high and low are in the tooltip
 - Add something to explain what the groups are in the tooltip
+- Google search console
+- Lighthouse
+- Add the scaffolding thing so the crawlers know all pages
 
 # Unsorted (Optimisations)
 
@@ -52,7 +55,3 @@
 - Add share your results section to results page
 
 # Needs designs (Optimisations)
-
-- Privacy policy
-- Terms and Conditions
-- 404 page
