@@ -3,6 +3,10 @@
 # Sorted (Launch)
 
 - Mobile
+- Remove references to america and Usa
+- 'Visually' the H is a capital when it should be a small
+- Privacy policy
+- Terms and conditions
 - Stop showing progress line when you go back
 - Favicon
 - OG image
@@ -47,6 +51,8 @@
 - Undo button in visuals
 - Add mobile nav menu
 - Add 'qualities you value most' and 'favourite dog looks' to results page
+- Search button on breeds page is too light and small (Lien)
+- Add share your results section to results page
 
 # Needs designs (Optimisations)
 

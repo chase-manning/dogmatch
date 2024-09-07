@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import arrow from "../../assets/arrow.svg";
 import dogSimilarity from "../../app/dog-similarity";
 
+const DESKTOP_DOGS = 4;
+const MOBILE_DOGS = 2;
+
 const StyledYouMayAlsoLike = styled.div`
   position: relative;
   display: flex;
@@ -14,6 +17,10 @@ const StyledYouMayAlsoLike = styled.div`
   padding: 10rem 0;
   margin-bottom: 4rem;
   align-items: center;
+
+  @media (max-width: 900px) {
+    padding: 3rem 0;
+  }
 `;
 
 const Header = styled.h2`
@@ -21,6 +28,12 @@ const Header = styled.h2`
   font-weight: 650;
   margin-bottom: 5rem;
   width: 100%;
+
+  @media (max-width: 900px) {
+    font-size: 3.2rem;
+    font-weight: 600;
+    text-align: center;
+  }
 `;
 
 const Dogs = styled.div`
@@ -74,6 +87,8 @@ const YouMayAlsoLike = ({ dog }: Props) => {
   const { dogs } = useDogs();
   const [page, setPage] = useState(0);
 
+  const dogsPerPage = window.innerWidth > 900 ? DESKTOP_DOGS : MOBILE_DOGS;
+
   useEffect(() => {
     setPage(0);
   }, [dog]);
@@ -84,7 +99,7 @@ const YouMayAlsoLike = ({ dog }: Props) => {
     .map((d) => ({ dog: d, difference: dogSimilarity(dog, d, true) }))
     .sort((a, b) => b.difference - a.difference)
     .filter((d) => d.dog.id !== dog.id)
-    .slice(0 + page * 4, 4 + page * 4)
+    .slice(0 + page * dogsPerPage, dogsPerPage + page * dogsPerPage)
     .map((d) => d.dog);
 
   return (
