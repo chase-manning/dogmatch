@@ -8,6 +8,7 @@ import {
   PRIVACY_POLICY_PATH,
   QUIZ_PATH,
   SAY_HI_PATH,
+  TERMS_AND_CONDITIONS_PATH,
 } from "./app/paths";
 import SayHiPage from "./pages/say-hi/SayHiPage";
 import BreedPage from "./pages/breed/BreedPage";
@@ -15,6 +16,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import QuizPage from "./pages/quiz/QuizPage";
 import BreedsPage from "./pages/breeds/BreedsPage";
 import PrivacyPolicyPage from "./pages/privacy-policy/PrivacyPolicyPage";
+import TermsAndConditionsPage from "./pages/terms-and-conditions/TermsAndConditionsPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -51,6 +53,10 @@ const App = () => {
 
           <Route path={SAY_HI_PATH} element={<SayHiPage />} />
           <Route path={PRIVACY_POLICY_PATH} element={<PrivacyPolicyPage />} />
+          <Route
+            path={TERMS_AND_CONDITIONS_PATH}
+            element={<TermsAndConditionsPage />}
+          />
 
           <Route path="*" element={<LandingPage />} />
         </Route>

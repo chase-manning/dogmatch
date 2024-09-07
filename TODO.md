@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Terms and conditions
 - 404 page
 - Stop showing progress line when you go back
 - Favicon

@@ -6,7 +6,11 @@ import {
   DOGMATCH_LICENSE,
   DONATE,
 } from "../app/links";
-import { PRIVACY_POLICY_PATH, SAY_HI_PATH } from "../app/paths";
+import {
+  PRIVACY_POLICY_PATH,
+  SAY_HI_PATH,
+  TERMS_AND_CONDITIONS_PATH,
+} from "../app/paths";
 import { Link } from "react-router-dom";
 
 interface LinkType {
@@ -54,8 +58,8 @@ const SECTIONS: SectionType[] = [
         link: PRIVACY_POLICY_PATH,
       },
       {
-        label: "Terms of Service",
-        link: "/terms",
+        label: "Terms & Conditions",
+        link: TERMS_AND_CONDITIONS_PATH,
       },
       {
         label: "License",
