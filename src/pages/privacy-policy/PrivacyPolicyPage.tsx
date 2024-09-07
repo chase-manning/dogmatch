@@ -64,7 +64,8 @@ const PrivacyPolicyPage = () => {
       </Paragraph>
       <SubHeader>4. No Personal Data Collection</SubHeader>
       <Paragraph>
-        We do not collect any personal information from our users. Therefore,
+        We do not collect any personal information from our users (except if you
+        you have given us your email address on the "Say hi" page). Therefore,
         there is no need for user consent regarding data collection, and there
         are no data security risks associated with personal data.
       </Paragraph>
