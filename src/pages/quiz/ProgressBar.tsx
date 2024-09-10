@@ -200,7 +200,6 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
       ? 1
       : quizCompletionPercent(quiz.sections[quiz.sectionIndex])
     : 0;
-  console.log(percentComplete);
 
   return (
     <Container ref={containerRef}>
@@ -217,7 +216,13 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                 return (
                   <Line
                     key={index}
-                    $percent={quiz.sectionIndex > index ? 1 : sectionComplete}
+                    $percent={
+                      quiz.sectionIndex > index
+                        ? 1
+                        : quiz.sectionIndex < index
+                        ? 0
+                        : sectionComplete
+                    }
                   />
                 );
               })}
