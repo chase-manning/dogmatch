@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Favicon
 - OG image
 - Metadata
 - SEO optimise pages
