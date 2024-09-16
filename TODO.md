@@ -74,5 +74,6 @@
 - Add an indication of how short or long the lifespan is (in actual years in the min max)
 - Change the quiz questions numbers to be continuous (not per section)
 - It's not clear that you can edit your answers or how to do that
+- Price of dog?
 
 # Needs designs (Optimisations)
