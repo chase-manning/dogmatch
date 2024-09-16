@@ -5,6 +5,7 @@ import { useState } from "react";
 import paw from "../../assets/paw.svg";
 import arrow from "../../assets/arrow.svg";
 import Skeleton from "../../components/Skeleton";
+import getImageAlt from "../../app/image-alt";
 
 const StyledBreedHeader = styled.div`
   width: 100%;
@@ -193,7 +194,10 @@ const BreedHeader = ({ dog }: Props) => {
         <ImageContainer>
           {dog ? (
             <>
-              <Image src={dog.images.large[imageStyle]} />
+              <Image
+                src={dog.images.large[imageStyle]}
+                alt={getImageAlt(dog, imageStyle)}
+              />
               <Button
                 onClick={previousImage}
                 direction="left"
@@ -215,7 +219,7 @@ const BreedHeader = ({ dog }: Props) => {
         </ImageContainer>
         <TextContainer>
           <HeaderContainer>
-            <Paw src={paw} />
+            <Paw src={paw} alt="paw print" />
             {dog ? (
               <BreedName>{dog.generalInformation.name}</BreedName>
             ) : (

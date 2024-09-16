@@ -3,6 +3,7 @@ import { DogType } from "./DogContext";
 import Skeleton from "./Skeleton";
 import { BREEDS_PATH } from "../app/paths";
 import { Link } from "react-router-dom";
+import getImageAlt from "../app/image-alt";
 
 const Container = styled.div`
   display: flex;
@@ -163,7 +164,7 @@ const DogCard = ({ dog }: Props) => {
         {dog ? (
           <DogImage
             src={dog.images.small.outdoors}
-            alt={dog.generalInformation.name}
+            alt={getImageAlt(dog, "outdoors")}
           />
         ) : (
           <Skeleton width="100%" height="39.5rem" />

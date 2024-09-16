@@ -69,7 +69,10 @@ const About = () => {
   return (
     <StyledAbout>
       <Content>
-        <Image src={goldenRetriever} alt="dog" />
+        <Image
+          src={goldenRetriever}
+          alt="A full body photo front view photo of a cute golden retriever puppy on a yellow background with a cute and happy expression"
+        />
         <TextContainer>
           <HeaderContainer>
             <HeaderIcon src={paw} alt="Paw icon" />

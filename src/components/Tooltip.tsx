@@ -53,7 +53,7 @@ interface Props {
 const Tooltip = ({ children }: Props) => {
   return (
     <StyledTooltip>
-      <Icon src={tooltip} />
+      <Icon src={tooltip} alt="tooltip" />
       <TooltipContent>{children}</TooltipContent>
     </StyledTooltip>
   );

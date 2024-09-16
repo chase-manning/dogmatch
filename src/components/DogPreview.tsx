@@ -3,6 +3,7 @@ import { DogType } from "./DogContext";
 import { BREEDS_PATH } from "../app/paths";
 import Skeleton from "./Skeleton";
 import { Link } from "react-router-dom";
+import getImageAlt from "../app/image-alt";
 
 const StyledDogPreview = styled(Link)`
   padding: 2rem 3rem;
@@ -66,7 +67,7 @@ const DogPreview = ({ dog }: Props) => {
       {dog ? (
         <Image
           src={dog.images.small.outdoors}
-          alt={dog.generalInformation.name}
+          alt={getImageAlt(dog, "outdoors")}
         />
       ) : (
         <Skeleton width="30rem" height="30rem" />

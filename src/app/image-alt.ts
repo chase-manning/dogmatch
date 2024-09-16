@@ -1,0 +1,15 @@
+import { DogType } from "../components/DogContext";
+
+const getImageAlt = (dog: DogType, image: string) => {
+  const location = (image: string) => {
+    if (image === "at home") return "inside";
+    if (image === "outdoors") return "outdoors";
+    if (image === "studio") return "in a white studio";
+    throw new Error("Image type not found");
+  };
+  return `A high resolution full body photograph of a ${
+    dog.generalInformation.name
+  } standing ${location(image)}`;
+};
+
+export default getImageAlt;

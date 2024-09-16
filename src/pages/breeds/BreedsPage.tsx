@@ -129,7 +129,7 @@ const BreedsPage = () => {
 
   return (
     <StyledBreedsPage>
-      <Paws src={paws} />
+      <Paws src={paws} alt="paws" />
       <Header>Dog directory</Header>
       <Paragraph>
         Explore our full directory of dog breeds here. Whether you're looking

@@ -5,6 +5,7 @@ import dogRating from "../../app/dog-rating";
 import { useEffect, useState } from "react";
 import { DogType } from "../../components/DogContext";
 import getNewElo from "../../app/new-elo";
+import getImageAlt from "../../app/image-alt";
 
 const SAMPLE_RANGE = 30;
 export const TOTAL_ROUNDS = Math.floor((SAMPLE_RANGE / 4) * 3);
@@ -179,7 +180,14 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
                   ? dog.images.small.indoors
                   : dog.images.small.studio
               }
-              alt={dog.generalInformation.name}
+              alt={getImageAlt(
+                dog,
+                dogElo.rounds === 0
+                  ? "outdoors"
+                  : dogElo.rounds === 1
+                  ? "indoors"
+                  : "studio"
+              )}
             />
           </DogButton>
         );

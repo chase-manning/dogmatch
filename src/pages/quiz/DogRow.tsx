@@ -8,6 +8,7 @@ import silver from "../../assets/silver.svg";
 import bronze from "../../assets/bronze.svg";
 import white from "../../assets/white.svg";
 import { BREEDS_PATH } from "../../app/paths";
+import getImageAlt from "../../app/image-alt";
 
 const StyledDogRow = styled.a`
   width: 100%;
@@ -158,12 +159,16 @@ const DogRow = ({ dog, rating, quiz, place }: Props) => {
                 ? bronze
                 : white
             }
+            alt="award"
           />
           <AwardNumber $white={place <= 3}>{place}</AwardNumber>
         </AwardContainer>
       </Section>
       <Section $flex={1}>
-        <Image src={dog.images.small.outdoors} />
+        <Image
+          src={dog.images.small.outdoors}
+          alt={getImageAlt(dog, "outdoors")}
+        />
       </Section>
       <Section $flex={4}>
         <Name>{dog.generalInformation.name}</Name>

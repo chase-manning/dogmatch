@@ -5,7 +5,6 @@
 - OG image
 - Metadata
 - SEO optimise pages
-- SEO optimise images
 - Set up hosting
 - Add Google Analytics
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
@@ -16,6 +15,7 @@
 
 # Unsorted (Optimisations)
 
+- Change the breed page so that all images show by default. That way they show in search results
 - Have Lien review all the copy
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
 - Add min and max to the tooltips on the breed page.
