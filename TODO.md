@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- OG image
 - Metadata
 - SEO optimise pages
 - Set up hosting
