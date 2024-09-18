@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Paragraph } from "../../styles/Headers";
+import Seo from "../../components/Seo";
 
 const StyledTermsAndConditionsPage = styled.div`
   width: 100%;
@@ -40,6 +41,10 @@ const SubHeader = styled.h2`
 const TermsAndConditionsPage = () => {
   return (
     <StyledTermsAndConditionsPage>
+      <Seo
+        title="Terms and Conditions"
+        description="Terms and Conditions of Dogmatch"
+      />
       <Header>Terms and Conditions</Header>
       <SubHeader>1. Introduction</SubHeader>
       <Paragraph>
