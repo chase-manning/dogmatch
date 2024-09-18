@@ -10,6 +10,7 @@ import DogCard from "../../components/DogCard";
 import { DogType } from "../../components/DogContext";
 import levenshtein from "../../app/levenshtein";
 import Button from "../../components/Button";
+import Seo from "../../components/Seo";
 
 const RESULTS_PER_PAGE = 12;
 
@@ -129,6 +130,10 @@ const BreedsPage = () => {
 
   return (
     <StyledBreedsPage>
+      <Seo
+        title="Dog breeds"
+        description="Explore our full directory of dog breeds. Find your perfect dog!"
+      />
       <Paws src={paws} alt="paws" />
       <Header>Dog directory</Header>
       <Paragraph>
