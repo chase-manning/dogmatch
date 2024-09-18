@@ -2,12 +2,9 @@
 
 # Sorted (Launch)
 
-- Google search console
-- Lighthouse
-- Make sure all of the mobile things that aren't implemented yet are added to the Todo list
-
 # Unsorted (Optimisations)
 
+- Make sure all of the mobile things that aren't implemented yet are added to the Todo list
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Change the breed page so that all images show by default. That way they show in search results
 - Have Lien review all the copy
