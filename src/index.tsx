@@ -6,19 +6,22 @@ import App from "./App";
 import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter } from "react-router-dom";
 import DogContextProvider from "./components/DogContext";
+import { HelmetProvider } from "react-helmet-async";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <DogContextProvider>
-        <Provider store={store}>
-          <GlobalStyles />
-          <App />
-        </Provider>
-      </DogContextProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <DogContextProvider>
+          <Provider store={store}>
+            <GlobalStyles />
+            <App />
+          </Provider>
+        </DogContextProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   </React.StrictMode>
 );
