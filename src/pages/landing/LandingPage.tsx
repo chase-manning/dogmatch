@@ -3,6 +3,7 @@ import Hero from "./Hero";
 import WeeklyDogs from "./WeeklyDogs";
 import About from "./About";
 import Contribute from "./Contribute";
+import Seo from "../../components/Seo";
 
 const StyledLandingPage = styled.div`
   width: 100%;
@@ -14,6 +15,10 @@ const StyledLandingPage = styled.div`
 const LandingPage = () => {
   return (
     <StyledLandingPage>
+      <Seo
+        title="dogmatch"
+        description="The best way to find your dream dog!"
+      />
       <Hero />
       <WeeklyDogs />
       <About />
