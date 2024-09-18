@@ -3,6 +3,7 @@ import styled from "styled-components";
 import paw from "../../assets/paw.svg";
 import Button from "../../components/Button";
 import notFound from "../../assets/not-found.jpg";
+import Seo from "../../components/Seo";
 
 const StyledNotFound = styled.div`
   width: 100%;
@@ -90,6 +91,7 @@ const ButtonContainer = styled.div`
 const NotFoundPage = () => {
   return (
     <StyledNotFound>
+      <Seo title="404 Not Found" description="Page not found" />
       <Content>
         <Image src={notFound} alt="Paw" />
         <TextSection>
