@@ -9,6 +9,7 @@ import Results from "./Results";
 import dogRating from "../../app/dog-rating";
 import QuizContent from "./QuizContent";
 import { writeQuizDataCache } from "../../app/quiz-data-cache";
+import Seo from "../../components/Seo";
 
 const StyledQuizPage = styled.div`
   width: 100%;
@@ -45,6 +46,7 @@ const QuizPage = () => {
 
   return (
     <StyledQuizPage>
+      <Seo title="Dog Match Quiz" description="Find your perfect dog match!" />
       <ProgressBar quiz={quiz} setQuiz={setQuiz} />
       {quiz && started && !quiz.showResults && (
         <QuizContent quiz={quiz} setQuiz={setQuiz} />
