@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Paragraph } from "../../styles/Headers";
+import Seo from "../../components/Seo";
 
 const StyledPrivacyPolicyPage = styled.div`
   width: 100%;
@@ -40,6 +41,7 @@ const SubHeader = styled.h2`
 const PrivacyPolicyPage = () => {
   return (
     <StyledPrivacyPolicyPage>
+      <Seo title="Privacy Policy" description="Privacy Policy of Dogmatch" />
       <Header>Privacy Policy</Header>
       <SubHeader>1. Introduction</SubHeader>
       <Paragraph>
