@@ -16,6 +16,8 @@ import { inchesToCentimeters, poundsToKilograms } from "../../app/conversions";
 import Skeleton from "../../components/Skeleton";
 import Rating from "../../components/Rating";
 import YouMayAlsoLike from "./YouMayAlsoLike";
+import Seo from "../../components/Seo";
+import getDogName from "../../app/dog-name";
 
 type Maintenance = "low" | "medium" | "high";
 
@@ -184,6 +186,14 @@ const BreedPage = () => {
   const { dogs, loading } = useDogs();
   const navigate = useNavigate();
 
+  if (dogs.length > 0) {
+    let idsToName: Record<string, string> = {};
+    for (const dog of dogs) {
+      idsToName[dog.id] = dog.generalInformation.name;
+    }
+    console.log(idsToName);
+  }
+
   const dog = dogs.find((dog) => dog.id === breedId);
   if (!dog && !loading) navigate(NOT_FOUND_PATH);
 
@@ -213,6 +223,14 @@ const BreedPage = () => {
 
   return (
     <StyledBreed>
+      {breedId && (
+        <Seo
+          title={`${getDogName(breedId)} Dog Breed Information`}
+          description={`Learn more about the ${getDogName(
+            breedId
+          )} dog breed, including its characteristics, care requirements, and behavioral traits.`}
+        />
+      )}
       <BreedHeader dog={dog ?? null} />
       <Sections>
         <Section>
