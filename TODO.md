@@ -2,15 +2,13 @@
 
 # Sorted (Launch)
 
-- Add Google Analytics
-- Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Google search console
 - Lighthouse
-- Add the scaffolding thing so the crawlers know all pages
 - Make sure all of the mobile things that aren't implemented yet are added to the Todo list
 
 # Unsorted (Optimisations)
 
+- Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Change the breed page so that all images show by default. That way they show in search results
 - Have Lien review all the copy
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
