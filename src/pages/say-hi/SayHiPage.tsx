@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "../../components/Button";
 import { Header3 } from "../../styles/Headers";
+import Seo from "../../components/Seo";
 
 const StyledSayHiPage = styled.div`
   width: 100%;
@@ -78,6 +79,10 @@ const StyledTextArea = styled.textarea`
 const SayHiPage = () => {
   return (
     <StyledSayHiPage>
+      <Seo
+        title="Say Hi"
+        description="Contact us through this form to say hi!"
+      />
       <StyledForm action="https://formspree.io/f/mrbzknqg" method="POST">
         <Header3>Say Hi 👋</Header3>
         <Input type="email" name="email" placeholder="Your email" />
