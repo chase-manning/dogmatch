@@ -2,7 +2,6 @@
 
 # Sorted (Launch)
 
-- Set up hosting
 - Add Google Analytics
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Google search console
