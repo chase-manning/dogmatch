@@ -186,14 +186,6 @@ const BreedPage = () => {
   const { dogs, loading } = useDogs();
   const navigate = useNavigate();
 
-  if (dogs.length > 0) {
-    let idsToName: Record<string, string> = {};
-    for (const dog of dogs) {
-      idsToName[dog.id] = dog.generalInformation.name;
-    }
-    console.log(idsToName);
-  }
-
   const dog = dogs.find((dog) => dog.id === breedId);
   if (!dog && !loading) navigate(NOT_FOUND_PATH);
 
