@@ -80,6 +80,10 @@ const StyledFooter = styled.div`
   @media (max-width: 900px) {
     padding: 6rem 4rem;
   }
+
+  @media (max-width: 388px) {
+    padding: 4rem 2rem;
+  }
 `;
 
 const Content = styled.div`

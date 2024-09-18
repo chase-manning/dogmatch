@@ -1,9 +1,8 @@
 # Unsorted
 
-# Sorted (Launch)
-
-# Unsorted (Optimisations)
-
+- Set up adverts
+- Make open source
+- Share on socials
 - Make sure all of the mobile things that aren't implemented yet are added to the Todo list
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Change the breed page so that all images show by default. That way they show in search results
@@ -52,18 +51,23 @@
 - Could do visuals based on lest favourite
 - Popularity isn't clear. Should stress the ease of getting it
 - Clicking dogmatch quiz when on results should probably reset it
-- Could be good to add country so you know what dogs you can get easily
-- Active should be one of the personality traits
-- It should be more clear that you can choose multiple of the multi choise (pick as many as you like)
-- Add some photos to accompany the multi choice questions
-- What's the point in doing this if you can't get the dog
-- Undo button for visual quiz if you select wrongly
+
+# Ideas
+
+- Add data on the price of the dog
 - Add an item for how smelly the dog is
 - Should have a section on the difficulties of the dog. Some of the key considerations and issues and warnings
-- For Vocal question. Could be phrased like (how much noise can you put up with)
-- Add an indication of how short or long the lifespan is (in actual years in the min max)
-- Change the quiz questions numbers to be continuous (not per section)
-- It's not clear that you can edit your answers or how to do that
-- Price of dog?
+- What's the point in doing this if you can't get the dog
+- Could be good to add country so you know what dogs you can get easily
 
-# Needs designs (Optimisations)
+# Sorted
+
+- Lien full review of desktop and mobile
+- Clicking next on the photo shows a white screen
+- Change the quiz questions numbers to be continuous (not per section)
+- Add an indication of how short or long the lifespan is (in actual years in the min max)
+- It should be more clear that you can choose multiple of the multi choise (pick as many as you like)
+- It's not clear that you can edit your answers or how to do that
+- For Vocal question. Could be phrased like (how much noise can you put up with)
+- Undo button for visual quiz if you select wrongly
+- Add some photos to accompany the multi choice questions

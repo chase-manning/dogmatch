@@ -124,6 +124,11 @@ const Header = styled.h1`
     font-size: 9rem;
     font-weight: 600;
     line-height: 1.2r;
+    text-align: center;
+  }
+
+  @media (max-width: 388px) {
+    font-size: 8rem;
   }
 `;
 
@@ -135,6 +140,7 @@ const SubHeader = styled.h2`
 
   @media (max-width: 900px) {
     margin-top: 4rem;
+    text-align: center;
   }
 `;
 
@@ -156,6 +162,8 @@ const ButtonContainer = styled.div`
   @media (max-width: 900px) {
     gap: 2rem;
     margin-top: 6rem;
+    width: 100%;
+    justify-content: space-evenly;
   }
 `;
 
