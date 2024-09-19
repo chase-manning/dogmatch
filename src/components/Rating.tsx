@@ -7,6 +7,10 @@ const StyledRating = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: 900px) {
+    gap: 0.7rem;
+  }
 `;
 
 const LabelContainer = styled.div`
@@ -19,6 +23,10 @@ const Label = styled.div`
   font-weight: 650;
   font-family: "Jost", sans-serif;
   white-space: nowrap;
+
+  @media (max-width: 900px) {
+    font-size: 2.3rem;
+  }
 `;
 
 const RatingContainer = styled.div`
@@ -37,6 +45,10 @@ const RatingItem = styled.div<{ $active: boolean; $color: string }>`
   border-radius: 7rem;
   border: solid 1px ${({ $color }) => $color};
   background: ${({ $active, $color }) => ($active ? $color : "var(--bg)")};
+
+  @media (max-width: 900px) {
+    height: 1.2rem;
+  }
 `;
 
 interface Props {

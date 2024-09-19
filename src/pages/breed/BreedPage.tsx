@@ -57,7 +57,7 @@ const Section = styled.div`
     border: solid 0.5px var(--main);
     box-shadow: none;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.7rem;
   }
 `;
 
@@ -85,7 +85,7 @@ const Header = styled.h2`
   @media (max-width: 900px) {
     font-size: 3rem;
     margin: auto;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.7rem;
   }
 `;
 
@@ -109,6 +109,7 @@ const RatingColumn = styled(SectionColumn)`
   @media (max-width: 900px) {
     display: flex;
     flex-direction: column;
+    gap: 2.5rem;
   }
 `;
 
