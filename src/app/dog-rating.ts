@@ -7,8 +7,8 @@ import {
 } from "../pages/quiz/quiz-data";
 import { getItemMetadata, ItemType } from "./item-metadata";
 
-const MIN_LOOKS_PERCENT = 0.05;
-const MAX_LOOKS_PERCENT = 0.5;
+const MIN_LOOKS_PERCENT = 0.05; // 5%
+const MAX_LOOKS_PERCENT = 0.5; // 50%
 
 export interface DogRatingType {
   rating: number;
