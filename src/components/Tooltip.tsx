@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import tooltip from "../assets/tooltip.svg";
+import { useRef, useState } from "react";
 
-const TooltipContent = styled.div`
+const TooltipContent = styled.div<{ top: number }>`
   position: absolute;
   top: 2.5rem;
   left: 50%;
@@ -19,10 +20,11 @@ const TooltipContent = styled.div`
   border: solid 1px var(--sub);
 
   @media (max-width: 900px) {
-    top: 50%;
-    transform: translateY(-50%);
-    left: auto;
-    right: 2.5rem;
+    position: fixed;
+    top: calc(${({ top }) => `${top}px`} + 2.5rem);
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
@@ -51,10 +53,20 @@ interface Props {
 }
 
 const Tooltip = ({ children }: Props) => {
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [tooltipTop, setTooltipTop] = useState(0);
+
   return (
-    <StyledTooltip>
+    <StyledTooltip
+      ref={tooltipRef}
+      onClick={() => {
+        const offsetTop = tooltipRef?.current?.offsetTop || 0;
+        const pixelsFromTop = offsetTop - window.scrollY;
+        setTooltipTop(pixelsFromTop);
+      }}
+    >
       <Icon src={tooltip} alt="tooltip" />
-      <TooltipContent>{children}</TooltipContent>
+      <TooltipContent top={tooltipTop}>{children}</TooltipContent>
     </StyledTooltip>
   );
 };
