@@ -94,7 +94,7 @@ const Paw = styled.img`
   opacity: 0.5;
 
   @media (max-width: 900px) {
-    width: 8rem;
+    display: none;
   }
 `;
 
