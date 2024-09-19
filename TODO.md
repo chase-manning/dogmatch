@@ -3,8 +3,9 @@
 # Sorted
 
 - Lien: review all the copy
-- Mobile: “Most popular dogs this week” > change so it just shows the dog card + you can flick across to see the most popular dogs one at a time Add the little circles underneath so you can see how many there are. Remove the main dog
-- Mobile: Dog page: Key stats: Height + Weight should either be next to each other or one below the other (as they should logically be grouped together), Emojis should be in line with the Stat heading only (i.e. Group, Height etc) - not in the middle of both lines of text (see Figma), Coloured ratings should be closer together (looks a bit too spaced out currently), Tooltips appear half off the screen so you can’t read them
+- Mobile: Dog page: Key stats: Emojis should be in line with the Stat heading only (i.e. Group, Height etc) - not in the middle of both lines of text (see Figma)
+- Mobile: Dog page: Coloured ratings should be closer together (looks a bit too spaced out currently)
+- Mobile: Dog page: Tooltips appear half off the screen so you can’t read them
 - Mobile: Dog page: Behaviour: Coloured ratings should be closer together (looks a bit too spaced out currently)
 - Mobile: Dog page: Care reqs: Emojis should be in line with the Stat heading only (i.e. Coat style etc) - not in the middle of both lines of text (see Figma), Coloured ratings should be closer together (looks a bit too spaced out currently)
 - Mobile: Calculating your perfect match: Make the font smaller, Pawprints appear over the top toolbar, Make pawprints smaller
@@ -32,6 +33,7 @@
 - Make open source
 - Set up adverts
 - Share on socials
+- Mobile: “Most popular dogs this week” > change so it just shows the dog card + you can flick across to see the most popular dogs one at a time Add the little circles underneath so you can see how many there are. Remove the main dog
 - Desktop: Homepage: Delete the 2 smallest pawprints + centre-align the rest with the heading
 - Desktop: Results page: Add 1st 2nd 3rd rosettes to the dog cards once flipped over (not needed for mobile version, probably will look too cluttered)
 - Desktop: Results page: Add “Click the card to learn more” to the dog cards (See new Figma design) (only on results page)
