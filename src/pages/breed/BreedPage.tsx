@@ -55,7 +55,7 @@ const Section = styled.div`
   @media (max-width: 900px) {
     padding: 2rem 3rem;
     border: solid 0.5px var(--main);
-    box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: none;
     flex-direction: column;
     gap: 2rem;
   }

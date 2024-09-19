@@ -3,9 +3,7 @@
 # Sorted
 
 - Lien: review all the copy
-- Make open source
 - Mobile: “Most popular dogs this week” > change so it just shows the dog card + you can flick across to see the most popular dogs one at a time Add the little circles underneath so you can see how many there are. Remove the main dog
-- Mobile: dog page: Delete drop shadow from all boxes, Split up the boxes more (see Figma)
 - Mobile: Dog page: Key stats: Height + Weight should either be next to each other or one below the other (as they should logically be grouped together), Emojis should be in line with the Stat heading only (i.e. Group, Height etc) - not in the middle of both lines of text (see Figma), Coloured ratings should be closer together (looks a bit too spaced out currently), Tooltips appear half off the screen so you can’t read them
 - Mobile: Dog page: Behaviour: Coloured ratings should be closer together (looks a bit too spaced out currently)
 - Mobile: Dog page: Care reqs: Emojis should be in line with the Stat heading only (i.e. Coat style etc) - not in the middle of both lines of text (see Figma), Coloured ratings should be closer together (looks a bit too spaced out currently)
@@ -31,6 +29,9 @@
 - Add card stack and animation to hero
 - Add learn more to about
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
+- Make open source
+- Set up adverts
+- Share on socials
 - Desktop: Homepage: Delete the 2 smallest pawprints + centre-align the rest with the heading
 - Desktop: Results page: Add 1st 2nd 3rd rosettes to the dog cards once flipped over (not needed for mobile version, probably will look too cluttered)
 - Desktop: Results page: Add “Click the card to learn more” to the dog cards (See new Figma design) (only on results page)
@@ -52,14 +53,13 @@
 - Add mobile nav menu
 - Undo button for visual quiz if you select wrongly
 - Add some photos to accompany the multi choice questions
-- Set up adverts
-- Share on socials
 - Add image scroll buttons to dog card
 - Add enter to search to go to directory
 - Add pagination to weekly dogs
 - Add short name and long name, fix the names we broke recently by making them shorter
 - Update generic page design (T&Cs PP), based on the one in the Figma (add the same blue background strip + pawprint (to match the dog pages))
 - Search button on breeds page is too light and small (Lien)
+- Mobile: dog page: Split up the boxes more (see Figma)
 - Desktop: Dog page: Can we have a swiping animation when you click the arrow to see more dogs?
 - Mobile: Dog page: You may also like: should swipe across to see more dogs (not just by clicking the circles)
 - Add 'qualities you value most' and 'favourite dog looks' to results page
