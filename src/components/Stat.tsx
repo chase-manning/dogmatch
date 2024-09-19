@@ -7,6 +7,11 @@ const StyledStat = styled.div`
   align-items: center;
 
   @media (max-width: 900px) {
+    align-items: flex-start;
+    img {
+      margin-top: 0.3rem;
+    }
+
     > div:last-child {
       display: none;
     }
@@ -19,7 +24,6 @@ const Icon = styled.img`
 
   @media (max-width: 900px) {
     width: 2.6rem;
-    margin-right: 1.8rem;
   }
 `;
 

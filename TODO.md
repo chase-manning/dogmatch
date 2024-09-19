@@ -3,7 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Mobile: Dog page: Key stats: Emojis should be in line with the Stat heading only (i.e. Group, Height etc) - not in the middle of both lines of text (see Figma)
 - Mobile: Dog page: Coloured ratings should be closer together (looks a bit too spaced out currently)
 - Mobile: Dog page: Tooltips appear half off the screen so you can’t read them
 - Mobile: Dog page: Behaviour: Coloured ratings should be closer together (looks a bit too spaced out currently)
