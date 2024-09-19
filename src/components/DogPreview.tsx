@@ -31,7 +31,7 @@ const Header = styled.div`
   margin-bottom: 2rem;
 
   @media (max-width: 900px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
     text-align: center;
     white-space: nowrap;
