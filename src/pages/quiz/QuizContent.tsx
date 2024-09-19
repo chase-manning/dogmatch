@@ -239,7 +239,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
               setQuiz(newQuiz);
             }}
           >
-            {`Back: ${quiz.sections[quiz.sectionIndex - 1].label}`}
+            Previous section
           </Button>
         ) : (
           <div />
@@ -281,7 +281,9 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                 newQuiz.sectionIndex = quiz.sectionIndex + 1;
                 setQuiz(newQuiz);
               }}
-            >{`Next: ${quiz.sections[quiz.sectionIndex + 1].label}`}</Button>
+            >
+              Next section
+            </Button>
           )
         ) : null}
       </ButtonContainer>
