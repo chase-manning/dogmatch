@@ -3,9 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Mobile: Dog page: Behaviour: Coloured ratings should be closer together (looks a bit too spaced out currently)
-- Mobile: Dog page: Care reqs: Emojis should be in line with the Stat heading only (i.e. Coat style etc) - not in the middle of both lines of text (see Figma), Coloured ratings should be closer together (looks a bit too spaced out currently)
-- Mobile: Calculating your perfect match: Make the font smaller, Pawprints appear over the top toolbar, Make pawprints smaller
 - Mobile: “How important is this to you” should be normal text, not bold
 - Mobile: Which dog is your perfect match? > pawprints are too close to the top
 - Mobile Footer: First line looks funny, maybe not aligned due to the emoji? Make font size smaller

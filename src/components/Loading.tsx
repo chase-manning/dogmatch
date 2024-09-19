@@ -105,7 +105,7 @@ const Text = styled.div`
   text-align: center;
 
   @media (max-width: 900px) {
-    font-size: 8.5rem;
+    font-size: 7.8rem;
   }
 `;
 
