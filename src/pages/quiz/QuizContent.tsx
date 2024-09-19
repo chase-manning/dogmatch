@@ -95,6 +95,16 @@ const Header = styled.div`
   }
 `;
 
+const SubHeader = styled.div`
+  font-size: 3.2rem;
+  font-weight: 650;
+
+  @media (max-width: 900px) {
+    font-size: 2.8rem;
+    font-weight: 500;
+  }
+`;
+
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
@@ -209,7 +219,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                 <>
                   <SubHeaderContainer>
                     <IconContainer $small={false} />
-                    <Header>How important is this to you?</Header>
+                    <SubHeader>How important is this to you?</SubHeader>
                   </SubHeaderContainer>
                   <Scale
                     min="Not important"
