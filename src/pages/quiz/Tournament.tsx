@@ -7,8 +7,9 @@ import { DogType } from "../../components/DogContext";
 import getNewElo from "../../app/new-elo";
 import getImageAlt from "../../app/image-alt";
 
-const SAMPLE_RANGE = 30;
-export const TOTAL_ROUNDS = Math.floor((SAMPLE_RANGE / 4) * 3);
+export const TOTAL_ROUNDS = 14;
+
+const SAMPLE_RANGE = Math.ceil((TOTAL_ROUNDS / 3) * 4);
 
 const StyledTournament = styled.div`
   position: relative;
@@ -99,7 +100,7 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
 
         return bRating.percent - aRating.percent;
       })
-      .slice(0, 10);
+      .slice(0, SAMPLE_RANGE);
 
     const firstRound = topDogs.filter((dog) => {
       const elo = dogElos[dog.id];
