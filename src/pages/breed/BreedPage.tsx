@@ -179,6 +179,10 @@ const AboutBreed = styled.p`
   font-size: 2.8rem;
   font-weight: 400;
   line-height: 1.4;
+
+  @media (max-width: 900px) {
+    font-size: 2.4rem;
+  }
 `;
 
 const BreedPage = () => {

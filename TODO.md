@@ -5,7 +5,6 @@
 - Lien: review all the copy
 - Make open source
 - Mobile: “Most popular dogs this week” > change so it just shows the dog card + you can flick across to see the most popular dogs one at a time Add the little circles underneath so you can see how many there are. Remove the main dog
-- Mobile: Dog page: About: Make font size smaller
 - Mobile: Dog page: You may also like: Some of the dog names are a bit too long + overhang the photo > anything we can do about this?
 - Mobile: Dog Page: Dog name: Delete pawprint before the dog name, Centre-align the name
 - Mobile: dog page: Delete drop shadow from all boxes, Split up the boxes more (see Figma)
