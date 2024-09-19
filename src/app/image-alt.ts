@@ -2,7 +2,7 @@ import { DogType } from "../components/DogContext";
 
 const getImageAlt = (dog: DogType, image: string) => {
   const location = (image: string) => {
-    if (image === "at home") return "inside";
+    if (image === "indoors") return "inside";
     if (image === "outdoors") return "outdoors";
     if (image === "studio") return "in a white studio";
     throw new Error("Image type not found");

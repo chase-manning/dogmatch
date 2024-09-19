@@ -1,26 +1,7 @@
 # Unsorted
 
-# Ideas
-
-- Add something to explain what the groups are in the tooltip
-- Add a labradoodle
-- Could do visuals based on lest favourite
-- Add data on the price of the dog
-- Add an item for how smelly the dog is
-- Should have a section on the difficulties of the dog. Some of the key considerations and issues and warnings
-- What's the point in doing this if you can't get the dog
-- Could be good to add country so you know what dogs you can get easily
-- Ends up with a bunch of open tabs, not clear how to get back after quiz results
-- A couple mode (or a family mode)
-- Add dog strength
-- Add share your results section to results page
-- Email results
-- Hyperallogenic
-- Write results to db for analytics
-
 # Sorted
 
-- After doing the first Visual round, the page went blank > then when I refreshed, it went back to “Start a new quiz” (no option to pick back up the old quiz). When I clicked Back, the page was also still blank.
 - Clicking next on the breed page photo shows a white screen
 - Lien: review all the copy
 - Check the tournement logic, seems like the dog order is wrong
@@ -91,3 +72,21 @@
 - Mobile: Dog page: You may also like: should swipe across to see more dogs (not just by clicking the circles)
 - Add 'qualities you value most' and 'favourite dog looks' to results page
 - Implement key contributors to score in the dog row (currently shows characteristics)
+
+# Ideas
+
+- Add something to explain what the groups are in the tooltip
+- Add a labradoodle
+- Could do visuals based on lest favourite
+- Add data on the price of the dog
+- Add an item for how smelly the dog is
+- Should have a section on the difficulties of the dog. Some of the key considerations and issues and warnings
+- What's the point in doing this if you can't get the dog
+- Could be good to add country so you know what dogs you can get easily
+- Ends up with a bunch of open tabs, not clear how to get back after quiz results
+- A couple mode (or a family mode)
+- Add dog strength
+- Add share your results section to results page
+- Email results
+- Hyperallogenic
+- Write results to db for analytics
