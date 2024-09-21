@@ -132,6 +132,20 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
       ).rounds === TOTAL_ROUNDS
     : false;
 
+  const getTotalQuestionNumber = (
+    sectionIndex: number,
+    questionIndex: number
+  ) => {
+    if (!quiz) return 0;
+    return (
+      quiz.sections
+        .slice(0, sectionIndex)
+        .reduce((total, section) => total + section.questions.length, 0) +
+      questionIndex +
+      1
+    );
+  };
+
   return (
     <StyledQuizContent>
       {quiz &&
@@ -153,7 +167,11 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
               <HeaderContainer $looks={isLooks}>
                 <IconContainer $small={isLooks}>
                   <Icon src={isLooks ? lightPaw : paw} alt="paw" />
-                  {!isLooks && <Number>{index + 1}</Number>}
+                  {!isLooks && (
+                    <Number>
+                      {getTotalQuestionNumber(quiz.sectionIndex, index)}
+                    </Number>
+                  )}
                 </IconContainer>
                 <Header>{metadata.question}</Header>
                 <Tooltip>{metadata.tooltip}</Tooltip>
