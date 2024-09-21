@@ -3,7 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Mobile Footer: First line looks funny, maybe not aligned due to the emoji? Make font size smaller
 - Change the quiz questions numbers to be continuous (not per section)
 - Add an indication of how short or long the lifespan is (in actual years in the min max)
 - It should be more clear that you can choose multiple of the multi choise (pick as many as you like)

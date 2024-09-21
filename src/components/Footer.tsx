@@ -107,6 +107,7 @@ const Section = styled.div`
 
   @media (max-width: 900px) {
     flex-direction: row;
+    align-items: center;
 
     :last-child {
       border: none;
