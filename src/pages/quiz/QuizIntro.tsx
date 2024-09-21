@@ -44,6 +44,10 @@ const Header = styled.h1`
     font-weight: 600;
     line-height: 1.3;
   }
+
+  @media (max-width: 326px) {
+    font-size: 7.5rem;
+  }
 `;
 
 const ButtonContainer = styled.div`

@@ -3,7 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Mobile: Which dog is your perfect match? > pawprints are too close to the top
 - Mobile Footer: First line looks funny, maybe not aligned due to the emoji? Make font size smaller
 - Change the quiz questions numbers to be continuous (not per section)
 - Add an indication of how short or long the lifespan is (in actual years in the min max)
