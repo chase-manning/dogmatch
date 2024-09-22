@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import getImageAlt from "../app/image-alt";
 
 const StyledDogPreview = styled(Link)`
-  padding: 2rem 3rem;
+  padding: 1.8rem 2.8rem;
   border-radius: 3.5rem;
   border: solid 1px var(--main);
   background: var(--bg);
@@ -26,9 +26,9 @@ const StyledDogPreview = styled(Link)`
 `;
 
 const Header = styled.div`
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 650;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
 
   @media (max-width: 900px) {
     font-size: 1.8rem;

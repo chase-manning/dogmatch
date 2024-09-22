@@ -2,9 +2,7 @@
 
 # Sorted
 
-- Lien: review all the copy (Popularity isn't clear. Should stress the ease of getting it)
 - Dog images flicker when you do the tournament
-- Desktop: Dog page: Name of dog can increase size of "other dogs you may like" cards
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
 - Add min and max to the tooltips on the breed page.
 - Add something that explains what high and low are in the tooltip
@@ -63,6 +61,6 @@
 - Add share your results section to results page
 - Email results
 - Hyperallogenic
-- Write results to db for analytics
 - Performance improvements sugested by AI
 - SEO improvement suggested by AI
+- Write results to db for analytics
