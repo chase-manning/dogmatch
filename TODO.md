@@ -2,7 +2,6 @@
 
 # Sorted
 
-- Mobile: About dogmatch - centre align
 - Mobile: Dog directory - search bar a darker colour
 - Mobile: Dog page - change key stats order to match design
 - Mobile: Dog name - centre align

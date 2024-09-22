@@ -17,6 +17,10 @@ const StyledAbout = styled.div`
   }
 `;
 
+const CenteredParagraph = styled(Paragraph)`
+  text-align: center;
+`;
+
 const Content = styled.div`
   display: flex;
   width: 100%;
@@ -78,16 +82,16 @@ const About = () => {
             <HeaderIcon src={paw} alt="Paw icon" />
             <Header3>About dogmatch</Header3>
           </HeaderContainer>
-          <Paragraph>
+          <CenteredParagraph>
             Take our dogmatch quiz to find your perfect dog from over 200
             different breeds in our dog directory, chosen especially for you
             based on your answers.
-          </Paragraph>
-          <Paragraph>
+          </CenteredParagraph>
+          <CenteredParagraph>
             Dogmatch is completely free to use. It's made by a dedicated dog
             lover who wants to help everyone find their dream dog (and has been
             described as a golden retriever in human form himself).
-          </Paragraph>
+          </CenteredParagraph>
           {/* TODO */}
           {/* <LearnMore href="/">Learn more</LearnMore> */}
         </TextContainer>
