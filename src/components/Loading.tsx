@@ -116,6 +116,10 @@ const Paws = styled.img`
     width: 40rem;
     padding: 5rem 0;
   }
+
+  @media (max-height: 670px) {
+    display: none;
+  }
 `;
 
 interface Props {

@@ -2,7 +2,6 @@
 
 # Sorted
 
-- Mobile: Quiz calculating results - paw prints are clipping the top bar
 - Mobile: Privacy policy - sub-headings left aligned
 - iPad: Homepage - paw prints bleed into top bar
 - iPad: Homepage - title + dog card are both very big
