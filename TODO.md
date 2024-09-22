@@ -3,7 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Add an indication of how short or long the lifespan is (in actual years in the min max)
 - It should be more clear that you can choose multiple of the multi choise (pick as many as you like)
 - Desktop: Dog Card: Increase size of rating labels (and on mobile)
 - Clicking a dog card before it loads navigates to 404 page
@@ -74,3 +73,5 @@
 - Email results
 - Hyperallogenic
 - Write results to db for analytics
+- Performance improvements sugested by AI
+- SEO improvement suggested by AI

@@ -109,8 +109,8 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       type: ItemType.RATING,
       label: "Lifespan",
       question: "What lifespan do you consider ideal for a dog?",
-      min: "Short",
-      max: "Long",
+      min: "Short (7 yrs)",
+      max: "Long (17 yrs)",
       tooltip:
         "The average length of life for the breed compared to other dogs.",
     },
