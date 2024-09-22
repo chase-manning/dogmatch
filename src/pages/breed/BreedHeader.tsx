@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { DogType } from "../../components/DogContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import paw from "../../assets/paw.svg";
 import arrow from "../../assets/arrow.svg";
@@ -182,12 +182,14 @@ const BreedHeader = ({ dog }: Props) => {
     movingRight: boolean;
     current: number;
   }>({ movingRight: true, current: 0 });
+  const [loopInterval, setLoopInterval] = useState<NodeJS.Timeout | null>(null);
 
   const nextImage = () => {
     setIndexes((prev) => ({
       movingRight: true,
       current: (prev.current + 1) % imageTypes.length,
     }));
+    loopInterval && clearInterval(loopInterval);
   };
 
   const previousImage = () => {
@@ -195,7 +197,24 @@ const BreedHeader = ({ dog }: Props) => {
       movingRight: false,
       current: (prev.current - 1 + imageTypes.length) % imageTypes.length,
     }));
+    loopInterval && clearInterval(loopInterval);
   };
+
+  useEffect(() => {
+    const interval_ = setInterval(() => {
+      setIndexes((prev) => ({
+        movingRight: true,
+        current: (prev.current + 1) % imageTypes.length,
+      }));
+    }, 8000);
+    setLoopInterval(interval_);
+
+    return () => {
+      if (interval_) clearInterval(interval_);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <StyledBreedHeader>
