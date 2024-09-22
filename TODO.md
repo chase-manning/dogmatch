@@ -2,6 +2,19 @@
 
 # Sorted
 
+- Mobile: Homepage subtitle - make narrower
+- Mobile: About dogmatch - centre align
+- Mobile: Dog directory - search bar a darker colour
+- Mobile: Dog page - change key stats order to match design
+- Mobile: Dog name - centre align
+- Mobile: Quiz calculating results - paw prints are clipping the top bar
+- Mobile: Privacy policy - sub-headings left aligned
+- iPad: Homepage - paw prints bleed into top bar
+- iPad: Homepage - title + dog card are both very big
+- iPad: Homepage - most popular doesn't fit on page
+- iPad: Dog page - Care requirement ratings > 2nd column is smaller than the 1st
+- iPad: Quiz - questions + options don’t fit on page
+- iPad: Quiz - Behavioral question numbers are smaller than the other pages
 - Dog images flicker when you do the tournament
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
 - Add min and max to the tooltips on the breed page.

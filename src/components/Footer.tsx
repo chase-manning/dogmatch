@@ -32,7 +32,7 @@ const SECTIONS: SectionType[] = [
         link: DONATE,
       },
       {
-        label: "Say hi 👋",
+        label: "Say hi",
         link: SAY_HI_PATH,
       },
     ],

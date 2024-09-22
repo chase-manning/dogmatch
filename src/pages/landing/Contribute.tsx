@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Header3, Paragraph } from "../../styles/Headers";
 
 import Button from "../../components/Button";
-import { DONATE, OPEN_DOG_REGISTRY } from "../../app/links";
+import { DONATE } from "../../app/links";
+import { SAY_HI_PATH } from "../../app/paths";
 
 const StyledContribute = styled.div`
   width: 100%;
@@ -62,8 +63,9 @@ const Contribute = () => {
   return (
     <StyledContribute>
       <Content>
-        <Header3>Contribute</Header3>
-        <DesktopParagraphs>
+        {/* <Header3>Contribute</Header3> */}
+        <Header3>Get in touch</Header3>
+        {/* <DesktopParagraphs>
           <Paragraph style={{ textAlign: "center" }}>
             If you found your perfect dog on dogmatch and want to help keep us
             going, consider donating today. We also created a free API for our
@@ -79,13 +81,31 @@ const Contribute = () => {
             We also created a free API for our dog directory in case you want to
             make your own dog-related website!
           </Paragraph>
-          <Paragraph style={{ textAlign: "center" }}></Paragraph>
+        </MobileParagraphs> */}
+        <DesktopParagraphs>
+          <Paragraph style={{ textAlign: "center" }}>
+            We'd love to hear from you! If you used dogmatch and have any
+            feedback or improvements for us, please get in touch using the
+            button below. As a free to use website, we'd really appreciate any
+            donations to keep us going too.
+          </Paragraph>
+        </DesktopParagraphs>
+        <MobileParagraphs>
+          <Paragraph style={{ textAlign: "center" }}>
+            We'd love to hear from you! If you used dogmatch and have any
+            feedback or improvements for us, please get in touch using the
+            button below.
+          </Paragraph>
+          <Paragraph style={{ textAlign: "center" }}>
+            As a free to use website, we'd really appreciate any donations to
+            keep us going too.
+          </Paragraph>
         </MobileParagraphs>
         <ButtonContainer>
-          <Button primary link={DONATE}>
-            Donate to us
+          <Button primary link={SAY_HI_PATH}>
+            Say hi 👋
           </Button>
-          <Button link={OPEN_DOG_REGISTRY}>View API</Button>
+          <Button link={DONATE}>Donate to us</Button>
         </ButtonContainer>
       </Content>
     </StyledContribute>
