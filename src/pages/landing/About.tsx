@@ -18,7 +18,9 @@ const StyledAbout = styled.div`
 `;
 
 const CenteredParagraph = styled(Paragraph)`
-  text-align: center;
+  @media (max-width: 900px) {
+    text-align: center;
+  }
 `;
 
 const Content = styled.div`
