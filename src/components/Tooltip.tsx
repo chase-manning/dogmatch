@@ -3,7 +3,7 @@ import styled from "styled-components";
 import tooltip from "../assets/tooltip.svg";
 import { useRef, useState } from "react";
 
-const TooltipContent = styled.div<{ top: number }>`
+const TooltipContent = styled.div<{ $top: number }>`
   position: absolute;
   top: 2.5rem;
   left: 50%;
@@ -21,7 +21,7 @@ const TooltipContent = styled.div<{ top: number }>`
 
   @media (max-width: 900px) {
     position: fixed;
-    top: calc(${({ top }) => `${top}px`} + 2.5rem);
+    top: calc(${({ $top }) => `${$top}px`} + 2.5rem);
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
@@ -66,7 +66,7 @@ const Tooltip = ({ children }: Props) => {
       }}
     >
       <Icon src={tooltip} alt="tooltip" />
-      <TooltipContent top={tooltipTop}>{children}</TooltipContent>
+      <TooltipContent $top={tooltipTop}>{children}</TooltipContent>
     </StyledTooltip>
   );
 };
