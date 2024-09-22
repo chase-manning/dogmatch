@@ -2,7 +2,6 @@
 
 # Sorted
 
-- Breed image skeleton is the wrong size
 - Lien: review all the copy (Popularity isn't clear. Should stress the ease of getting it)
 - Dog images flicker when you do the tournament
 - Desktop: Dog page: Name of dog can increase size of "other dogs you may like" cards

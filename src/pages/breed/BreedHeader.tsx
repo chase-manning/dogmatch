@@ -292,7 +292,7 @@ const BreedHeader = ({ dog }: Props) => {
             <Text>{dog.generalInformation.shortDescription}</Text>
           ) : (
             <>
-              <Skeleton hideMobile height="2.6rem" width="100rem" />
+              <Skeleton hideMobile height="2.6rem" width="80rem" />
               <Skeleton hideMobile height="2.6rem" width="50rem" />
             </>
           )}
