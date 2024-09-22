@@ -19,7 +19,6 @@
 - Set up adverts
 - Share on socials
 - Mobile: “Most popular dogs this week” > change so it just shows the dog card + you can flick across to see the most popular dogs one at a time Add the little circles underneath so you can see how many there are. Remove the main dog
-- Desktop: Homepage: Delete the 2 smallest pawprints + centre-align the rest with the heading
 - Desktop: Results page: Add 1st 2nd 3rd rosettes to the dog cards once flipped over (not needed for mobile version, probably will look too cluttered)
 - Desktop: Results page: Add “Click the card to learn more” to the dog cards (See new Figma design) (only on results page)
 - Add filters to dog directory

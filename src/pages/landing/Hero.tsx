@@ -16,48 +16,38 @@ interface PawType {
 
 const paws: PawType[] = [
   {
-    x: -15,
-    y: 30,
-    rotation: 40,
+    x: 0,
+    y: -20,
+    rotation: 0,
   },
   {
-    x: -15,
-    y: 10,
-    rotation: -20,
-  },
-  {
-    x: -10,
-    y: -10,
-    rotation: -5,
-  },
-  {
-    x: 7,
-    y: -17,
+    x: 13,
+    y: -12,
     rotation: 35,
   },
   {
-    x: 25,
-    y: -20,
-    rotation: 15,
+    x: 27,
+    y: -22,
+    rotation: 10,
   },
   {
-    x: 43,
-    y: -15,
-    rotation: -5,
+    x: 46,
+    y: -13,
+    rotation: 35,
   },
   {
     x: 65,
     y: -25,
-    rotation: 40,
+    rotation: 38,
+  },
+  {
+    x: 82,
+    y: -14,
+    rotation: 50,
   },
 ];
 
 const mobilePaws: PawType[] = [
-  // {
-  //   x: 0,
-  //   y: 30,
-  //   rotation: 40,
-  // },
   {
     x: 10,
     y: 40,
@@ -260,7 +250,7 @@ const Hero = () => {
                   src={pawImage}
                   alt="paw"
                   style={{
-                    width: `${3 + index}rem`,
+                    width: `${4 + index}rem`,
                   }}
                 />
               </PawContainer>
