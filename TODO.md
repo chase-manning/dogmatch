@@ -2,7 +2,6 @@
 
 # Sorted
 
-- Mobile: Dog name - centre align
 - Mobile: Quiz calculating results - paw prints are clipping the top bar
 - Mobile: Privacy policy - sub-headings left aligned
 - iPad: Homepage - paw prints bleed into top bar

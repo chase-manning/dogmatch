@@ -121,6 +121,7 @@ const BreedName = styled.h1`
   @media (max-width: 900px) {
     font-size: 6rem;
     line-height: 1.1;
+    text-align: center;
   }
 `;
 
