@@ -131,7 +131,7 @@ const SubHeader = styled.h2`
   @media (max-width: 900px) {
     margin-top: 4rem;
     text-align: center;
-    padding: 0 1rem;
+    padding: 0 1.4rem;
   }
 `;
 
