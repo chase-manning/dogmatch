@@ -45,6 +45,8 @@ const ImageContainer = styled.div`
   position: relative;
   height: 48rem;
   width: 48rem;
+  overflow: hidden;
+  border-radius: 2rem;
 
   @media (max-width: 900px) {
     height: auto;
@@ -52,12 +54,22 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Image = styled.img`
+const Image = styled.img<{ $left: boolean; $right: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  aspect-ratio: 1/1;
-  border-radius: 2rem;
+  width: 100%;
   box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.15);
   background: var(--bg-image);
+
+  transition: transform 0.5s ease-in-out;
+  transform: ${(props) =>
+    props.$left
+      ? "translateX(-100%)"
+      : props.$right
+      ? "translateX(100%)"
+      : "translateX(0)"};
 
   @media (max-width: 900px) {
     height: auto;
@@ -148,6 +160,7 @@ const Button = styled.button<{ direction: "left" | "right" }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 4;
 `;
 
 const ButtonIcon = styled.img<{ direction: "left" | "right" }>`
@@ -165,17 +178,23 @@ interface Props {
 const BreedHeader = ({ dog }: Props) => {
   type ImageType = "outdoors" | "indoors" | "studio";
   const imageTypes: ImageType[] = ["outdoors", "indoors", "studio"];
-  const [imageTypeIndes, setImageTypeIndex] = useState<number>(0);
-  const imageStyle = imageTypes[imageTypeIndes];
+  const [indexes, setIndexes] = useState<{
+    movingRight: boolean;
+    current: number;
+  }>({ movingRight: true, current: 0 });
 
   const nextImage = () => {
-    setImageTypeIndex((prev) => (prev + 1) % imageTypes.length);
+    setIndexes((prev) => ({
+      movingRight: true,
+      current: (prev.current + 1) % imageTypes.length,
+    }));
   };
 
   const previousImage = () => {
-    setImageTypeIndex(
-      (prev) => (prev - 1 + imageTypes.length) % imageTypes.length
-    );
+    setIndexes((prev) => ({
+      movingRight: false,
+      current: (prev.current - 1 + imageTypes.length) % imageTypes.length,
+    }));
   };
 
   return (
@@ -194,10 +213,32 @@ const BreedHeader = ({ dog }: Props) => {
         <ImageContainer>
           {dog ? (
             <>
-              <Image
-                src={dog.images.large[imageStyle]}
-                alt={getImageAlt(dog, imageStyle)}
-              />
+              {imageTypes.map((imageType, index) => {
+                const { movingRight, current } = indexes;
+                const isLeft = index === current - 1 || index === current + 2;
+                const isRight = index === current + 1 || index === current - 2;
+                const isCenter = index === current;
+                return (
+                  <Image
+                    key={imageType}
+                    src={dog.images.large[imageType]}
+                    alt={getImageAlt(dog, imageType)}
+                    $left={isLeft}
+                    $right={isRight}
+                    style={{
+                      zIndex: isCenter
+                        ? 3
+                        : movingRight
+                        ? isLeft
+                          ? 2
+                          : 1
+                        : isRight
+                        ? 2
+                        : 1,
+                    }}
+                  />
+                );
+              })}
               <Button
                 onClick={previousImage}
                 direction="left"
@@ -214,7 +255,7 @@ const BreedHeader = ({ dog }: Props) => {
               </Button>
             </>
           ) : (
-            <Skeleton width="48rem" height="48rem" />
+            <Skeleton width="100%" height="100%" />
           )}
         </ImageContainer>
         <TextContainer>
