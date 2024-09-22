@@ -2,11 +2,6 @@
 
 # Sorted
 
-- iPad: Homepage - title + dog card are both very big
-- iPad: Homepage - most popular doesn't fit on page
-- iPad: Dog page - Care requirement ratings > 2nd column is smaller than the 1st
-- iPad: Quiz - questions + options don’t fit on page
-- iPad: Quiz - Behavioral question numbers are smaller than the other pages
 - Dog images flicker when you do the tournament
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
 - Add min and max to the tooltips on the breed page.
