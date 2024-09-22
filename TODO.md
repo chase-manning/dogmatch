@@ -3,7 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Clicking a dog card before it loads navigates to 404 page
 - Mobile: Delete the smallest pawprint + adjust the rest to be centred
 - Popularity isn't clear. Should stress the ease of getting it
 - Fix the delay when changing images on the dog page

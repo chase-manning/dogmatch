@@ -157,7 +157,15 @@ const DogCard = ({ dog }: Props) => {
 
   return (
     <Container>
-      <StyledDogCard to={`/${BREEDS_PATH}/${dog?.id}`}>
+      <StyledDogCard
+        to={`/${BREEDS_PATH}/${dog?.id}`}
+        area-disabled={!dog}
+        onClick={(e) => {
+          if (!dog) {
+            e.preventDefault();
+          }
+        }}
+      >
         <HeaderContainer>
           {dog ? (
             <Header>{dog.generalInformation.name}</Header>
