@@ -26,6 +26,18 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         font-size: 8px;
 
+        @media (max-width: 1264px) {
+            font-size: 7px;
+        }
+
+        @media (max-width: 1108px) {
+            font-size: 6px;
+        }
+
+        @media (max-width: 948px) {
+            font-size: 5.5px;
+        }
+
         @media (max-width: 900px) {
             font-size: 7px;
         }

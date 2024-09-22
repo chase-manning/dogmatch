@@ -2,7 +2,6 @@
 
 # Sorted
 
-- iPad: Homepage - paw prints bleed into top bar
 - iPad: Homepage - title + dog card are both very big
 - iPad: Homepage - most popular doesn't fit on page
 - iPad: Dog page - Care requirement ratings > 2nd column is smaller than the 1st
