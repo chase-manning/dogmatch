@@ -34,7 +34,6 @@ const SubHeader = styled.h2`
   @media (max-width: 900px) {
     font-size: 3.2rem;
     font-weight: 600;
-    text-align: center;
   }
 `;
 
