@@ -3,7 +3,6 @@
 # Sorted
 
 - Lien: review all the copy
-- Desktop: Dog Card: Increase size of rating labels (and on mobile)
 - Clicking a dog card before it loads navigates to 404 page
 - Mobile: Delete the smallest pawprint + adjust the rest to be centred
 - Popularity isn't clear. Should stress the ease of getting it

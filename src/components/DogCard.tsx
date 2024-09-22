@@ -64,16 +64,20 @@ const StatContainer = styled.div`
 `;
 
 const StatHeader = styled.div`
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
+  font-size: 1.5rem;
+  font-weight: 650;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 900px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const StatValueContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 0.3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 `;
 
 const StatValue = styled.div<{ $highlighted?: boolean; color: string }>`
