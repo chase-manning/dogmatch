@@ -238,6 +238,18 @@ const BreedPage = () => {
                 <>
                   <Stat
                     category="generalInformation"
+                    trait="group"
+                    value={dog.generalInformation.group}
+                    icon={paw}
+                  />
+                  <Stat
+                    category="generalInformation"
+                    trait="lifeExpectancy"
+                    value={`${dog.generalInformation.lifeExpectancy.toLocaleString()} years`}
+                    icon={lifespan}
+                  />
+                  <Stat
+                    category="generalInformation"
                     trait="height"
                     value={`${dog.generalInformation.height.toLocaleString()} in (${Math.round(
                       inchesToCentimeters(dog.generalInformation.height)
@@ -251,18 +263,6 @@ const BreedPage = () => {
                       poundsToKilograms(dog.generalInformation.weight)
                     ).toLocaleString()} kg)`}
                     icon={weight}
-                  />
-                  <Stat
-                    category="generalInformation"
-                    trait="group"
-                    value={dog.generalInformation.group}
-                    icon={paw}
-                  />
-                  <Stat
-                    category="generalInformation"
-                    trait="lifeExpectancy"
-                    value={`${dog.generalInformation.lifeExpectancy.toLocaleString()} years`}
-                    icon={lifespan}
                   />
                 </>
               ) : (

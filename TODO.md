@@ -2,8 +2,6 @@
 
 # Sorted
 
-- Mobile: Dog directory - search bar a darker colour
-- Mobile: Dog page - change key stats order to match design
 - Mobile: Dog name - centre align
 - Mobile: Quiz calculating results - paw prints are clipping the top bar
 - Mobile: Privacy policy - sub-headings left aligned
