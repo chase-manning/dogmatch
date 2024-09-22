@@ -53,33 +53,33 @@ const paws: PawType[] = [
 ];
 
 const mobilePaws: PawType[] = [
+  // {
+  //   x: 0,
+  //   y: 30,
+  //   rotation: 40,
+  // },
   {
-    x: 0,
-    y: 30,
-    rotation: 40,
-  },
-  {
-    x: 12,
+    x: 10,
     y: 40,
     rotation: -5,
   },
   {
-    x: 27,
+    x: 25,
     y: 17,
     rotation: 35,
   },
   {
-    x: 45,
+    x: 43,
     y: 30,
     rotation: 15,
   },
   {
-    x: 63,
+    x: 61,
     y: 15,
     rotation: -5,
   },
   {
-    x: 83,
+    x: 81,
     y: 25,
     rotation: 40,
   },
@@ -240,7 +240,7 @@ const Hero = () => {
                   src={pawImage}
                   alt="paw"
                   style={{
-                    width: `${2 + index}rem`,
+                    width: `${3 + index}rem`,
                   }}
                 />
               </PawContainer>
