@@ -86,12 +86,27 @@ const Number = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+const HeaderTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
 const Header = styled.div`
   font-size: 3.2rem;
   font-weight: 650;
 
   @media (max-width: 900px) {
     font-size: 2.8rem;
+  }
+`;
+
+const LightHeader = styled.div`
+  font-size: 2.4rem;
+  font-weight: 500;
+
+  @media (max-width: 900px) {
+    font-size: 2rem;
   }
 `;
 
@@ -173,7 +188,12 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                     </Number>
                   )}
                 </IconContainer>
-                <Header>{metadata.question}</Header>
+                <HeaderTextContainer>
+                  <Header>{metadata.question}</Header>
+                  {isCheckbox && (
+                    <LightHeader>{" (Pick as many as you like)"}</LightHeader>
+                  )}
+                </HeaderTextContainer>
                 <Tooltip>{metadata.tooltip}</Tooltip>
               </HeaderContainer>
               {(isRating || isLooksImportance) && (
