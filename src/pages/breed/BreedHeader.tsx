@@ -50,7 +50,8 @@ const ImageContainer = styled.div`
 
   @media (max-width: 900px) {
     height: auto;
-    width: calc(100%-6rem);
+    width: calc(100% - 6rem);
+    aspect-ratio: 1/1;
   }
 `;
 
@@ -74,6 +75,7 @@ const Image = styled.img<{ $left: boolean; $right: boolean }>`
   @media (max-width: 900px) {
     height: auto;
     width: 100%;
+    aspect-ratio: 1/1;
   }
 `;
 
