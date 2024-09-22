@@ -159,7 +159,7 @@ const DogCard = ({ dog }: Props) => {
     <Container>
       <StyledDogCard
         to={`/${BREEDS_PATH}/${dog?.id}`}
-        area-disabled={!dog}
+        area-disabled={!dog ? "true" : "false"}
         onClick={(e) => {
           if (!dog) {
             e.preventDefault();
