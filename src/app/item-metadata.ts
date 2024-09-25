@@ -151,7 +151,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
   behavioralTraits: {
     familyAffectionLevel: {
       type: ItemType.RATING,
-      label: "Family Affection Level",
+      label: "Family Affection",
       question:
         "How affectionate would you like your dog to be with family members?",
       min: "Reserved",
@@ -188,7 +188,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     playfulnessLevel: {
       type: ItemType.RATING,
-      label: "Playfulness Level",
+      label: "Playfulness",
       question: "How playful would you like your dog to be?",
       min: "Relaxed",
       max: "Very playful",
@@ -215,7 +215,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     vocalizationFrequency: {
       type: ItemType.RATING,
-      label: "Barking frequency",
+      label: "Barking Frequency",
       question: "How do you feel about a vocal dog?",
       min: "Prefer quiet",
       max: "Don't mind noisy",
