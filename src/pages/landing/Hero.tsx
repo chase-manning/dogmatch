@@ -8,6 +8,12 @@ import { DogType } from "../../components/DogContext";
 import pawImage from "../../assets/paw.svg";
 import { BREEDS_PATH, QUIZ_PATH } from "../../app/paths";
 
+const NUMBER_OF_DOGS = 5;
+const MAX_TRANSFORM = 50;
+const MAX_ROTATE = 15;
+const CARD_FLICK_FREQUENCY = 6000;
+const ANIMATION_DURATION = 1200;
+
 interface PawType {
   x: number;
   y: number;
@@ -139,9 +145,43 @@ const DogSection = styled.div`
   flex: 1;
   height: 100%;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   background: radial-gradient(var(--primary) 0, var(--bg) 65%);
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const flick = keyframes`
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  49% {
+    transform: translate(80%, -60%) rotate(10deg);
+  }
+  51% {
+    transform: translate(80%, -60%) rotate(10deg);
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+`;
+
+const DogCardContainer = styled.div<{ $animate: boolean }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  animation: ${(props) => (props.$animate ? flick : "none")}
+    ${ANIMATION_DURATION}ms forwards;
+`;
+
+const PivotContainer = styled.div`
+  position: relative;
 `;
 
 const ButtonContainer = styled.div`
@@ -202,15 +242,68 @@ const Paw = styled.img<{ $delay: number }>`
 const Hero = () => {
   const { dogs } = useDogs();
 
-  const [randomDog, setRandomDog] = useState<DogType | null>(null);
+  interface DogCardType {
+    dog: DogType | null;
+    translateX: number;
+    translateY: number;
+    rotate: number;
+  }
+
+  const [isAnimationVirgin, setIsAnimationVirgin] = useState<boolean>(true);
+  const [cardPositionOffset, setCardPositionOffset] = useState<number>(0);
+  const [delayedCardPositionOffset, setDelayedCardPositionOffset] =
+    useState<number>(0);
+  const [randomDogCards, setRandomDogCards] = useState<DogCardType[]>(
+    Array.from({ length: NUMBER_OF_DOGS }, () => {
+      return {
+        dog: null,
+        translateX: Math.random() * MAX_TRANSFORM - MAX_TRANSFORM / 2,
+        translateY: Math.random() * MAX_TRANSFORM - MAX_TRANSFORM / 2,
+        rotate: Math.random() * MAX_ROTATE - MAX_ROTATE / 2,
+      };
+    })
+  );
+
+  const getRandomIndex = (length: number) => {
+    return Math.floor(Math.random() * length);
+  };
 
   useEffect(() => {
-    if (dogs.length > 0) {
-      setRandomDog(dogs[Math.floor(Math.random() * dogs.length)]);
+    if (dogs.length < NUMBER_OF_DOGS) return;
+
+    const randomIndexes: number[] = [];
+    while (randomIndexes.length < NUMBER_OF_DOGS) {
+      const randomIndex = getRandomIndex(dogs.length);
+      if (randomIndexes.includes(randomIndex)) continue;
+      randomIndexes.push(randomIndex);
     }
+
+    const randomDogs = randomIndexes.map((dogIndex, index) => {
+      return {
+        dog: dogs[dogIndex],
+        translateX: randomDogCards[index].translateX,
+        translateY: randomDogCards[index].translateY,
+        rotate: randomDogCards[index].rotate,
+      };
+    });
+    setRandomDogCards(randomDogs);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dogs.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimationVirgin(false);
+      setCardPositionOffset((prev) => (prev + 1) % NUMBER_OF_DOGS);
+      setTimeout(() => {
+        setDelayedCardPositionOffset((prev) => (prev + 1) % NUMBER_OF_DOGS);
+      }, ANIMATION_DURATION / 2);
+    }, CARD_FLICK_FREQUENCY);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
 
   return (
     <StyledHero>
@@ -270,7 +363,27 @@ const Hero = () => {
         </TextContent>
       </TextSection>
       <DogSection>
-        <DogCard dog={randomDog} />
+        {randomDogCards.map((dogCard, index) => (
+          <DogCardContainer
+            $animate={
+              (index + cardPositionOffset) % NUMBER_OF_DOGS === 0 &&
+              !isAnimationVirgin
+            }
+            key={index}
+            style={{
+              zIndex:
+                1 + ((index + delayedCardPositionOffset) % NUMBER_OF_DOGS),
+            }}
+          >
+            <PivotContainer
+              style={{
+                transform: `translate(${dogCard.translateX}px, ${dogCard.translateY}px) rotate(${dogCard.rotate}deg)`,
+              }}
+            >
+              <DogCard dog={dogCard.dog} />
+            </PivotContainer>
+          </DogCardContainer>
+        ))}
       </DogSection>
     </StyledHero>
   );

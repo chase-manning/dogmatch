@@ -2,11 +2,9 @@
 
 # Sorted
 
-- Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
-- Add min and max to the tooltips on the breed page.
-- Add something that explains what high and low are in the tooltip
-- Add card stack and animation to hero
-- Add learn more to about
+- [BLOCKED] Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
+- [BLOCKED] Add min and max to the tooltips on the breed page.
+- [BLOCKED] `Family Affection Level`. Do we need the `Level`? Aren't these all levels? Might want to standardise this
 - `/n ` should be `/n`
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Make open source
@@ -17,6 +15,7 @@
 - Desktop: Results page: Add “Click the card to learn more” to the dog cards (See new Figma design) (only on results page)
 - Add filters to dog directory
 - Mobile: Visual, Dogs seem to load slowly?
+- Add mobile nav menu
 - Desktop: Dog directory: Add viewing options for 12/50/100 dogs
 - Add image options to dog directory
 - Add sort option to dog directory
@@ -30,11 +29,11 @@
 - Add 'swoop' to tournament images
 - Mobile: Consider numbering the questions? (See new Figma design)
 - Add arrows to quiz navigation buttons (and breeds pagination buttons)
-- Add mobile nav menu
 - Undo button for visual quiz if you select wrongly
 - Add some photos to accompany the multi choice questions
 - Add image scroll buttons to dog card
 - Add enter to search to go to directory
+- Add learn more to about
 - Add pagination to weekly dogs
 - Add short name and long name, fix the names we broke recently by making them shorter
 - Update generic page design (T&Cs PP), based on the one in the Figma (add the same blue background strip + pawprint (to match the dog pages))
