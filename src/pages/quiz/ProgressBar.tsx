@@ -3,6 +3,7 @@ import { QuizType } from "./quiz-data";
 import quizCompletionPercent from "../../app/quiz-completion-percent";
 import { useEffect, useRef, useState } from "react";
 import drop from "../../assets/drop.svg";
+import triggerEvent, { COMPLETE_QUIZ_EVENT } from "../../app/trigger-event";
 
 const Container = styled.div`
   position: relative;
@@ -277,6 +278,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                     onClick={() => {
                       let newQuiz = { ...quiz };
                       newQuiz.showResults = true;
+                      triggerEvent(COMPLETE_QUIZ_EVENT);
                       setQuiz(newQuiz);
                     }}
                   />
