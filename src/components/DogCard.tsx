@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const StyledDogCard = styled(Link)`
+const StyledDogCard = styled(Link)<{ $padding?: boolean }>`
   width: 47.7rem;
   padding: 3rem 4rem;
   border-radius: 3.5rem;
@@ -21,8 +21,9 @@ const StyledDogCard = styled(Link)`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-
   box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.15);
+
+  margin: ${({ $padding }) => ($padding ? "4rem 0 10rem 0" : "0")};
 `;
 
 const HeaderContainer = styled.div`
@@ -113,9 +114,10 @@ const Trait = styled.div`
 
 interface Props {
   dog: DogType | null;
+  padding?: boolean;
 }
 
-const DogCard = ({ dog }: Props) => {
+const DogCard = ({ dog, padding }: Props) => {
   interface StatType {
     label: string;
     value: number;
@@ -158,6 +160,7 @@ const DogCard = ({ dog }: Props) => {
   return (
     <Container>
       <StyledDogCard
+        $padding={padding}
         to={`/${BREEDS_PATH}/${dog?.id}`}
         area-disabled={!dog ? "true" : "false"}
         onClick={(e) => {
