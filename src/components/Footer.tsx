@@ -12,10 +12,12 @@ import {
   TERMS_AND_CONDITIONS_PATH,
 } from "../app/paths";
 import { Link } from "react-router-dom";
+import triggerEvent, { DONATE_EVENT } from "../app/trigger-event";
 
 interface LinkType {
   label: string;
   link: string;
+  event?: string;
 }
 
 interface SectionType {
@@ -30,6 +32,7 @@ const SECTIONS: SectionType[] = [
       {
         label: "Buy us a coffee",
         link: DONATE,
+        event: DONATE_EVENT,
       },
       {
         label: "Say hi",
@@ -158,6 +161,9 @@ const Footer = () => {
                   key={item.label}
                   to={item.link}
                   target={isInternalLink ? "" : "_blank"}
+                  onClick={() => {
+                    if (item.event) triggerEvent(item.event);
+                  }}
                 >
                   {item.label}
                 </SectionItem>
