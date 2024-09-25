@@ -43,6 +43,8 @@ const DogCarousel = ({ dogs }: Props) => {
       showStatus={false}
       showThumbs={false}
       showArrows={false}
+      preventMovementUntilSwipeScrollTolerance={true}
+      swipeScrollTolerance={50}
       renderIndicator={(onClickHandler, isSelected, index, label) => {
         return (
           <StyledTest
