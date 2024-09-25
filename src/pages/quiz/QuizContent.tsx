@@ -15,6 +15,7 @@ import Button from "../../components/Button";
 import Tournament, { TOTAL_ROUNDS } from "./Tournament";
 import { getItemMetadata, ItemType } from "../../app/item-metadata";
 import Tooltip from "../../components/Tooltip";
+import triggerEvent, { COMPLETE_QUIZ_EVENT } from "../../app/trigger-event";
 
 const StyledQuizContent = styled.div`
   padding: 10rem;
@@ -302,6 +303,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                   let newQuiz = { ...quiz };
                   newQuiz.showResults = true;
                   setQuiz(newQuiz);
+                  triggerEvent(COMPLETE_QUIZ_EVENT);
                 }}
               >
                 Find your dream dog!
@@ -313,6 +315,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                   let newQuiz = { ...quiz };
                   newQuiz.showResults = true;
                   setQuiz(newQuiz);
+                  triggerEvent(COMPLETE_QUIZ_EVENT);
                 }}
               >
                 Skip visual section
