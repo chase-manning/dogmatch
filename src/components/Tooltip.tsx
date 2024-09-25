@@ -15,9 +15,9 @@ const TooltipContent = styled.div<{ $top: number }>`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: none;
   z-index: 1;
-  font-size: 1.6rem;
-  font-weight: 500;
   border: solid 1px var(--sub);
+  flex-direction: column;
+  gap: 2rem;
 
   @media (max-width: 900px) {
     position: fixed;
@@ -26,6 +26,11 @@ const TooltipContent = styled.div<{ $top: number }>`
     left: 50%;
     transform: translateX(-50%);
   }
+`;
+
+const TooltipText = styled.div`
+  font-size: 1.6rem;
+  font-weight: 500;
 `;
 
 const StyledTooltip = styled.div`
@@ -39,7 +44,7 @@ const StyledTooltip = styled.div`
 
   &:hover {
     ${TooltipContent} {
-      display: block;
+      display: flex;
     }
   }
 `;
@@ -66,7 +71,13 @@ const Tooltip = ({ children }: Props) => {
       }}
     >
       <Icon src={tooltip} alt="tooltip" />
-      <TooltipContent $top={tooltipTop}>{children}</TooltipContent>
+      <TooltipContent $top={tooltipTop}>
+        {typeof children === "string"
+          ? children
+              .split("\n")
+              .map((line, i) => <TooltipText key={i}>{line}</TooltipText>)
+          : children}
+      </TooltipContent>
     </StyledTooltip>
   );
 };
