@@ -31,12 +31,19 @@ const turnCardAnimation = keyframes`
 const revealCardAnimation = keyframes`
   0% {
     transform: rotateY(180deg);
+    opacity: 0;
   }
   50% {
     transform: rotateY(90deg);
+    opacity: 0;
+  }
+  50.1% {
+    transform: rotateY(90deg);
+    opacity: 1;
   }
   100% {
     transform: rotateY(0deg);
+    opacity: 1;
   }
 `;
 
@@ -105,6 +112,14 @@ const DogCardContainer = styled.div<{ $show: boolean }>`
   position: relative;
   animation: ${({ $show }) => ($show ? revealCardAnimation : "none")} 0.5s
     forwards;
+  opacity: 0;
+`;
+
+const Rosette = styled.img`
+  position: absolute;
+  top: -3.8rem;
+  right: -3.8rem;
+  width: 14rem;
 `;
 
 export enum Placement {
@@ -123,6 +138,13 @@ const Winner = ({ dog, placement, rating }: Props) => {
   const [show, setShow] = useState(false);
   const [showing, setShowing] = useState(false);
 
+  const icon =
+    placement === Placement.FIRST
+      ? first
+      : placement === Placement.SECOND
+      ? second
+      : third;
+
   return (
     <StyledWinner
       onClick={(e) => {
@@ -138,20 +160,12 @@ const Winner = ({ dog, placement, rating }: Props) => {
     >
       <DogCardContainer $show={show}>
         <DogCard dog={dog} />
+        <Rosette src={icon} alt="rosette" />
       </DogCardContainer>
       <CardBack $show={show}>
         <WhiteBorder>
           <GradientBg>
-            <Icon
-              src={
-                placement === Placement.FIRST
-                  ? first
-                  : placement === Placement.SECOND
-                  ? second
-                  : third
-              }
-              alt="placement icon"
-            />
+            <Icon src={icon} alt="placement icon" />
             <ClickToReveal>click to reveal</ClickToReveal>
             <Match>{`${Math.round(rating.percent * 100)}% match`}</Match>
           </GradientBg>
