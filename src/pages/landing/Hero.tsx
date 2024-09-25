@@ -9,10 +9,10 @@ import pawImage from "../../assets/paw.svg";
 import { BREEDS_PATH, QUIZ_PATH } from "../../app/paths";
 
 const NUMBER_OF_DOGS = 5;
-const MAX_TRANSFORM = 50;
-const MAX_ROTATE = 15;
+const MAX_TRANSFORM = 40;
+const MAX_ROTATE = 10;
 const CARD_FLICK_FREQUENCY = 6000;
-const ANIMATION_DURATION = 1200;
+const ANIMATION_DURATION = 800;
 
 interface PawType {
   x: number;
@@ -85,6 +85,7 @@ const StyledHero = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   height: calc(100dvh - 10rem);
   padding: 0 4rem;
 
@@ -97,7 +98,6 @@ const StyledHero = styled.div`
 `;
 
 const TextSection = styled.div`
-  flex: 1;
   height: 100%;
   display: flex;
   align-items: center;
@@ -142,17 +142,25 @@ const SubHeader = styled.h2`
 `;
 
 const DogSection = styled.div`
-  flex: 1;
+  width: 55rem;
   height: 100%;
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(var(--primary) 0, var(--bg) 65%);
 
   @media (max-width: 900px) {
     display: none;
   }
+`;
+
+const YellowBackground = styled.div`
+  position: absolute;
+  width: 100rem;
+  height: 100%;
+  background: var(--yellow);
+  z-index: -1;
+  background: radial-gradient(var(--primary) 0, var(--bg) 65%);
 `;
 
 const flick = keyframes`
@@ -363,6 +371,7 @@ const Hero = () => {
         </TextContent>
       </TextSection>
       <DogSection>
+        <YellowBackground />
         {randomDogCards.map((dogCard, index) => (
           <DogCardContainer
             $animate={
