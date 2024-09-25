@@ -7,6 +7,8 @@ import arrow from "../../assets/arrow.svg";
 import Skeleton from "../../components/Skeleton";
 import getImageAlt from "../../app/image-alt";
 
+const IMAGE_SCROLL_INTERVAL = 8000;
+
 const StyledBreedHeader = styled.div`
   width: 100%;
   margin: 16rem 0;
@@ -209,7 +211,7 @@ const BreedHeader = ({ dog }: Props) => {
         movingRight: true,
         current: (prev.current + 1) % imageTypes.length,
       }));
-    }, 8000);
+    }, IMAGE_SCROLL_INTERVAL);
     setLoopInterval(interval_);
 
     return () => {
