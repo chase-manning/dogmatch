@@ -6,7 +6,6 @@
 - [BLOCKED] Flip Training so that a 1 is easy to train and a 5 is difficult
 - Make open source
 - Share on socials
-- Mobile: “Most popular dogs this week” > change so it just shows the dog card + you can flick across to see the most popular dogs one at a time Add the little circles underneath so you can see how many there are. Remove the main dog
 - Desktop: Results page: Add “Click the card to learn more” to the dog cards (See new Figma design) (only on results page)
 - Add filters to dog directory
 - Mobile: Visual, Dogs seem to load slowly?

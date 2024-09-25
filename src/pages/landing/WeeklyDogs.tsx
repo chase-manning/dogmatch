@@ -4,6 +4,7 @@ import useDogs from "../../app/use-dogs";
 import getRand from "../../app/rand";
 import DogPreview from "../../components/DogPreview";
 import { useEffect, useState } from "react";
+import DogCarousel from "../../components/DogCarousel";
 
 const StyledWeeklyDogs = styled.div`
   width: 100%;
@@ -14,7 +15,7 @@ const StyledWeeklyDogs = styled.div`
 
   @media (max-width: 900px) {
     margin-top: 10rem;
-    margin-bottom: 10rem;
+    margin-bottom: 0;
   }
 `;
 
@@ -22,10 +23,8 @@ const MobileDogContainer = styled.div`
   display: none;
 
   @media (max-width: 900px) {
-    margin-top: 4rem;
-    display: flex;
+    display: block;
     width: 100%;
-    justify-content: space-evenly;
   }
 `;
 
@@ -95,8 +94,13 @@ const WeeklyDogs = () => {
         <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[3]] : null} />
       </DesktopDogContainer>
       <MobileDogContainer>
-        <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[0]] : null} />
-        <DogPreview dog={dogs.length > 0 && dogIds ? dogs[dogIds[1]] : null} />
+        <DogCarousel
+          dogs={
+            dogs.length > 0 && dogIds
+              ? dogIds.slice(0, 4).map((id) => dogs[id])
+              : [null, null, null, null]
+          }
+        />
       </MobileDogContainer>
     </StyledWeeklyDogs>
   );
