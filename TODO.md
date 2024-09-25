@@ -2,11 +2,9 @@
 
 # Sorted
 
-- [BLOCKED] Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
-- [BLOCKED] Add min and max to the tooltips on the breed page.
 - [BLOCKED] `Family Affection Level`. Do we need the `Level`? Aren't these all levels? Might want to standardise this
-- `/n ` should be `/n`
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
+- Flip Training so that a 1 is easy to train and a 5 is difficult
 - Make open source
 - Set up adverts
 - Share on socials
@@ -23,6 +21,7 @@
 - Add list option to dog directory
 - Add confetti to results page
 - Add 3d hover effect to the reveal cards
+- `/n ` should be `/n` in the dog descriptions
 - Clicking dogmatch quiz when on results should probably reset it
 - It's not clear that you can edit your answers or how to do that
 - For Vocal question. Could be phrased like (how much noise can you put up with)

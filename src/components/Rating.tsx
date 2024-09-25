@@ -62,11 +62,17 @@ const Rating = ({ category, trait, value, color }: Props) => {
   const metadata = getItemMetadata(category, trait);
   if (!metadata) throw new Error("no metadata found");
 
+  let tooltip = metadata.tooltip;
+
+  if (metadata.min && metadata.max) {
+    tooltip += `\n(1 = ${metadata.min}, 5 = ${metadata.max})`;
+  }
+
   return (
     <StyledRating>
       <LabelContainer>
         <Label>{metadata.label}</Label>
-        <Tooltip>{metadata.tooltip}</Tooltip>
+        <Tooltip>{tooltip}</Tooltip>
       </LabelContainer>
       <RatingContainer>
         {value ? (
