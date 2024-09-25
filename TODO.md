@@ -3,8 +3,7 @@
 # Sorted
 
 - [BLOCKED] `Family Affection Level`. Do we need the `Level`? Aren't these all levels? Might want to standardise this
-- Add a Conversion event for completing the quiz, and donating and maybe some other things
-- Flip Training so that a 1 is easy to train and a 5 is difficult
+- [BLOCKED] Flip Training so that a 1 is easy to train and a 5 is difficult
 - Make open source
 - Set up adverts
 - Share on socials

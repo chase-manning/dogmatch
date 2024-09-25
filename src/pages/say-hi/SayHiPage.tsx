@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "../../components/Button";
 import { Header3 } from "../../styles/Headers";
 import Seo from "../../components/Seo";
+import { SAY_HI_EVENT } from "../../app/trigger-event";
 
 const StyledSayHiPage = styled.div`
   width: 100%;
@@ -87,7 +88,7 @@ const SayHiPage = () => {
         <Header3>Say Hi 👋</Header3>
         <Input type="email" name="email" placeholder="Your email" />
         <StyledTextArea name="message" placeholder="Your message" rows={5} />
-        <Button wide submit>
+        <Button wide submit event={SAY_HI_EVENT}>
           Send
         </Button>
       </StyledForm>
