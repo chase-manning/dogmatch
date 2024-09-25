@@ -14,6 +14,8 @@ interface Metadata {
   question?: string;
   min?: string;
   max?: string;
+  questionMin?: string;
+  questionMax?: string;
   tooltip: string;
 }
 
@@ -106,16 +108,20 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       type: ItemType.RATING,
       label: "Lifespan",
       question: "What lifespan do you want for your dog?",
-      min: "Short (7 yrs)",
-      max: "Long (17 yrs)",
+      min: "Short",
+      max: "Long",
+      questionMin: "Short (7 yrs)",
+      questionMax: "Long (17 yrs)",
       tooltip: "How long a dog is likely to live compared to other dogs.",
     },
     salivationTendency: {
       type: ItemType.RATING,
       label: "Salivation Tendency",
       question: "Do you mind a dog that drools?",
-      min: "Prefer dry",
-      max: "Don't mind drool",
+      min: "Not a drooler",
+      max: "Heavy drooler",
+      questionMin: "Prefer dry",
+      questionMax: "Don't mind drool",
       tooltip:
         "How likely a breed is to drool. Breeds with high salivation may leave drool on clothes and furniture.",
     },
@@ -217,8 +223,10 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       type: ItemType.RATING,
       label: "Barking Frequency",
       question: "How do you feel about a vocal dog?",
-      min: "Prefer quiet",
-      max: "Don't mind noisy",
+      min: "Quiet",
+      max: "Noisy",
+      questionMin: "Prefer quiet",
+      questionMax: "Don't mind noisy",
       tooltip:
         "How frequently a breed may bark or howl. While some breeds bark at almost anything, others might only bark in specific situations (but even barkless breeds may use other sounds to express themselves.",
     },

@@ -198,8 +198,8 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
               </HeaderContainer>
               {(isRating || isLooksImportance) && (
                 <Scale
-                  min={metadata.min!}
-                  max={metadata.max!}
+                  min={metadata.questionMin ?? metadata.min!}
+                  max={metadata.questionMax ?? metadata.max!}
                   value={ratingQuestion.value}
                   setValue={(value) => {
                     const newQuiz = { ...quiz };
