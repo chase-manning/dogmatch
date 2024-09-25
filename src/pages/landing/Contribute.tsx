@@ -4,6 +4,7 @@ import { Header3, Paragraph } from "../../styles/Headers";
 import Button from "../../components/Button";
 import { DONATE } from "../../app/links";
 import { SAY_HI_PATH } from "../../app/paths";
+import { DONATE_EVENT } from "../../app/trigger-event";
 
 const StyledContribute = styled.div`
   width: 100%;
@@ -105,7 +106,9 @@ const Contribute = () => {
           <Button primary link={SAY_HI_PATH}>
             Say hi 👋
           </Button>
-          <Button link={DONATE}>Donate to us</Button>
+          <Button link={DONATE} event={DONATE_EVENT}>
+            Donate to us
+          </Button>
         </ButtonContainer>
       </Content>
     </StyledContribute>
