@@ -57,7 +57,9 @@ const Results = ({ ratings, show, quiz }: Props) => {
 
   useEffect(() => {
     if (!show) return;
-    setTimeout(() => setLoading(false), 3000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   }, [show]);
 
   const winners = dogs
