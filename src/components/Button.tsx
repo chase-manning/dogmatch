@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import triggerEvent from "../app/trigger-event";
 
 const StyledButton = styled.button<{
   $primary?: boolean;
@@ -59,6 +60,7 @@ interface Props {
   link?: string;
   submit?: boolean;
   wide?: boolean;
+  event?: string;
 }
 
 const Button = ({
@@ -69,13 +71,22 @@ const Button = ({
   link,
   submit,
   wide,
+  event,
 }: Props) => {
   const isInternalLink = !link?.startsWith("http");
 
   return (
     <>
       {submit && (
-        <StyledButton $primary={primary} $sub={sub} type="submit" $wide={wide}>
+        <StyledButton
+          $primary={primary}
+          $sub={sub}
+          type="submit"
+          $wide={wide}
+          onClick={() => {
+            if (event) triggerEvent(event);
+          }}
+        >
           {children}
         </StyledButton>
       )}
@@ -83,7 +94,10 @@ const Button = ({
         <StyledButton
           $primary={primary}
           $sub={sub}
-          onClick={action}
+          onClick={() => {
+            action();
+            if (event) triggerEvent(event);
+          }}
           $wide={wide}
         >
           {children}
@@ -96,6 +110,9 @@ const Button = ({
           $sub={sub}
           target={isInternalLink ? "" : "_blank"}
           $wide={wide}
+          onClick={() => {
+            if (event) triggerEvent(event);
+          }}
         >
           {children}
         </StyledLink>
