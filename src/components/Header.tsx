@@ -145,7 +145,7 @@ const Header = () => {
         <Search
           value={searchValue}
           setValue={setSearchValue}
-          placeholder="search"
+          placeholder="search all dogs"
           width="31rem"
         />
         {topResults && (
