@@ -2,12 +2,12 @@
 
 # Sorted
 
-- Dog images flicker when you do the tournament
 - Change min and max to not just make sense in the context of a question (as we want to add them to the breed page)
 - Add min and max to the tooltips on the breed page.
 - Add something that explains what high and low are in the tooltip
 - Add card stack and animation to hero
 - Add learn more to about
+- `/n ` should be `/n`
 - Add a Conversion event for completing the quiz, and donating and maybe some other things
 - Make open source
 - Set up adverts
@@ -53,8 +53,8 @@
 - Add data on the price of the dog
 - Add an item for how smelly the dog is
 - Should have a section on the difficulties of the dog. Some of the key considerations and issues and warnings
-- What's the point in doing this if you can't get the dog
-- Could be good to add country so you know what dogs you can get easily
+- What's the point in doing this if you can't get the dogg
+- Could be good to add country so you know what dogs yo can get easily
 - Ends up with a bunch of open tabs, not clear how to get back after quiz results
 - A couple mode (or a family mode)
 - Add dog strength
