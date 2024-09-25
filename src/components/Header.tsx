@@ -91,6 +91,7 @@ const Results = styled.div`
   padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
+  z-index: 10;
 `;
 
 const Result = styled(Link)`
