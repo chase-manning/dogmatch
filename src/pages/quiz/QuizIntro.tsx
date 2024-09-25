@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 
 import paws from "../../assets/paws.svg";
 import { QuizType } from "./quiz-data";
+import { START_QUIZ_EVENT } from "../../app/trigger-event";
 
 const StyledQuizIntro = styled.div`
   width: 100%;
@@ -80,13 +81,13 @@ const QuizIntro = ({ quiz, start, startNewQuiz }: Props) => {
             <Button wide action={start}>
               Continue where you left off
             </Button>
-            <Button primary wide action={startNewQuiz}>
+            <Button primary wide action={startNewQuiz} event={START_QUIZ_EVENT}>
               Start a new quiz
             </Button>
           </>
         )}
         {!hasOngoing && (
-          <Button wide primary action={start}>
+          <Button wide primary action={start} event={START_QUIZ_EVENT}>
             Start the dogmatch quiz now
           </Button>
         )}
