@@ -112,12 +112,27 @@ const Trait = styled.div`
   font-family: "Jost", sans-serif;
 `;
 
+const ClickCardIndicator = styled(Link)`
+  width: 100%;
+  margin-top: 1.8rem;
+  border: solid 1px var(--main);
+  height: 3.95rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  font-weight: 650;
+  color: var(--main);
+`;
+
 interface Props {
   dog: DogType | null;
   padding?: boolean;
+  clickCardIndicator?: boolean;
 }
 
-const DogCard = ({ dog, padding }: Props) => {
+const DogCard = ({ dog, padding, clickCardIndicator }: Props) => {
   interface StatType {
     label: string;
     value: number;
@@ -234,6 +249,11 @@ const DogCard = ({ dog, padding }: Props) => {
             </>
           )}
         </Traits>
+        {clickCardIndicator && (
+          <ClickCardIndicator to={`/${BREEDS_PATH}/${dog?.id}`}>
+            Click the card to learn more
+          </ClickCardIndicator>
+        )}
       </StyledDogCard>
     </Container>
   );
