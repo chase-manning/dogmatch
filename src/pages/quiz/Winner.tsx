@@ -159,7 +159,7 @@ const Winner = ({ dog, placement, rating }: Props) => {
       }}
     >
       <DogCardContainer $show={show}>
-        <DogCard dog={dog} />
+        <DogCard dog={dog} clickCardIndicator />
         <Rosette src={icon} alt="rosette" />
       </DogCardContainer>
       <CardBack $show={show}>
