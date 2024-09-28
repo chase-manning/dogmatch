@@ -116,7 +116,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     salivationTendency: {
       type: ItemType.RATING,
-      label: "Salivation Tendency",
+      label: "Drooling Frequency",
       question: "Do you mind a dog that drools?",
       min: "Not a drooler",
       max: "Heavy drooler",
@@ -234,7 +234,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
   careRequirements: {
     coatSheddingLevel: {
       type: ItemType.RATING,
-      label: "Coat Shedding Level",
+      label: "Shedding Amount",
       question: "How much shedding can you handle?",
       min: "Low shedding",
       max: "High shedding",
@@ -243,7 +243,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     coatGroomingFrequency: {
       type: ItemType.RATING,
-      label: "Coat Grooming Frequency",
+      label: "Grooming Frequency",
       question: "How often are you willing to groom your dog?",
       min: "Rarely",
       max: "Very often",
@@ -252,7 +252,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     activityLevel: {
       type: ItemType.RATING,
-      label: "Activity Level",
+      label: "Exercise Needs",
       question: "How active do you want your dog to be?",
       min: "Couch potato",
       max: "Energetic explorer",
@@ -261,7 +261,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     mentalStimulationRequirements: {
       type: ItemType.RATING,
-      label: "Mental Stimulation Requirements",
+      label: "Mental Stimulation Needs",
       question: "How much mental stimulation should your dog need?",
       min: "Low",
       max: "High",
@@ -270,10 +270,12 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     },
     trainingEase: {
       type: ItemType.RATING,
-      label: "Training Ease",
-      question: "How easy do you want training to be?",
-      min: "Challenging to train",
-      max: "Easy to train",
+      label: "Training Difficulty",
+      question: "How much effort are you willing to put into training?",
+      min: "Easy to train",
+      max: "Challenging to train",
+      questionMin: "Minimal effort",
+      questionMax: "Don't mind extra effort",
       tooltip:
         "How easy it is to train your dog and their willingness to learn new commands and behaviors. Some breeds are eager to please and quick to learn, while others may be more independent and stubborn.",
     },

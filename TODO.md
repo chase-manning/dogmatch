@@ -2,8 +2,6 @@
 
 # Sorted
 
-- Flip Training so that a 1 is easy to train and a 5 is difficult
-- `Family Affection Level`. Do we need the `Level`? Aren't these all levels? Might want to standardise this
 - Update API to match new labels for everything
 - Add mobile nav menu
 - Add swipe to you may also like
@@ -48,6 +46,7 @@
 - Add share your results section to results page
 - Performance improvements sugested by AI
 - SEO improvement suggested by AI
+- Run some AI image detection thing over the images. Replace the ones that have the highest AI detection score
 
 # Ideas
 
