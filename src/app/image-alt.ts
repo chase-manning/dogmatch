@@ -8,7 +8,7 @@ const getImageAlt = (dog: DogType, image: string) => {
     throw new Error("Image type not found");
   };
   return `A high resolution full body photograph of a ${
-    dog.generalInformation.name
+    dog.general.name
   } standing ${location(image)}`;
 };
 

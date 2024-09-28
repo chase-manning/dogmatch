@@ -105,7 +105,7 @@ const BreedsPage = () => {
 
   const searchScore = (dog: DogType) => {
     const lowerSearchValue = search.toLowerCase();
-    const lowerDogName = dog.generalInformation.name.toLowerCase();
+    const lowerDogName = dog.general.name.toLowerCase();
     const startsWith = lowerDogName.startsWith(lowerSearchValue);
     const includes = lowerDogName.includes(lowerSearchValue);
 
@@ -119,9 +119,7 @@ const BreedsPage = () => {
   const topResults =
     dogs && search
       ? dogs.sort((a, b) => searchScore(a) - searchScore(b))
-      : dogs.sort((a, b) =>
-          a.generalInformation.name.localeCompare(b.generalInformation.name)
-        );
+      : dogs.sort((a, b) => a.general.name.localeCompare(b.general.name));
 
   const setPageAndScroll = (newPage: number) => {
     setPage(newPage);

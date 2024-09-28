@@ -58,7 +58,7 @@ const DogPreview = ({ dog }: Props) => {
   return (
     <StyledDogPreview to={`/${BREEDS_PATH}/${dog?.id}`}>
       {dog ? (
-        <Header>{dog.generalInformation.name}</Header>
+        <Header>{dog.general.name}</Header>
       ) : (
         <Header>
           <Skeleton height="2.4rem" width="15rem" />

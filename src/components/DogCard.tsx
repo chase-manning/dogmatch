@@ -143,32 +143,32 @@ const DogCard = ({ dog, padding, clickCardIndicator }: Props) => {
   const stats: StatType[] = [
     {
       label: "Size",
-      value: dog?.physicalCharacteristics.size ?? 0,
+      value: dog?.physical.size ?? 0,
       color: "var(--blue)",
     },
     {
       label: "Child friendly",
-      value: dog?.behavioralTraits.childFriendly ?? 0,
+      value: dog?.behavior.childFriendly ?? 0,
       color: "var(--yellow)",
     },
     {
       label: "Training Ease",
-      value: dog?.careRequirements.trainingEase ?? 0,
+      value: dog?.care.trainingDifficulty ?? 0,
       color: "var(--green)",
     },
     {
       label: "Activity Level",
-      value: dog?.careRequirements.activityLevel ?? 0,
+      value: dog?.care.exerciseNeeds ?? 0,
       color: "var(--orange)",
     },
     {
       label: "Popularity",
-      value: dog?.generalInformation.popularity ?? 0,
+      value: dog?.general.popularity ?? 0,
       color: "var(--red)",
     },
     {
       label: "Coat Shedding Level",
-      value: dog?.careRequirements.coatSheddingLevel ?? 0,
+      value: dog?.care.sheddingAmount ?? 0,
       color: "var(--purple)",
     },
   ];
@@ -187,7 +187,7 @@ const DogCard = ({ dog, padding, clickCardIndicator }: Props) => {
       >
         <HeaderContainer>
           {dog ? (
-            <Header>{dog.generalInformation.name}</Header>
+            <Header>{dog.general.name}</Header>
           ) : (
             <Skeleton width="80%" height="2.9rem" />
           )}
@@ -239,7 +239,7 @@ const DogCard = ({ dog, padding, clickCardIndicator }: Props) => {
         </StatsSection>
         <Traits>
           {dog ? (
-            dog?.generalInformation.personalityTraits.map((trait, index) => (
+            dog?.general.personalityTraits.map((trait, index) => (
               <Trait key={index}>{trait.toLowerCase()}</Trait>
             ))
           ) : (

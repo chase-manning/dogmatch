@@ -112,7 +112,7 @@ const Header = () => {
 
   const searchScore = (dog: DogType) => {
     const lowerSearchValue = searchValue.toLowerCase();
-    const lowerDogName = dog.generalInformation.name.toLowerCase();
+    const lowerDogName = dog.general.name.toLowerCase();
     const startsWith = lowerDogName.startsWith(lowerSearchValue);
     const includes = lowerDogName.includes(lowerSearchValue);
 
@@ -156,7 +156,7 @@ const Header = () => {
                 to={`/breeds/${dog.id}`}
                 onClick={() => setSearchValue("")}
               >
-                {dog.generalInformation.name}
+                {dog.general.name}
               </Result>
             ))}
           </Results>

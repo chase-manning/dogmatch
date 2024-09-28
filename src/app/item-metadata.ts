@@ -38,7 +38,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
         "Starting with your favorite, click the dog you like the look of the most. Keep clicking your next favorite until all the dogs have gone, then a new round will start.",
     },
   },
-  generalInformation: {
+  general: {
     name: {
       type: ItemType.STRING,
       label: "Breed",
@@ -89,13 +89,13 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "Average weight of the dog in pounds. Also indicates size and build, giving an idea of how heavy this breed is.",
     },
-    lifeExpectancy: {
+    lifespan: {
       type: ItemType.NUMBER,
       label: "Lifespan",
       tooltip: "Average number of years a dog will live.",
     },
   },
-  physicalCharacteristics: {
+  physical: {
     size: {
       type: ItemType.RATING,
       label: "Size",
@@ -114,7 +114,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       questionMax: "Long (17 yrs)",
       tooltip: "How long a dog is likely to live compared to other dogs.",
     },
-    salivationTendency: {
+    droolingFrequency: {
       type: ItemType.RATING,
       label: "Drooling Frequency",
       question: "Do you mind a dog that drools?",
@@ -154,8 +154,8 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
         "Double-coated dogs have two layers of fur: a harsh topcoat and a soft undercoat. The soft undercoat is shorter, grows faster, and sheds twice a year. The topcoat is longer and more protective.",
     },
   },
-  behavioralTraits: {
-    familyAffectionLevel: {
+  behavior: {
+    familyAffection: {
       type: ItemType.RATING,
       label: "Family Affection",
       question:
@@ -192,7 +192,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "How welcoming a breed is towards strangers. Some breeds may be reserved or cautious around new people, while others will be eager and happy to meet someone new.",
     },
-    playfulnessLevel: {
+    playfulness: {
       type: ItemType.RATING,
       label: "Playfulness",
       question: "How playful would you like your dog to be?",
@@ -210,7 +210,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "How likely a breed is to warn you of strangers or potential threats. Strongly protective breeds are more likely to react to unfamiliar people or animals. They are usually more friendly towards strangers who are welcomed by their family.",
     },
-    adaptabilityRating: {
+    adaptability: {
       type: ItemType.RATING,
       label: "Adaptability",
       question: "How adaptable should your dog be to changes?",
@@ -219,7 +219,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "How easily a breed adapts to changes in their environment (e.g. living conditions, noise levels, weather, daily schedules, etc).",
     },
-    vocalizationFrequency: {
+    barkingFrequency: {
       type: ItemType.RATING,
       label: "Barking Frequency",
       question: "How do you feel about a vocal dog?",
@@ -231,8 +231,8 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
         "How frequently a breed may bark or howl. While some breeds bark at almost anything, others might only bark in specific situations (but even barkless breeds may use other sounds to express themselves.",
     },
   },
-  careRequirements: {
-    coatSheddingLevel: {
+  care: {
+    sheddingAmount: {
       type: ItemType.RATING,
       label: "Shedding Amount",
       question: "How much shedding can you handle?",
@@ -241,7 +241,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "Indicates how much fur and hair the breed sheds. Higher shedding means more brushing is needed, higher chances of triggering allergies, and more frequent vacuuming.",
     },
-    coatGroomingFrequency: {
+    groomingFrequency: {
       type: ItemType.RATING,
       label: "Grooming Frequency",
       question: "How often are you willing to groom your dog?",
@@ -250,7 +250,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "How often a breed needs bathing, brushing, trimming or other coat maintenance, depending on your time, patience, and budget for grooming. (Note that all breeds need regular nail trimming.)",
     },
-    activityLevel: {
+    exerciseNeeds: {
       type: ItemType.RATING,
       label: "Exercise Needs",
       question: "How active do you want your dog to be?",
@@ -259,7 +259,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "How much physical exercise a dog needs. Very active dogs are lively, always ready for their next adventure, and need plenty of playtime. Inactive dogs are more laid-back and happy with minimal activity.",
     },
-    mentalStimulationRequirements: {
+    mentalStimulationNeeds: {
       type: ItemType.RATING,
       label: "Mental Stimulation Needs",
       question: "How much mental stimulation should your dog need?",
@@ -268,7 +268,7 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
       tooltip:
         "How much mental stimulation a breed needs to stay happy and healthy. Breeds with high mental stimulation needs may need activities that involve decision-making, problem-solving and concentration. (Otherwise, these dogs might create their own less desirable activities!)",
     },
-    trainingEase: {
+    trainingDifficulty: {
       type: ItemType.RATING,
       label: "Training Difficulty",
       question: "How much effort are you willing to put into training?",

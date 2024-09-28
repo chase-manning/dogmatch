@@ -226,7 +226,7 @@ const BreedHeader = ({ dog }: Props) => {
       <Content>
         <MobileText>
           {dog ? (
-            <>{dog.generalInformation.shortDescription}</>
+            <>{dog.general.shortDescription}</>
           ) : (
             <>
               <Skeleton width="40rem" height="2.2rem" />
@@ -286,13 +286,13 @@ const BreedHeader = ({ dog }: Props) => {
           <HeaderContainer>
             <Paw src={paw} alt="paw print" />
             {dog ? (
-              <BreedName>{dog.generalInformation.name}</BreedName>
+              <BreedName>{dog.general.name}</BreedName>
             ) : (
               <Skeleton height="9.6rem" width="40rem" />
             )}
           </HeaderContainer>
           {dog ? (
-            <Text>{dog.generalInformation.shortDescription}</Text>
+            <Text>{dog.general.shortDescription}</Text>
           ) : (
             <>
               <Skeleton hideMobile height="2.6rem" width="80rem" />

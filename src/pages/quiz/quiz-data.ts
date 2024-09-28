@@ -52,8 +52,8 @@ const getQuizData = (dogs: DogType[]): QuizType => {
   const allCoatTextures: string[] = [];
   const dogElos: DogElos = {};
   for (const dog of dogs) {
-    const { group, personalityTraits } = dog.generalInformation;
-    const { coatStyle, coatTexture } = dog.physicalCharacteristics;
+    const { group, personalityTraits } = dog.general;
+    const { coatStyle, coatTexture } = dog.physical;
     if (!allGroups.includes(group)) {
       allGroups.push(group);
     }
@@ -81,7 +81,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         label: "General",
         questions: [
           {
-            category: "physicalCharacteristics",
+            category: "physical",
             trait: "size",
             question: {
               value: null,
@@ -89,15 +89,15 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "behavioralTraits",
-            trait: "vocalizationFrequency",
+            category: "behavior",
+            trait: "barkingFrequency",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "generalInformation",
+            category: "general",
             trait: "personalityTraits",
             question: {
               options: allPersonalityTraits,
@@ -106,7 +106,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "generalInformation",
+            category: "general",
             trait: "popularity",
             question: {
               value: null,
@@ -114,8 +114,8 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "behavioralTraits",
-            trait: "adaptabilityRating",
+            category: "behavior",
+            trait: "adaptability",
             question: {
               value: null,
             },
@@ -135,7 +135,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         label: "Physical",
         questions: [
           {
-            category: "physicalCharacteristics",
+            category: "physical",
             trait: "lifespan",
             question: {
               value: null,
@@ -143,7 +143,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "physicalCharacteristics",
+            category: "physical",
             trait: "coatStyle",
             question: {
               options: allCoatStyles,
@@ -152,7 +152,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "physicalCharacteristics",
+            category: "physical",
             trait: "coatTexture",
             question: {
               options: allCoatTextures,
@@ -161,7 +161,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "physicalCharacteristics",
+            category: "physical",
             trait: "coatLength",
             question: {
               value: null,
@@ -169,8 +169,8 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "physicalCharacteristics",
-            trait: "salivationTendency",
+            category: "physical",
+            trait: "droolingFrequency",
             question: {
               value: null,
             },
@@ -182,15 +182,15 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         label: "Behavioral",
         questions: [
           {
-            category: "behavioralTraits",
-            trait: "familyAffectionLevel",
+            category: "behavior",
+            trait: "familyAffection",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "behavioralTraits",
+            category: "behavior",
             trait: "childFriendly",
             question: {
               value: null,
@@ -198,7 +198,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "behavioralTraits",
+            category: "behavior",
             trait: "dogSociability",
             question: {
               value: null,
@@ -206,15 +206,15 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "behavioralTraits",
-            trait: "playfulnessLevel",
+            category: "behavior",
+            trait: "playfulness",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "behavioralTraits",
+            category: "behavior",
             trait: "protectiveInstincts",
             question: {
               value: null,
@@ -222,7 +222,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "behavioralTraits",
+            category: "behavior",
             trait: "friendlinessToStrangers",
             question: {
               value: null,
@@ -235,40 +235,40 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         label: "Care",
         questions: [
           {
-            category: "careRequirements",
-            trait: "activityLevel",
+            category: "care",
+            trait: "exerciseNeeds",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "careRequirements",
-            trait: "coatSheddingLevel",
+            category: "care",
+            trait: "sheddingAmount",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "careRequirements",
-            trait: "coatGroomingFrequency",
+            category: "care",
+            trait: "groomingFrequency",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "careRequirements",
-            trait: "trainingEase",
+            category: "care",
+            trait: "trainingDifficulty",
             question: {
               value: null,
             },
             importance: null,
           },
           {
-            category: "careRequirements",
-            trait: "mentalStimulationRequirements",
+            category: "care",
+            trait: "mentalStimulationNeeds",
             question: {
               value: null,
             },

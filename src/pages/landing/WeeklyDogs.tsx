@@ -64,14 +64,14 @@ const WeeklyDogs = () => {
 
     while (dogIds_.length < 4) {
       const totalPopularities = dogs.reduce(
-        (acc, dog) => acc + dog.generalInformation.popularity,
+        (acc, dog) => acc + dog.general.popularity,
         0
       );
       const randomNumber = randBetween(0, totalPopularities);
 
       let currentTotal = 0;
       for (let i = 0; i < dogs.length; i++) {
-        currentTotal += dogs[i].generalInformation.popularity;
+        currentTotal += dogs[i].general.popularity;
         if (currentTotal >= randomNumber) {
           dogIds_.push(i);
           break;

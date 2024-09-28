@@ -197,14 +197,14 @@ const BreedPage = () => {
   const getAverageMaintenance = (dog: any) => {
     const averageMaintenance = dog
       ? (6 -
-          dog.behavioralTraits.vocalizationFrequency +
-          (6 - dog.behavioralTraits.playfulnessLevel) +
-          (6 - dog.careRequirements.activityLevel) +
-          (6 - dog.careRequirements.coatSheddingLevel) +
-          (6 - dog.careRequirements.coatGroomingFrequency) +
-          dog.careRequirements.trainingEase +
-          (6 - dog.careRequirements.mentalStimulationRequirements) +
-          (6 - dog.physicalCharacteristics.salivationTendency)) /
+          dog.behavior.barkingFrequency +
+          (6 - dog.behavior.playfulness) +
+          (6 - dog.care.exerciseNeeds) +
+          (6 - dog.care.sheddingAmount) +
+          (6 - dog.care.groomingFrequency) +
+          dog.care.trainingDifficulty +
+          (6 - dog.care.mentalStimulationNeeds) +
+          (6 - dog.physical.droolingFrequency)) /
         8
       : null;
     return averageMaintenance;
@@ -237,30 +237,30 @@ const BreedPage = () => {
               {dog ? (
                 <>
                   <Stat
-                    category="generalInformation"
+                    category="general"
                     trait="group"
-                    value={dog.generalInformation.group}
+                    value={dog.general.group}
                     icon={paw}
                   />
                   <Stat
-                    category="generalInformation"
-                    trait="lifeExpectancy"
-                    value={`${dog.generalInformation.lifeExpectancy.toLocaleString()} years`}
+                    category="general"
+                    trait="lifespan"
+                    value={`${dog.general.lifespan.toLocaleString()} years`}
                     icon={lifespan}
                   />
                   <Stat
-                    category="generalInformation"
+                    category="general"
                     trait="height"
-                    value={`${dog.generalInformation.height.toLocaleString()} in (${Math.round(
-                      inchesToCentimeters(dog.generalInformation.height)
+                    value={`${dog.general.height.toLocaleString()} in (${Math.round(
+                      inchesToCentimeters(dog.general.height)
                     ).toLocaleString()} cm)`}
                     icon={height}
                   />
                   <Stat
-                    category="generalInformation"
+                    category="general"
                     trait="weight"
-                    value={`${dog.generalInformation.weight.toLocaleString()} lb (${Math.round(
-                      poundsToKilograms(dog.generalInformation.weight)
+                    value={`${dog.general.weight.toLocaleString()} lb (${Math.round(
+                      poundsToKilograms(dog.general.weight)
                     ).toLocaleString()} kg)`}
                     icon={weight}
                   />
@@ -278,41 +278,41 @@ const BreedPage = () => {
           </HeaderSection>
           <RatingColumn>
             <Rating
-              category="generalInformation"
+              category="general"
               trait="popularity"
-              value={dog?.generalInformation.popularity ?? null}
+              value={dog?.general.popularity ?? null}
               color="var(--red)"
             />
             <Rating
-              category="physicalCharacteristics"
+              category="physical"
               trait="lifespan"
-              value={dog?.physicalCharacteristics.lifespan ?? null}
+              value={dog?.physical.lifespan ?? null}
               color="var(--green)"
             />
             <Rating
-              category="behavioralTraits"
-              trait="adaptabilityRating"
-              value={dog?.behavioralTraits.adaptabilityRating ?? null}
+              category="behavior"
+              trait="adaptability"
+              value={dog?.behavior.adaptability ?? null}
               color="var(--orange)"
             />
           </RatingColumn>
           <RatingColumn>
             <Rating
-              category="physicalCharacteristics"
+              category="physical"
               trait="size"
-              value={dog?.physicalCharacteristics.size ?? null}
+              value={dog?.physical.size ?? null}
               color="var(--brown)"
             />
             <Rating
-              category="physicalCharacteristics"
+              category="physical"
               trait="coatLength"
-              value={dog?.physicalCharacteristics.coatLength ?? null}
+              value={dog?.physical.coatLength ?? null}
               color="var(--teal)"
             />
             <Rating
-              category="behavioralTraits"
-              trait="vocalizationFrequency"
-              value={dog?.behavioralTraits.vocalizationFrequency ?? null}
+              category="behavior"
+              trait="barkingFrequency"
+              value={dog?.behavior.barkingFrequency ?? null}
               color="var(--yellow)"
             />
           </RatingColumn>
@@ -323,7 +323,7 @@ const BreedPage = () => {
             <TraitsColumn>
               {dog ? (
                 <>
-                  {dog.generalInformation.personalityTraits.map((trait) => (
+                  {dog.general.personalityTraits.map((trait) => (
                     <Behaviour key={trait}>{trait.toLowerCase()}</Behaviour>
                   ))}
                 </>
@@ -339,41 +339,41 @@ const BreedPage = () => {
           </HeaderSection>
           <RatingColumn>
             <Rating
-              category="behavioralTraits"
-              trait="familyAffectionLevel"
-              value={dog?.behavioralTraits.familyAffectionLevel ?? null}
+              category="behavior"
+              trait="familyAffection"
+              value={dog?.behavior.familyAffection ?? null}
               color="var(--red)"
             />
             <Rating
-              category="behavioralTraits"
+              category="behavior"
               trait="dogSociability"
-              value={dog?.behavioralTraits.dogSociability ?? null}
+              value={dog?.behavior.dogSociability ?? null}
               color="var(--teal)"
             />
             <Rating
-              category="behavioralTraits"
+              category="behavior"
               trait="friendlinessToStrangers"
-              value={dog?.behavioralTraits.friendlinessToStrangers ?? null}
+              value={dog?.behavior.friendlinessToStrangers ?? null}
               color="var(--yellow)"
             />
           </RatingColumn>
           <RatingColumn>
             <Rating
-              category="behavioralTraits"
+              category="behavior"
               trait="childFriendly"
-              value={dog?.behavioralTraits.childFriendly ?? null}
+              value={dog?.behavior.childFriendly ?? null}
               color="var(--green)"
             />
             <Rating
-              category="behavioralTraits"
-              trait="playfulnessLevel"
-              value={dog?.behavioralTraits.playfulnessLevel ?? null}
+              category="behavior"
+              trait="playfulness"
+              value={dog?.behavior.playfulness ?? null}
               color="var(--orange)"
             />
             <Rating
-              category="behavioralTraits"
+              category="behavior"
               trait="protectiveInstincts"
-              value={dog?.behavioralTraits.protectiveInstincts ?? null}
+              value={dog?.behavior.protectiveInstincts ?? null}
               color="var(--brown)"
             />
           </RatingColumn>
@@ -392,39 +392,37 @@ const BreedPage = () => {
               {dog ? (
                 <>
                   <Stat
-                    category="physicalCharacteristics"
+                    category="physical"
                     trait="coatStyle"
-                    value={dog.physicalCharacteristics.coatStyle}
+                    value={dog.physical.coatStyle}
                     icon={typeIcon}
                   />
                   <Stat
-                    category="physicalCharacteristics"
+                    category="physical"
                     trait="coatTexture"
-                    value={dog.physicalCharacteristics.coatTexture}
+                    value={dog.physical.coatTexture}
                     icon={texture}
                   />
                   <Stat
-                    category="physicalCharacteristics"
+                    category="physical"
                     trait="coatLength"
                     value={
-                      dog.physicalCharacteristics.coatLength === 1
+                      dog.physical.coatLength === 1
                         ? "Short"
-                        : dog.physicalCharacteristics.coatLength === 2
+                        : dog.physical.coatLength === 2
                         ? "Short/Medium"
-                        : dog.physicalCharacteristics.coatLength === 3
+                        : dog.physical.coatLength === 3
                         ? "Medium"
-                        : dog.physicalCharacteristics.coatLength === 4
+                        : dog.physical.coatLength === 4
                         ? "Medium/Long"
                         : "Long"
                     }
                     icon={length}
                   />
                   <Stat
-                    category="physicalCharacteristics"
+                    category="physical"
                     trait="doubleCoat"
-                    value={
-                      dog.physicalCharacteristics.doubleCoat ? "Yes" : "No"
-                    }
+                    value={dog.physical.doubleCoat ? "Yes" : "No"}
                     icon={paw}
                   />
                 </>
@@ -441,43 +439,41 @@ const BreedPage = () => {
           </HeaderSection>
           <RatingColumn>
             <Rating
-              category="careRequirements"
-              trait="activityLevel"
-              value={dog?.careRequirements.activityLevel ?? null}
+              category="care"
+              trait="exerciseNeeds"
+              value={dog?.care.exerciseNeeds ?? null}
               color="var(--red)"
             />
             <Rating
-              category="careRequirements"
-              trait="coatGroomingFrequency"
-              value={dog?.careRequirements.coatGroomingFrequency ?? null}
+              category="care"
+              trait="groomingFrequency"
+              value={dog?.care.groomingFrequency ?? null}
               color="var(--purple)"
             />
             <Rating
-              category="careRequirements"
-              trait="mentalStimulationRequirements"
-              value={
-                dog?.careRequirements.mentalStimulationRequirements ?? null
-              }
+              category="care"
+              trait="mentalStimulationNeeds"
+              value={dog?.care.mentalStimulationNeeds ?? null}
               color="var(--blue)"
             />
           </RatingColumn>
           <RatingColumn>
             <Rating
-              category="careRequirements"
-              trait="coatSheddingLevel"
-              value={dog?.careRequirements.coatSheddingLevel ?? null}
+              category="care"
+              trait="sheddingAmount"
+              value={dog?.care.sheddingAmount ?? null}
               color="var(--brown)"
             />
             <Rating
-              category="careRequirements"
-              trait="trainingEase"
-              value={dog?.careRequirements.trainingEase ?? null}
+              category="care"
+              trait="trainingDifficulty"
+              value={dog?.care.trainingDifficulty ?? null}
               color="var(--green)"
             />
             <Rating
-              category="physicalCharacteristics"
-              trait="salivationTendency"
-              value={dog?.physicalCharacteristics.salivationTendency ?? null}
+              category="physical"
+              trait="droolingFrequency"
+              value={dog?.physical.droolingFrequency ?? null}
               color="var(--yellow)"
             />
           </RatingColumn>
@@ -485,12 +481,12 @@ const BreedPage = () => {
         <Section>
           <AboutContainer>
             {dog ? (
-              <Header>{`About ${dog.generalInformation.name}`}</Header>
+              <Header>{`About ${dog.general.name}`}</Header>
             ) : (
               <Skeleton width="40rem" height="4rem" />
             )}
             {dog ? (
-              dog.generalInformation.longDescription
+              dog.general.longDescription
                 .split("\n")
                 .map((paragraph) => (
                   <AboutBreed key={paragraph}>{paragraph}</AboutBreed>

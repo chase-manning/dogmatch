@@ -16,7 +16,7 @@ export const DogContext = createContext<DogContextType>({
 
 export interface DogType {
   id: string;
-  generalInformation: {
+  general: {
     name: string;
     group: string;
     personalityTraits: string[];
@@ -25,33 +25,33 @@ export interface DogType {
     popularity: number;
     height: number;
     weight: number;
-    lifeExpectancy: number;
+    lifespan: number;
   };
-  physicalCharacteristics: {
+  physical: {
     size: number;
     lifespan: number;
-    salivationTendency: number;
+    droolingFrequency: number;
     coatStyle: string;
     coatTexture: string;
     coatLength: number;
     doubleCoat: boolean;
   };
-  behavioralTraits: {
-    familyAffectionLevel: number;
+  behavior: {
+    familyAffection: number;
     childFriendly: number;
     dogSociability: number;
     friendlinessToStrangers: number;
-    playfulnessLevel: number;
+    playfulness: number;
     protectiveInstincts: number;
-    adaptabilityRating: number;
-    vocalizationFrequency: number;
+    adaptability: number;
+    barkingFrequency: number;
   };
-  careRequirements: {
-    coatSheddingLevel: number;
-    coatGroomingFrequency: number;
-    activityLevel: number;
-    mentalStimulationRequirements: number;
-    trainingEase: number;
+  care: {
+    sheddingAmount: number;
+    groomingFrequency: number;
+    exerciseNeeds: number;
+    mentalStimulationNeeds: number;
+    trainingDifficulty: number;
   };
   images: {
     small: {
