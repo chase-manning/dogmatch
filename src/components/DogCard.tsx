@@ -71,6 +71,7 @@ const StatHeader = styled.div`
 
   @media (max-width: 900px) {
     font-size: 1.4rem;
+    text-align: left;
   }
 `;
 
