@@ -81,6 +81,22 @@ const getQuizData = (dogs: DogType[]): QuizType => {
         label: "General",
         questions: [
           {
+            category: "physicalCharacteristics",
+            trait: "size",
+            question: {
+              value: null,
+            },
+            importance: null,
+          },
+          {
+            category: "behavioralTraits",
+            trait: "vocalizationFrequency",
+            question: {
+              value: null,
+            },
+            importance: null,
+          },
+          {
             category: "generalInformation",
             trait: "personalityTraits",
             question: {
@@ -98,24 +114,8 @@ const getQuizData = (dogs: DogType[]): QuizType => {
             importance: null,
           },
           {
-            category: "physicalCharacteristics",
-            trait: "size",
-            question: {
-              value: null,
-            },
-            importance: null,
-          },
-          {
             category: "behavioralTraits",
             trait: "adaptabilityRating",
-            question: {
-              value: null,
-            },
-            importance: null,
-          },
-          {
-            category: "behavioralTraits",
-            trait: "vocalizationFrequency",
             question: {
               value: null,
             },
