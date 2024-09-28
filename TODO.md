@@ -2,9 +2,6 @@
 
 # Sorted
 
-- Mobile: Quiz - which dog is your perfect match page - paw prints slightly overlap top bar
-- Homepage - Contribute - change donation text to “As a free to use website, we really appreciate donations to help keep us going if you have any pennies to spare.”
-- Footer - change “buy us a coffee” to “Donate to us” to match the button text
 - Flip Training so that a 1 is easy to train and a 5 is difficult
 - `Family Affection Level`. Do we need the `Level`? Aren't these all levels? Might want to standardise this
 - Update API to match new labels for everything

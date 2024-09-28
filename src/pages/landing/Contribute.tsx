@@ -87,8 +87,8 @@ const Contribute = () => {
           <Paragraph style={{ textAlign: "center" }}>
             We'd love to hear from you! If you used dogmatch and have any
             feedback or improvements for us, please get in touch using the
-            button below. As a free to use website, we'd really appreciate any
-            donations to keep us going too.
+            button below. As a free to use website, we really appreciate
+            donations to help keep us going if you have any pennies to spare.
           </Paragraph>
         </DesktopParagraphs>
         <MobileParagraphs>
@@ -98,8 +98,8 @@ const Contribute = () => {
             button below.
           </Paragraph>
           <Paragraph style={{ textAlign: "center" }}>
-            As a free to use website, we'd really appreciate any donations to
-            keep us going too.
+            As a free to use website, we really appreciate donations to help
+            keep us going if you have any pennies to spare.
           </Paragraph>
         </MobileParagraphs>
         <ButtonContainer>
