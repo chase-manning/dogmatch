@@ -40,6 +40,7 @@ interface Props {
 const DogCarousel = ({ dogs }: Props) => {
   return (
     <Carousel
+      infiniteLoop
       showStatus={false}
       showThumbs={false}
       showArrows={false}
