@@ -41,13 +41,13 @@ const Header = styled.h1`
   text-align: center;
 
   @media (max-width: 900px) {
-    font-size: 8rem;
+    font-size: 7rem;
     font-weight: 600;
     line-height: 1.3;
   }
 
   @media (max-width: 326px) {
-    font-size: 7.5rem;
+    font-size: 6rem;
   }
 `;
 

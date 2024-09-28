@@ -2,7 +2,6 @@
 
 # Sorted
 
-- Mobile: Quiz - which dog is your perfect match page - make font smaller
 - Mobile: Quiz - which dog is your perfect match page - paw prints slightly overlap top bar
 - Homepage - Contribute - change donation text to “As a free to use website, we really appreciate donations to help keep us going if you have any pennies to spare.”
 - Footer - change “buy us a coffee” to “Donate to us” to match the button text
