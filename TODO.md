@@ -2,7 +2,6 @@
 
 # Sorted
 
-- Bug with progress bar when you speed run to results
 - Change the order of the first questions so it's a bit more clear
 - Mobile: Quiz - which dog is your perfect match page - make font smaller
 - Mobile: Quiz - which dog is your perfect match page - paw prints slightly overlap top bar

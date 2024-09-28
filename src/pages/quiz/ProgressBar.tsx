@@ -218,7 +218,9 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                   <Line
                     key={index}
                     $percent={
-                      quiz.sectionIndex > index
+                      quiz.showResults
+                        ? 1
+                        : quiz.sectionIndex > index
                         ? 1
                         : quiz.sectionIndex < index
                         ? 0
