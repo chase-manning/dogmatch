@@ -10,7 +10,6 @@
 - Mobile: Visual, Dogs seem to load slowly?
 - Desktop: Dog directory: Add viewing options for 12/50/100 dogs
 - Add image options to dog directory
-- Add sort option to dog directory
 - Add option for large dog images on dog directory
 - Add list option to dog directory
 - Images flicker when changing dogs on the breed page
