@@ -2,11 +2,9 @@
 
 # Sorted
 
-- Search button on breeds page is too small
 - [DESIGN] Add a dont mind/don't care/skip this question
 - [DESIGN] Confused how visual section works for first click
 - [DESIGN] Make it more clear how to do the visual section, that they need to keep clicking
-- Add 'swoop' to tournament images
 - Share on socials
 - Add filters to dog directory
 - Mobile: Visual, Dogs seem to load slowly?
