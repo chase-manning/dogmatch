@@ -4,4 +4,12 @@
 
 # Dog Match
 
-A simple site for finding which dog you match best with
+dogmatch is the best way to find your dream dog!
+
+## Contributing
+
+If you are interested in contributing please check out our [Contribution Guide](https://github.com/chase-manning/dogmatch/blob/main/.github/CONTRIBUTING.md) :tada:
+
+## License
+
+dogmatch is under a [MIT License](https://github.com/chase-manning/dogmatch/blob/main/LICENSE).
