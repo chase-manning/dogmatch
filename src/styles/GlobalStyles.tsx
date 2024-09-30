@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
         --bg-image: #E6E6E6;
         --main: #1D5D9B;
         --sub: #75C2F6;
-        --light: #DAF0FF;
+        --light: #F2F9FE;
         --primary: #F4D160;
 
         --blue: #0577E5;
