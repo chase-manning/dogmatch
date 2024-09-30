@@ -3,7 +3,7 @@ import styled from "styled-components";
 import searchIcon from "../assets/search.svg";
 
 const StyledSearch = styled.div<{ width: string; $mobileWidth?: string }>`
-  border: solid 1px var(--light);
+  border: solid 1px var(--sub);
   border-radius: 1rem;
   padding: 0.7rem 1.4rem;
   display: flex;
@@ -29,7 +29,7 @@ const Input = styled.input`
   color: var(--main);
 
   &::placeholder {
-    color: var(--light);
+    color: var(--sub);
   }
 `;
 

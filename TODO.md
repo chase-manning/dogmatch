@@ -2,15 +2,11 @@
 
 # Sorted
 
-- Update API to match new labels for everything
-- Add mobile nav menu
-- Add swipe to you may also like
-- Search button on breeds page is too light and small (Lien)
+- Search button on breeds page is too small
 - [DESIGN] Add a dont mind/don't care/skip this question
 - [DESIGN] Confused how visual section works for first click
 - [DESIGN] Make it more clear how to do the visual section, that they need to keep clicking
 - Add 'swoop' to tournament images
-- Make open source
 - Share on socials
 - Add filters to dog directory
 - Mobile: Visual, Dogs seem to load slowly?

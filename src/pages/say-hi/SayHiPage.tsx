@@ -38,7 +38,7 @@ const Input = styled.input`
   flex: 1;
   font-family: "Jost", sans-serif;
   color: var(--main);
-  border: solid 1px var(--light);
+  border: solid 1px var(--sub);
   border-radius: 1rem;
   padding: 0.7rem 1.4rem;
   display: flex;
@@ -46,7 +46,7 @@ const Input = styled.input`
   width: 60rem;
 
   &::placeholder {
-    color: var(--light);
+    color: var(--sub);
   }
 
   @media (max-width: 900px) {
@@ -61,7 +61,7 @@ const StyledTextArea = styled.textarea`
   flex: 1;
   font-family: "Jost", sans-serif;
   color: var(--main);
-  border: solid 1px var(--light);
+  border: solid 1px var(--sub);
   border-radius: 1rem;
   padding: 0.7rem 1.4rem;
   display: flex;
@@ -69,7 +69,7 @@ const StyledTextArea = styled.textarea`
   width: 60rem;
 
   &::placeholder {
-    color: var(--light);
+    color: var(--sub);
   }
 
   @media (max-width: 900px) {
