@@ -18,6 +18,7 @@ import Rating from "../../components/Rating";
 import YouMayAlsoLike from "./YouMayAlsoLike";
 import Seo from "../../components/Seo";
 import getDogName from "../../app/dog-name";
+import MobileYouMayAlsoLike from "./MobileYouMayAlsoLike";
 
 type Maintenance = "low" | "medium" | "high";
 
@@ -503,6 +504,7 @@ const BreedPage = () => {
         </Section>
       </Sections>
       <YouMayAlsoLike dog={dog ?? null} />
+      <MobileYouMayAlsoLike dog={dog ?? null} />
     </StyledBreed>
   );
 };
