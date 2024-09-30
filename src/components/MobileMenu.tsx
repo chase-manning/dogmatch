@@ -102,7 +102,11 @@ const MobileMenu = ({ headerNavItems }: Props) => {
           <DropShadow onClick={() => setIsOpen(false)} />
           <MenuContainer>
             {[...headerNavItems, ...MOBILE_NAV_ITEMS].map((item) => (
-              <NavItem key={item.label} to={item.path}>
+              <NavItem
+                key={item.label}
+                to={item.path}
+                onClick={() => setIsOpen(false)}
+              >
                 {item.label}
               </NavItem>
             ))}
