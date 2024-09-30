@@ -25,37 +25,37 @@ interface SortOption {
 
 const SORT_OPTIONS: SortOption[] = [
   {
-    label: "Alphabetically",
+    label: "Name (A-Z)",
     category: "general",
     trait: "name",
     descending: true,
   },
   {
-    label: "Alphabetically",
+    label: "Name (Z-A)",
     category: "general",
     trait: "name",
     descending: false,
   },
   {
-    label: "Popularity",
+    label: "Most popular",
     category: "general",
     trait: "popularity",
     descending: true,
   },
   {
-    label: "Popularity",
+    label: "Least popular",
     category: "general",
     trait: "popularity",
     descending: false,
   },
   {
-    label: "Size",
+    label: "Size (big-small)",
     category: "physical",
     trait: "size",
     descending: true,
   },
   {
-    label: "Size",
+    label: "Size (small-big)",
     category: "physical",
     trait: "size",
     descending: false,
@@ -234,7 +234,8 @@ const BreedsPage = () => {
   const [selectedLetters, setSelectedLetters] = useState<string[]>([]);
 
   const getSortLabel = (option: SortOption) => {
-    return `${option.label} (${option.descending ? "desc" : "asc"})`;
+    return option.label;
+    // return `${option.label} (${option.descending ? "desc" : "asc"})`;
   };
 
   const [sort, setSort] = useState(getSortLabel(SORT_OPTIONS[0]));

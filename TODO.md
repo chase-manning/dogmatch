@@ -2,6 +2,7 @@
 
 # Sorted
 
+- Align font sizes between search and dropdown
 - [DESIGN] Add a dont mind/don't care/skip this question
 - [DESIGN] Confused how visual section works for first click
 - [DESIGN] Make it more clear how to do the visual section, that they need to keep clicking
