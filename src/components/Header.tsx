@@ -7,20 +7,22 @@ import Logo from "./Logo";
 import useDogs from "../app/use-dogs";
 import levenshtein from "../app/levenshtein";
 import { DogType } from "./DogContext";
+import MobileMenu from "./MobileMenu";
+import { BREEDS_PATH, QUIZ_PATH } from "../app/paths";
 
-interface NavItemType {
+export interface NavItemType {
   label: string;
   path: string;
 }
 
-const NAV_ITEMS: NavItemType[] = [
+const HEADER_NAV_ITEMS: NavItemType[] = [
   {
     label: "dogmatch quiz",
-    path: "quiz",
+    path: QUIZ_PATH,
   },
   {
     label: "all dogs",
-    path: "breeds",
+    path: BREEDS_PATH,
   },
 ];
 
@@ -133,7 +135,7 @@ const Header = () => {
       <Logo />
 
       <NavItems>
-        {NAV_ITEMS.map((item) => (
+        {HEADER_NAV_ITEMS.map((item) => (
           <NavItem key={item.label} to={item.path}>
             {item.label}
           </NavItem>
@@ -162,6 +164,7 @@ const Header = () => {
           </Results>
         )}
       </SearchContainer>
+      <MobileMenu headerNavItems={HEADER_NAV_ITEMS} />
     </StyledHeader>
   );
 };
