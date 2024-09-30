@@ -11,8 +11,55 @@ import { DogType } from "../../components/DogContext";
 import levenshtein from "../../app/levenshtein";
 import Button from "../../components/Button";
 import Seo from "../../components/Seo";
+import Dropdown from "../../components/Dropdown";
 
 const RESULTS_PER_PAGE = 12;
+
+interface SortOption {
+  label: string;
+  category: string;
+  trait: string;
+  descending: boolean;
+}
+
+const SORT_OPTIONS: SortOption[] = [
+  {
+    label: "Alphabetically",
+    category: "general",
+    trait: "name",
+    descending: true,
+  },
+  {
+    label: "Alphabetically",
+    category: "general",
+    trait: "name",
+    descending: false,
+  },
+  {
+    label: "Popularity",
+    category: "general",
+    trait: "popularity",
+    descending: true,
+  },
+  {
+    label: "Popularity",
+    category: "general",
+    trait: "popularity",
+    descending: false,
+  },
+  {
+    label: "Size",
+    category: "physical",
+    trait: "size",
+    descending: true,
+  },
+  {
+    label: "Size",
+    category: "physical",
+    trait: "size",
+    descending: false,
+  },
+];
 
 const StyledBreedsPage = styled.div`
   width: 100%;
@@ -74,6 +121,13 @@ const StyledLink = styled(Link)`
 const SearchContainer = styled.div`
   margin-top: 6rem;
   margin-bottom: 6rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
 const Dogs = styled.div`
@@ -103,6 +157,16 @@ const BreedsPage = () => {
   const [search, setSearch] = useState("");
   const { dogs, loading } = useDogs();
 
+  const getSortLabel = (option: SortOption) => {
+    return `${option.label} (${option.descending ? "desc" : "asc"})`;
+  };
+
+  const [sort, setSort] = useState(getSortLabel(SORT_OPTIONS[0]));
+
+  const sortOption = SORT_OPTIONS.find(
+    (option) => getSortLabel(option) === sort
+  ) as SortOption;
+
   const searchScore = (dog: DogType) => {
     const lowerSearchValue = search.toLowerCase();
     const lowerDogName = dog.general.name.toLowerCase();
@@ -119,7 +183,24 @@ const BreedsPage = () => {
   const topResults =
     dogs && search
       ? dogs.sort((a, b) => searchScore(a) - searchScore(b))
-      : dogs.sort((a, b) => a.general.name.localeCompare(b.general.name));
+      : dogs.sort((a, b) => {
+          if (
+            sortOption.category === "general" &&
+            sortOption.trait === "name"
+          ) {
+            if (sortOption.descending) {
+              return a.general.name.localeCompare(b.general.name);
+            }
+            return b.general.name.localeCompare(a.general.name);
+          }
+
+          const category = sortOption.category as keyof DogType;
+          const trait = sortOption.trait as keyof DogType[typeof category];
+          if (sortOption.descending) {
+            return b[category][trait] - a[category][trait];
+          }
+          return a[category][trait] - b[category][trait];
+        });
 
   const setPageAndScroll = (newPage: number) => {
     setPage(newPage);
@@ -151,6 +232,12 @@ const BreedsPage = () => {
           placeholder="Search by name"
           width="57rem"
           mobileWidth="43rem"
+          height="6rem"
+        />
+        <Dropdown
+          options={SORT_OPTIONS.map((option) => getSortLabel(option))}
+          selectedOption={sort}
+          setSelectedOption={setSort}
         />
       </SearchContainer>
       <Dogs>
