@@ -331,7 +331,7 @@ const BreedsPage = () => {
               Clear all
             </ClearAllButton>
           </FilterContainerHeader>
-          <Accordion title="Name">
+          <Accordion defaultOpen title="Name">
             <NameContainer>
               {Array.from({ length: 26 }, (_, index) => (
                 <NameItem
