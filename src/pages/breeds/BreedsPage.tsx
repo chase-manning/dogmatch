@@ -233,15 +233,10 @@ const BreedsPage = () => {
   const { dogs, loading } = useDogs();
   const [selectedLetters, setSelectedLetters] = useState<string[]>([]);
 
-  const getSortLabel = (option: SortOption) => {
-    return option.label;
-    // return `${option.label} (${option.descending ? "desc" : "asc"})`;
-  };
-
-  const [sort, setSort] = useState(getSortLabel(SORT_OPTIONS[0]));
+  const [sort, setSort] = useState(SORT_OPTIONS[0].label);
 
   const sortOption = SORT_OPTIONS.find(
-    (option) => getSortLabel(option) === sort
+    (option) => option.label === sort
   ) as SortOption;
 
   const searchScore = (dog: DogType) => {
@@ -319,7 +314,7 @@ const BreedsPage = () => {
           height="6rem"
         />
         <Dropdown
-          options={SORT_OPTIONS.map((option) => getSortLabel(option))}
+          options={SORT_OPTIONS.map((option) => option.label)}
           selectedOption={sort}
           setSelectedOption={setSort}
         />
