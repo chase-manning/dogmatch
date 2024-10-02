@@ -41,10 +41,11 @@ const AccordionContent = styled.div`
 interface Props {
   title: string;
   children: React.ReactNode;
+  defaultOpen?: boolean;
 }
 
-const Accordion = ({ title, children }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Accordion = ({ title, children, defaultOpen = false }: Props) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <AccordionContainer>
