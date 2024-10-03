@@ -3,24 +3,30 @@
 # Sorted
 
 - Align font sizes between search and dropdown
+- Dog Ranking badge covers the name on mobile
+- Find your dream dog text is squished on mobile
 - [DESIGN] Add a dont mind/don't care/skip this question
 - [DESIGN] Confused how visual section works for first click
 - [DESIGN] Make it more clear how to do the visual section, that they need to keep clicking
+- [DESIGN] It's not clear that you can edit your answers or how to do that
 - Share on socials
-- Add filters to dog directory
-- Mobile: Visual, Dogs seem to load slowly?
-- Desktop: Dog directory: Add viewing options for 12/50/100 dogs
+
+- Add string list filters
+- Add filters for mobile
 - Add image options to dog directory
 - Add option for large dog images on dog directory
 - Add list option to dog directory
+- Desktop: Dog directory: Add viewing options for 12/50/100 dogs
+
+- Mobile: Visual, Dogs seem to load slowly?
 - Images flicker when changing dogs on the breed page
 - Add confetti to results page
 - Add 3d hover effect to the reveal cards
 - [DESIGN] Update dog descriptions
 - `/n ` should be `/n` in the dog descriptions
 - Clicking dogmatch quiz when on results should probably reset it
+- If people try to skip the visual round, give them a warning
 - Write results to db for analytics
-- [DESIGN] It's not clear that you can edit your answers or how to do that
 - For Vocal question. Could be phrased like (how much noise can you put up with)
 - Mobile: Consider numbering the questions? (See new Figma design)
 - Add arrows to quiz navigation buttons (and breeds pagination buttons)

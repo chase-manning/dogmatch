@@ -13,8 +13,151 @@ import Button from "../../components/Button";
 import Seo from "../../components/Seo";
 import Dropdown from "../../components/Dropdown";
 import Accordion from "../../components/Accordion";
+import SliderFilter from "../../components/SliderFilter";
 
 const RESULTS_PER_PAGE = 12;
+const MIN = 1;
+const MAX = 5;
+
+interface FilterSection {
+  label: string;
+  filters: Filter[];
+  defaultOpen?: boolean;
+}
+
+interface Filter {
+  category: string;
+  trait: string;
+  min: number;
+  max: number;
+}
+
+const FILTERS: FilterSection[] = [
+  {
+    label: "General",
+    defaultOpen: true,
+    filters: [
+      {
+        category: "general",
+        trait: "popularity",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "physical",
+        trait: "size",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "physical",
+        trait: "lifespan",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "physical",
+        trait: "coatLength",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "adaptability",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "barkingFrequency",
+        min: MIN,
+        max: MAX,
+      },
+    ],
+  },
+  {
+    label: "Behavior",
+    filters: [
+      {
+        category: "behavior",
+        trait: "familyAffection",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "childFriendly",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "dogSociability",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "playfulness",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "friendlinessToStrangers",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "behavior",
+        trait: "protectiveInstincts",
+        min: MIN,
+        max: MAX,
+      },
+    ],
+  },
+  {
+    label: "Care",
+    filters: [
+      {
+        category: "care",
+        trait: "exerciseNeeds",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "care",
+        trait: "sheddingAmount",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "care",
+        trait: "groomingFrequency",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "care",
+        trait: "trainingDifficulty",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "care",
+        trait: "mentalStimulationNeeds",
+        min: MIN,
+        max: MAX,
+      },
+      {
+        category: "physical",
+        trait: "droolingFrequency",
+        min: MIN,
+        max: MAX,
+      },
+    ],
+  },
+];
 
 interface SortOption {
   label: string;
@@ -233,6 +376,8 @@ const BreedsPage = () => {
   const { dogs, loading } = useDogs();
   const [selectedLetters, setSelectedLetters] = useState<string[]>([]);
 
+  const [filters, setFilters] = useState(FILTERS);
+
   const [sort, setSort] = useState(SORT_OPTIONS[0].label);
 
   const sortOption = SORT_OPTIONS.find(
@@ -252,12 +397,23 @@ const BreedsPage = () => {
     );
   };
 
-  const filteredDogs = dogs.filter((dog) => {
-    if (selectedLetters.length > 0) {
-      return selectedLetters.includes(dog.general.name[0].toUpperCase());
-    }
-    return true;
-  });
+  const filteredDogs = dogs
+    .filter((dog) => {
+      if (selectedLetters.length > 0) {
+        return selectedLetters.includes(dog.general.name[0].toUpperCase());
+      }
+      return true;
+    })
+    .filter((dog) => {
+      return filters.every((filter) =>
+        filter.filters.every((f) => {
+          const category = f.category as keyof DogType;
+          const trait = f.trait as keyof DogType[typeof category];
+          const value = dog[category][trait];
+          return value >= f.min && value <= f.max;
+        })
+      );
+    });
 
   const topResults =
     filteredDogs && search
@@ -361,6 +517,45 @@ const BreedsPage = () => {
               ))}
             </NameContainer>
           </Accordion>
+          {filters.map((section) => {
+            return (
+              <Accordion
+                defaultOpen={section.defaultOpen}
+                title={section.label}
+              >
+                {section.filters.map((filter) => {
+                  const updateFilters = (newFilter: Filter) => {
+                    const updatedFilters = filters.map((filterSection) => {
+                      if (filterSection.label === section.label) {
+                        return {
+                          ...filterSection,
+                          filters: filterSection.filters.map((f) =>
+                            f.trait === filter.trait ? newFilter : f
+                          ),
+                        };
+                      }
+                      return filterSection;
+                    });
+                    setFilters(updatedFilters);
+                  };
+                  return (
+                    <SliderFilter
+                      category={filter.category}
+                      trait={filter.trait}
+                      min={filter.min}
+                      max={filter.max}
+                      setMin={(newMin: number) =>
+                        updateFilters({ ...filter, min: newMin })
+                      }
+                      setMax={(newMax: number) =>
+                        updateFilters({ ...filter, max: newMax })
+                      }
+                    />
+                  );
+                })}
+              </Accordion>
+            );
+          })}
         </FilterContainer>
         <DogContainer>
           <Dogs>
