@@ -9,6 +9,7 @@ const AccordionContainer = styled.div`
   gap: 1rem;
   background: var(--light);
   padding: 1.7rem 2.1rem;
+  padding-bottom: 2.1rem;
   border-radius: 1rem;
 `;
 
@@ -16,7 +17,6 @@ const AccordionTitle = styled.div`
   font-family: "Jost", sans-serif;
   font-size: 2rem;
   font-weight: 600;
-  font-style: italic;
 `;
 
 const AccordionHeader = styled.div`
@@ -24,6 +24,7 @@ const AccordionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 0.5rem;
 `;
 
 const AccordionIcon = styled.img<{ $isOpen: boolean }>`
@@ -35,7 +36,7 @@ const AccordionIcon = styled.img<{ $isOpen: boolean }>`
 const AccordionContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 `;
 
 interface Props {
