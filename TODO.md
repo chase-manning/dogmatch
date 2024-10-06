@@ -11,7 +11,6 @@
 - [DESIGN] It's not clear that you can edit your answers or how to do that
 - Share on socials
 
-- Add string list filters
 - Add filters for mobile
 - Add image options to dog directory
 - Add option for large dog images on dog directory
@@ -25,6 +24,7 @@
 - [DESIGN] Update dog descriptions
 - `/n ` should be `/n` in the dog descriptions
 - Clicking dogmatch quiz when on results should probably reset it
+- Add loading state to quiz page for the traits that need it
 - If people try to skip the visual round, give them a warning
 - Write results to db for analytics
 - For Vocal question. Could be phrased like (how much noise can you put up with)

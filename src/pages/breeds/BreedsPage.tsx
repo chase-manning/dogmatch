@@ -14,6 +14,7 @@ import Seo from "../../components/Seo";
 import Dropdown from "../../components/Dropdown";
 import Accordion from "../../components/Accordion";
 import SliderFilter from "../../components/SliderFilter";
+import CheckboxFilter from "../../components/CheckboxFilter";
 
 const RESULTS_PER_PAGE = 12;
 const MIN = 1;
@@ -377,6 +378,9 @@ const BreedsPage = () => {
   const [selectedLetters, setSelectedLetters] = useState<string[]>([]);
 
   const [filters, setFilters] = useState(FILTERS);
+  const [coatStyles, setCoatStyles] = useState<string[]>([]);
+  const [coatTextures, setCoatTextures] = useState<string[]>([]);
+  const [personalityTraits, setPersonalityTraits] = useState<string[]>([]);
 
   const [sort, setSort] = useState(SORT_OPTIONS[0].label);
 
@@ -412,6 +416,25 @@ const BreedsPage = () => {
           const value = dog[category][trait];
           return value >= f.min && value <= f.max;
         })
+      );
+    })
+    .filter((dog) => {
+      return (
+        coatStyles.length === 0 || coatStyles.includes(dog.physical.coatStyle)
+      );
+    })
+    .filter((dog) => {
+      return (
+        coatTextures.length === 0 ||
+        coatTextures.includes(dog.physical.coatTexture)
+      );
+    })
+    .filter((dog) => {
+      return (
+        personalityTraits.length === 0 ||
+        personalityTraits.every((trait) =>
+          dog.general.personalityTraits.includes(trait)
+        )
       );
     });
 
@@ -556,6 +579,72 @@ const BreedsPage = () => {
               </Accordion>
             );
           })}
+          <Accordion title="Coat Style">
+            <CheckboxFilter
+              options={[
+                ...new Set(dogs.map((dog: DogType) => dog.physical.coatStyle)),
+              ]}
+              selected={coatStyles}
+              toggleSelected={(coatStyle) => {
+                if (coatStyles.includes(coatStyle)) {
+                  setCoatStyles(
+                    coatStyles.filter((style) => style !== coatStyle)
+                  );
+                } else {
+                  setCoatStyles([...coatStyles, coatStyle]);
+                }
+              }}
+            />
+          </Accordion>
+          <Accordion title="Coat Texture">
+            <CheckboxFilter
+              options={[
+                ...new Set(
+                  dogs.map((dog: DogType) => dog.physical.coatTexture)
+                ),
+              ]}
+              selected={coatTextures}
+              toggleSelected={(coatTexture) => {
+                if (coatTextures.includes(coatTexture)) {
+                  setCoatTextures(
+                    coatTextures.filter((style) => style !== coatTexture)
+                  );
+                } else {
+                  setCoatTextures([...coatTextures, coatTexture]);
+                }
+              }}
+            />
+          </Accordion>
+          <Accordion title="Personality Traits">
+            <CheckboxFilter
+              options={[
+                ...new Set(
+                  dogs.reduce<string[]>(
+                    (traits, dog) => [
+                      ...traits,
+                      ...dog.general.personalityTraits,
+                    ],
+                    []
+                  )
+                ),
+              ]}
+              selected={personalityTraits}
+              toggleSelected={(personalityTrait) => {
+                if (personalityTraits.includes(personalityTrait)) {
+                  setPersonalityTraits(
+                    personalityTraits.filter(
+                      (style) => style !== personalityTrait
+                    )
+                  );
+                } else {
+                  setPersonalityTraits([
+                    ...personalityTraits,
+                    personalityTrait,
+                  ]);
+                }
+              }}
+            />
+          </Accordion>
         </FilterContainer>
         <DogContainer>
           <Dogs>
