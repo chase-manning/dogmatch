@@ -5,6 +5,7 @@ import pawsIcon from "../assets/paws.svg";
 import paw from "../assets/paw.svg";
 import dog from "../assets/dog.svg";
 import randBetween from "../app/rand-between";
+import useIsMobile from "../app/use-is-mobile";
 
 const PAWS = 9;
 const MOBILE_PAWS = 6;
@@ -127,7 +128,9 @@ interface Props {
 }
 
 const Loading = ({ children }: Props) => {
-  const paws = window.innerWidth <= 900 ? MOBILE_PAWS : PAWS;
+  const isMobile = useIsMobile();
+
+  const paws = isMobile ? MOBILE_PAWS : PAWS;
 
   return (
     <StyledLoading>
