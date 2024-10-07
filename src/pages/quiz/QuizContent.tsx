@@ -16,6 +16,7 @@ import Tournament, { TOTAL_ROUNDS } from "./Tournament";
 import { getItemMetadata, ItemType } from "../../app/item-metadata";
 import Tooltip from "../../components/Tooltip";
 import triggerEvent, { COMPLETE_QUIZ_EVENT } from "../../app/trigger-event";
+import useIsMobile from "../../app/use-is-mobile";
 
 const StyledQuizContent = styled.div`
   padding: 10rem;
@@ -159,28 +160,14 @@ const ImportanceContainer = styled.div<{ $show: boolean }>`
   transition: max-height 0.6s;
 `;
 
-const MobileButton = styled.div`
-  display: none;
-
-  @media (max-width: 900px) {
-    display: flex;
-  }
-`;
-
-const DesktopButton = styled.div`
-  display: flex;
-
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-
 interface Props {
   quiz: QuizType | null;
   setQuiz: (quiz: QuizType) => void;
 }
 
 const QuizContent = ({ quiz, setQuiz }: Props) => {
+  const isMobile = useIsMobile();
+
   const looksFinished = quiz
     ? (
         quiz.sections.find(
@@ -232,14 +219,21 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                     )}
                   </IconContainer>
                   <HeaderTextContainer>
-                    <Header>{metadata.question}</Header>
+                    <Header>
+                      {isMobile
+                        ? metadata.mobileQuestion || metadata.question
+                        : metadata.question}
+                    </Header>
                     {isCheckbox && (
                       <LightHeader>{" (Pick as many as you like)"}</LightHeader>
                     )}
                   </HeaderTextContainer>
                   <Tooltip>{metadata.tooltip}</Tooltip>
                 </HeaderSection>
-                <MobileButton>
+                {!(
+                  metadata.type === ItemType.IMPORTANCE ||
+                  metadata.type === ItemType.TOURNAMENT
+                ) && (
                   <Button
                     tiny
                     sub
@@ -251,24 +245,15 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                       setQuiz(newQuiz);
                     }}
                   >
-                    {question.skipped ? "Undo" : "Skip"}
+                    {isMobile
+                      ? question.skipped
+                        ? "Undo"
+                        : "Skip"
+                      : question.skipped
+                      ? "Undo skip"
+                      : "Skip question"}
                   </Button>
-                </MobileButton>
-                <DesktopButton>
-                  <Button
-                    tiny
-                    sub
-                    action={() => {
-                      const newQuiz = { ...quiz };
-                      newQuiz.sections[quiz.sectionIndex].questions[
-                        index
-                      ].skipped = !question.skipped;
-                      setQuiz(newQuiz);
-                    }}
-                  >
-                    {question.skipped ? "Undo skip" : "Skip question"}
-                  </Button>
-                </DesktopButton>
+                )}
               </HeaderContainer>
               {(isRating || isLooksImportance) && (
                 <Scale
