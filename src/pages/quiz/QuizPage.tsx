@@ -46,7 +46,7 @@ const QuizPage = () => {
 
   return (
     <StyledQuizPage>
-      <Seo title="Dog Match Quiz" description="Find your perfect dog match!" />
+      <Seo title="dogmatch Quiz" description="Find your perfect dog match!" />
       <ProgressBar quiz={quiz} setQuiz={setQuiz} />
       {quiz && started && !quiz.showResults && (
         <QuizContent quiz={quiz} setQuiz={setQuiz} />
