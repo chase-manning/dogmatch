@@ -26,6 +26,11 @@ const StyledButton = styled.button<{
     props.$primary ? "var(--bg)" : props.$sub ? "var(--sub)" : "var(--main)"};
   border: solid ${({ $tiny }) => ($tiny ? "1px" : "2px")}
     ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
+
+  @media (max-width: 900px) {
+    width: ${(props) =>
+      props.$wide ? "100%" : props.$tiny ? "6.3rem" : "23rem"};
+  }
 `;
 
 const StyledLink = styled(Link)<{
@@ -55,6 +60,8 @@ const StyledLink = styled(Link)<{
 
   @media (max-width: 900px) {
     height: 7rem;
+    width: ${(props) =>
+      props.$wide ? "100%" : props.$tiny ? "6.3rem" : "23rem"};
   }
 `;
 
