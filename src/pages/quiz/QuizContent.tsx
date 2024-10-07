@@ -24,11 +24,11 @@ const StyledQuizContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20rem;
+  gap: 16rem;
 
   @media (max-width: 900px) {
     padding: 1.5rem 2.5rem;
-    gap: 15rem;
+    gap: 11rem;
   }
 `;
 
@@ -132,6 +132,17 @@ const ButtonContainer = styled.div`
       width: 46rem;
     }
   }
+`;
+
+const ImportanceContainer = styled.div<{ $show: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-height: ${({ $show }) => ($show ? "29rem" : "0")};
+  overflow: hidden;
+  padding-bottom: 4rem;
+  transition: max-height 0.6s;
 `;
 
 interface Props {
@@ -255,7 +266,12 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                 metadata.type === ItemType.IMPORTANCE ||
                 metadata.type === ItemType.TOURNAMENT
               ) && (
-                <>
+                <ImportanceContainer
+                  $show={
+                    (isRating && ratingQuestion.value !== null) ||
+                    (isCheckbox && checkboxQuestion.selected.length > 0)
+                  }
+                >
                   <SubHeaderContainer>
                     <IconContainer $small={false} />
                     <SubHeader>How important is this to you?</SubHeader>
@@ -272,7 +288,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                       setQuiz(newQuiz);
                     }}
                   />
-                </>
+                </ImportanceContainer>
               )}
             </QuestionContainer>
           );
