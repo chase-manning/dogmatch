@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledScale = styled.div`
   position: relative;
-  width: 100%;
   display: flex;
   width: calc(100% - 50rem);
   margin-bottom: 4rem;
