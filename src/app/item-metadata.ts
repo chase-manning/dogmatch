@@ -12,6 +12,7 @@ interface Metadata {
   type: ItemType;
   label: string;
   question?: string;
+  mobileQuestion?: string;
   min?: string;
   max?: string;
   questionMin?: string;
@@ -33,7 +34,8 @@ const ITEM_METADATA: Record<string, Record<string, Metadata>> = {
     looks: {
       type: ItemType.TOURNAMENT,
       label: "Dog Looks",
-      question: "Which dog do you like the look of the most?",
+      question: "Click the dog you like the look of the most",
+      mobileQuestion: "Tap the dog you like the look of the most",
       tooltip:
         "Starting with your favorite, click the dog you like the look of the most. Keep clicking your next favorite until all the dogs have gone, then a new round will start.",
     },
