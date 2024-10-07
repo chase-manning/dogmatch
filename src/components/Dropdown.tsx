@@ -21,7 +21,7 @@ const StyledDropdown = styled.button`
 
 const Label = styled.div`
   font-size: 2.4rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--sub);
   flex: 1;
   text-align: left;
