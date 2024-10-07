@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useIsMobile from "../app/use-is-mobile";
 
 const MAX_PER_ROW = 5;
 const MOBILE_MAX_PER_ROW = 2;
@@ -56,9 +57,11 @@ interface Props {
 }
 
 const Checkbox = ({ options, selected, toggle }: Props) => {
+  const isMobile = useIsMobile();
+
   const rows: { option: string; selected: boolean }[][] = [];
 
-  const maxPerRow = window.innerWidth <= 900 ? MOBILE_MAX_PER_ROW : MAX_PER_ROW;
+  const maxPerRow = isMobile ? MOBILE_MAX_PER_ROW : MAX_PER_ROW;
 
   const targetRows = Math.ceil(options.length / maxPerRow);
   const itemsPerRow = Math.ceil(options.length / targetRows);
