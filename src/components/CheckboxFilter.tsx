@@ -30,16 +30,18 @@ interface Props {
 const CheckboxFilter = ({ options, selected, toggleSelected }: Props) => {
   return (
     <StyledCheckboxFilter>
-      {options.map((option: string) => (
-        <Row key={option}>
-          <Checkbox
-            type="checkbox"
-            checked={selected.includes(option)}
-            onChange={() => toggleSelected(option)}
-          />
-          <Label>{option}</Label>
-        </Row>
-      ))}
+      {options
+        .sort((a: string, b: string) => a.localeCompare(b))
+        .map((option: string) => (
+          <Row key={option}>
+            <Checkbox
+              type="checkbox"
+              checked={selected.includes(option)}
+              onChange={() => toggleSelected(option)}
+            />
+            <Label>{option}</Label>
+          </Row>
+        ))}
     </StyledCheckboxFilter>
   );
 };
