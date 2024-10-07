@@ -16,7 +16,7 @@ const StyledDropdown = styled.button`
   border-radius: 1rem;
   padding: 0 2.85rem;
   height: 6rem;
-  width: 40rem;
+  width: 30rem;
 `;
 
 const Label = styled.div`
