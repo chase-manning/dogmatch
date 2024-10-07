@@ -6,46 +6,52 @@ const StyledButton = styled.button<{
   $primary?: boolean;
   $wide?: boolean;
   $sub?: boolean;
+  $tiny?: boolean;
 }>`
-  height: 6.7rem;
   border-radius: 1rem;
-  font-size: 2.4rem;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: ${(props) => (props.$wide ? "100%" : "23rem")};
   font-family: "Jost", sans-serif;
+
+  height: ${({ $tiny }) => ($tiny ? "4.1rem" : "6.7rem")};
+  font-size: ${({ $tiny }) => ($tiny ? "2rem" : "2.4rem")};
+  font-weight: ${({ $tiny }) => ($tiny ? "500" : "600")};
+  width: ${(props) => (props.$wide ? "100%" : props.$tiny ? "17rem" : "23rem")};
 
   background: ${(props) =>
     props.$primary ? (props.$sub ? "var(--sub)" : "var(--main)") : "var(--bg)"};
   color: ${(props) =>
     props.$primary ? "var(--bg)" : props.$sub ? "var(--sub)" : "var(--main)"};
-  border: solid 2px ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
+  border: solid ${({ $tiny }) => ($tiny ? "1px" : "2px")}
+    ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
 `;
 
 const StyledLink = styled(Link)<{
   $primary?: boolean;
   $wide?: boolean;
   $sub?: boolean;
+  $tiny?: boolean;
 }>`
-  height: 6.7rem;
   border-radius: 1rem;
-  font-size: 2.4rem;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: ${(props) => (props.$wide ? "100%" : "23rem")};
   font-family: "Jost", sans-serif;
+
+  height: ${({ $tiny }) => ($tiny ? "4.1rem" : "6.7rem")};
+  font-size: ${({ $tiny }) => ($tiny ? "2rem" : "2.4rem")};
+  font-weight: ${({ $tiny }) => ($tiny ? "500" : "600")};
+  width: ${(props) => (props.$wide ? "100%" : props.$tiny ? "17rem" : "23rem")};
 
   background: ${(props) =>
     props.$primary ? (props.$sub ? "var(--sub)" : "var(--main)") : "var(--bg)"};
   color: ${(props) =>
     props.$primary ? "var(--bg)" : props.$sub ? "var(--sub)" : "var(--main)"};
-  border: solid 2px ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
+  border: solid ${({ $tiny }) => ($tiny ? "1px" : "2px")}
+    ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
 
   @media (max-width: 900px) {
     height: 7rem;
@@ -61,6 +67,7 @@ interface Props {
   submit?: boolean;
   wide?: boolean;
   event?: string;
+  tiny?: boolean;
 }
 
 const Button = ({
@@ -72,6 +79,7 @@ const Button = ({
   submit,
   wide,
   event,
+  tiny,
 }: Props) => {
   const isInternalLink = !link?.startsWith("http");
 
@@ -83,6 +91,7 @@ const Button = ({
           $sub={sub}
           type="submit"
           $wide={wide}
+          $tiny={tiny}
           onClick={() => {
             if (event) triggerEvent(event);
           }}
@@ -94,11 +103,12 @@ const Button = ({
         <StyledButton
           $primary={primary}
           $sub={sub}
+          $wide={wide}
+          $tiny={tiny}
           onClick={() => {
             action();
             if (event) triggerEvent(event);
           }}
-          $wide={wide}
         >
           {children}
         </StyledButton>
@@ -106,10 +116,11 @@ const Button = ({
       {link && (
         <StyledLink
           to={link}
+          target={isInternalLink ? "" : "_blank"}
           $primary={primary}
           $sub={sub}
-          target={isInternalLink ? "" : "_blank"}
           $wide={wide}
+          $tiny={tiny}
           onClick={() => {
             if (event) triggerEvent(event);
           }}
