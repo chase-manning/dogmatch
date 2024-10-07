@@ -505,6 +505,10 @@ const BreedsPage = () => {
             <ClearAllButton
               onClick={() => {
                 setSelectedLetters([]);
+                setFilters(FILTERS);
+                setCoatStyles([]);
+                setCoatTextures([]);
+                setPersonalityTraits([]);
               }}
             >
               Clear all

@@ -4,10 +4,11 @@
 
 - Dog Ranking badge covers the name on mobile
 - Find your dream dog text is squished on mobile
-- [DESIGN] Add a dont mind/don't care/skip this question
-- [DESIGN] Confused how visual section works for first click
-- [DESIGN] Make it more clear how to do the visual section, that they need to keep clicking
-- [DESIGN] It's not clear that you can edit your answers or how to do that
+- Show Importance only after completing question
+- Add a dont mind/don't care/skip this question
+- Confused how visual section works for first click
+- Make it more clear how to do the visual section, that they need to keep clicking
+- It's not clear that you can edit your answers or how to do that
 - Share on socials
 - Add filters for mobile
 - Add image options to dog directory
