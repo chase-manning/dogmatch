@@ -2,7 +2,7 @@
   <img src="https://github.com/user-attachments/assets/a56312e7-8f10-4b01-b213-36127114f3ff" width="100%" />
 </a>
 
-# Dog Match
+# dogmatch
 
 dogmatch is the best way to find your dream dog!
 
