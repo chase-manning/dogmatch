@@ -47,9 +47,11 @@ const HeaderContainer = styled.div<{ $looks?: boolean }>`
   justify-content: space-between;
   width: ${({ $looks }) => ($looks ? "auto" : "100%")};
   margin-bottom: 3rem;
+  gap: 2rem;
 
   @media (max-width: 900px) {
     margin-bottom: 4rem;
+    gap: 1rem;
   }
 `;
 
@@ -157,6 +159,22 @@ const ImportanceContainer = styled.div<{ $show: boolean }>`
   transition: max-height 0.6s;
 `;
 
+const MobileButton = styled.div`
+  display: none;
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
+`;
+
+const DesktopButton = styled.div`
+  display: flex;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
 interface Props {
   quiz: QuizType | null;
   setQuiz: (quiz: QuizType) => void;
@@ -221,19 +239,36 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                   </HeaderTextContainer>
                   <Tooltip>{metadata.tooltip}</Tooltip>
                 </HeaderSection>
-                <Button
-                  tiny
-                  sub
-                  action={() => {
-                    const newQuiz = { ...quiz };
-                    newQuiz.sections[quiz.sectionIndex].questions[
-                      index
-                    ].skipped = !question.skipped;
-                    setQuiz(newQuiz);
-                  }}
-                >
-                  {question.skipped ? "Undo skip" : "Skip question"}
-                </Button>
+                <MobileButton>
+                  <Button
+                    tiny
+                    sub
+                    action={() => {
+                      const newQuiz = { ...quiz };
+                      newQuiz.sections[quiz.sectionIndex].questions[
+                        index
+                      ].skipped = !question.skipped;
+                      setQuiz(newQuiz);
+                    }}
+                  >
+                    {question.skipped ? "Undo" : "Skip"}
+                  </Button>
+                </MobileButton>
+                <DesktopButton>
+                  <Button
+                    tiny
+                    sub
+                    action={() => {
+                      const newQuiz = { ...quiz };
+                      newQuiz.sections[quiz.sectionIndex].questions[
+                        index
+                      ].skipped = !question.skipped;
+                      setQuiz(newQuiz);
+                    }}
+                  >
+                    {question.skipped ? "Undo skip" : "Skip question"}
+                  </Button>
+                </DesktopButton>
               </HeaderContainer>
               {(isRating || isLooksImportance) && (
                 <Scale
