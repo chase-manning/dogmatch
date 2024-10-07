@@ -32,27 +32,39 @@ const StyledQuizContent = styled.div`
   }
 `;
 
-const QuestionContainer = styled.div`
+const QuestionContainer = styled.div<{ $skipped: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  opacity: ${({ $skipped }) => ($skipped ? "0.3" : "1")};
 `;
 
 const HeaderContainer = styled.div<{ $looks?: boolean }>`
   display: flex;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
   width: ${({ $looks }) => ($looks ? "auto" : "100%")};
   margin-bottom: 3rem;
 
   @media (max-width: 900px) {
-    gap: 1rem;
     margin-bottom: 4rem;
   }
 `;
 
+const HeaderSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 900px) {
+    gap: 1rem;
+  }
+`;
+
 const SubHeaderContainer = styled(HeaderContainer)`
+  justify-content: flex-start;
   margin-bottom: 6rem;
   margin-top: 10rem;
 
@@ -190,23 +202,38 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
           const looksQuestion = question.question as LooksType;
 
           return (
-            <QuestionContainer key={index}>
+            <QuestionContainer key={index} $skipped={!!question.skipped}>
               <HeaderContainer $looks={isLooks}>
-                <IconContainer $small={isLooks}>
-                  <Icon src={isLooks ? lightPaw : paw} alt="paw" />
-                  {!isLooks && (
-                    <Number>
-                      {getTotalQuestionNumber(quiz.sectionIndex, index)}
-                    </Number>
-                  )}
-                </IconContainer>
-                <HeaderTextContainer>
-                  <Header>{metadata.question}</Header>
-                  {isCheckbox && (
-                    <LightHeader>{" (Pick as many as you like)"}</LightHeader>
-                  )}
-                </HeaderTextContainer>
-                <Tooltip>{metadata.tooltip}</Tooltip>
+                <HeaderSection>
+                  <IconContainer $small={isLooks}>
+                    <Icon src={isLooks ? lightPaw : paw} alt="paw" />
+                    {!isLooks && (
+                      <Number>
+                        {getTotalQuestionNumber(quiz.sectionIndex, index)}
+                      </Number>
+                    )}
+                  </IconContainer>
+                  <HeaderTextContainer>
+                    <Header>{metadata.question}</Header>
+                    {isCheckbox && (
+                      <LightHeader>{" (Pick as many as you like)"}</LightHeader>
+                    )}
+                  </HeaderTextContainer>
+                  <Tooltip>{metadata.tooltip}</Tooltip>
+                </HeaderSection>
+                <Button
+                  tiny
+                  sub
+                  action={() => {
+                    const newQuiz = { ...quiz };
+                    newQuiz.sections[quiz.sectionIndex].questions[
+                      index
+                    ].skipped = !question.skipped;
+                    setQuiz(newQuiz);
+                  }}
+                >
+                  {question.skipped ? "Undo skip" : "Skip question"}
+                </Button>
               </HeaderContainer>
               {(isRating || isLooksImportance) && (
                 <Scale

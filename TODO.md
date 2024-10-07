@@ -4,7 +4,6 @@
 
 - Dog Ranking badge covers the name on mobile
 - Find your dream dog text is squished on mobile
-- Add a dont mind/don't care/skip this question
 - Confused how visual section works for first click
 - Make it more clear how to do the visual section, that they need to keep clicking
 - It's not clear that you can edit your answers or how to do that
