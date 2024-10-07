@@ -27,6 +27,7 @@ export interface QuestionType {
   trait: string;
   question: RatingType | CheckboxType | LooksType;
   importance: number | null;
+  skipped?: boolean;
 }
 
 export interface SectionType {
