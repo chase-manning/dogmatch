@@ -33,12 +33,12 @@ const TooltipText = styled.div`
   font-weight: 500;
 `;
 
-const StyledTooltip = styled.div`
+const StyledTooltip = styled.span<{ span?: boolean }>`
   position: relative;
   margin-left: 0.8rem;
   cursor: pointer;
   height: 100%;
-  display: flex;
+  display: ${({ span }) => (span ? "inline-flex" : "flex")};
   align-items: center;
   justify-content: center;
 
@@ -55,14 +55,16 @@ const Icon = styled.img`
 
 interface Props {
   children: React.ReactNode;
+  span?: boolean;
 }
 
-const Tooltip = ({ children }: Props) => {
+const Tooltip = ({ children, span }: Props) => {
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [tooltipTop, setTooltipTop] = useState(0);
 
   return (
     <StyledTooltip
+      span={span}
       ref={tooltipRef}
       onClick={() => {
         const offsetTop = tooltipRef?.current?.offsetTop || 0;
