@@ -223,12 +223,12 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                       {isMobile
                         ? metadata.mobileQuestion || metadata.question
                         : metadata.question}
+                      <Tooltip span>{metadata.tooltip}</Tooltip>
                     </Header>
                     {isCheckbox && (
                       <LightHeader>{" (Pick as many as you like)"}</LightHeader>
                     )}
                   </HeaderTextContainer>
-                  <Tooltip>{metadata.tooltip}</Tooltip>
                 </HeaderSection>
                 {!(
                   metadata.type === ItemType.IMPORTANCE ||
