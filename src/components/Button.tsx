@@ -29,7 +29,11 @@ const StyledButton = styled.button<{
 
   @media (max-width: 900px) {
     width: ${(props) =>
-      props.$wide ? "100%" : props.$tiny ? "6.3rem" : "23rem"};
+      props.$wide ? "100%" : props.$tiny ? "auto" : "23rem"};
+    height: ${({ $tiny }) => ($tiny ? "auto" : "6.7rem")};
+    border: solid ${({ $tiny }) => ($tiny ? "0" : "2px")}
+      ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
+    text-decoration: ${({ $tiny }) => ($tiny ? "underline" : "none")};
   }
 `;
 
@@ -59,9 +63,12 @@ const StyledLink = styled(Link)<{
     ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
 
   @media (max-width: 900px) {
-    height: 7rem;
     width: ${(props) =>
-      props.$wide ? "100%" : props.$tiny ? "6.3rem" : "23rem"};
+      props.$wide ? "100%" : props.$tiny ? "auto" : "23rem"};
+    height: ${({ $tiny }) => ($tiny ? "auto" : "7rem")};
+    border: solid ${({ $tiny }) => ($tiny ? "0" : "2px")}
+      ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
+    text-decoration: ${({ $tiny }) => ($tiny ? "underline" : "none")};
   }
 `;
 
