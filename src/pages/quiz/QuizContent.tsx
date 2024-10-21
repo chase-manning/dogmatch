@@ -247,8 +247,8 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                   >
                     {isMobile
                       ? question.skipped
-                        ? "Undo"
-                        : "Skip"
+                        ? "(Undo)"
+                        : "(Skip)"
                       : question.skipped
                       ? "Undo skip"
                       : "Skip question"}
