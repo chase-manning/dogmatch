@@ -2,9 +2,7 @@
 
 # Sorted
 
-- Put skip in circular brackets
 - Skip button missing on visual importance question
-- Skip on mobile should be italics
 
 - Confused how visual section works for first click
 - Make it more clear how to do the visual section, that they need to keep clicking

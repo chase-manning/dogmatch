@@ -39,6 +39,7 @@ const StyledButton = styled.button<{
     border: solid ${({ $tiny }) => ($tiny ? "0" : "2px")}
       ${(props) => (props.$sub ? "var(--sub)" : "var(--main)")};
     text-decoration: ${({ $tiny }) => ($tiny ? "underline" : "none")};
+    font-style: ${({ $tiny }) => ($tiny ? "italic" : "normal")};
   }
 `;
 
