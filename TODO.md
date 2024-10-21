@@ -2,13 +2,20 @@
 
 # Sorted
 
-- Dog Ranking badge covers the name on mobile
-- Find your dream dog text is squished on mobile
+- Put skip in circular brackets
+- Skip button missing on visual importance question
+- Skip on mobile should be italics
+
 - Confused how visual section works for first click
 - Make it more clear how to do the visual section, that they need to keep clicking
-- It's not clear that you can edit your answers or how to do that
+- Update designs of visual section to match Figma
+
+- Add Dogmatch to open dog registry GitHub And/or site
+
 - Share on socials
 - Add filters for mobile
+- Add more dogs (Add maremma dog)
+- It's not clear that you can edit your answers or how to do that
 - Add image options to dog directory
 - Add option for large dog images on dog directory
 - Add list option to dog directory

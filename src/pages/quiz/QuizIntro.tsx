@@ -4,6 +4,8 @@ import Button from "../../components/Button";
 import paws from "../../assets/paws.svg";
 import { QuizType } from "./quiz-data";
 import { START_QUIZ_EVENT } from "../../app/trigger-event";
+import useDogs from "../../app/use-dogs";
+import { useEffect, useState } from "react";
 
 const StyledQuizIntro = styled.div`
   width: 100%;
@@ -69,7 +71,23 @@ interface Props {
 }
 
 const QuizIntro = ({ quiz, start, startNewQuiz }: Props) => {
+  const [startingNewQuiz, setStartingNewQuiz] = useState(false);
+  const [starting, setStarting] = useState(false);
+  const { loading, error } = useDogs();
   const hasOngoing = quiz && quiz.started;
+
+  useEffect(() => {
+    if (loading) return;
+    if (error !== null) return;
+    if (starting) {
+      start();
+      return;
+    }
+    if (startingNewQuiz) {
+      startNewQuiz();
+      return;
+    }
+  }, [loading, starting, startingNewQuiz, startNewQuiz, start, error]);
 
   return (
     <StyledQuizIntro>
@@ -78,17 +96,57 @@ const QuizIntro = ({ quiz, start, startNewQuiz }: Props) => {
       <ButtonContainer>
         {hasOngoing && (
           <>
-            <Button wide action={start}>
-              Continue where you left off
+            <Button
+              wide
+              disabled={error !== null}
+              loading={starting && loading}
+              action={() => {
+                if (loading) {
+                  setStarting(true);
+                } else {
+                  start();
+                }
+              }}
+            >
+              {error
+                ? "Error, please refresh page"
+                : "Continue where you left off"}
             </Button>
-            <Button primary wide action={startNewQuiz} event={START_QUIZ_EVENT}>
-              Start a new quiz
+            <Button
+              primary
+              wide
+              disabled={error !== null}
+              loading={starting && loading}
+              action={() => {
+                if (loading) {
+                  setStartingNewQuiz(true);
+                } else {
+                  startNewQuiz();
+                }
+              }}
+              event={START_QUIZ_EVENT}
+            >
+              {error ? "Error, please refresh page" : "Start a new quiz"}
             </Button>
           </>
         )}
         {!hasOngoing && (
-          <Button wide primary action={start} event={START_QUIZ_EVENT}>
-            Start the dogmatch quiz now
+          <Button
+            wide
+            primary
+            disabled={error !== null}
+            loading={starting && loading}
+            action={() => {
+              if (loading) {
+                setStarting(true);
+              } else {
+                start();
+              }
+            }}
+          >
+            {error
+              ? "Error, please refresh page"
+              : "Start the dogmatch quiz now"}
           </Button>
         )}
       </ButtonContainer>
