@@ -130,9 +130,7 @@ const Button = ({
           $wide={wide}
           $tiny={tiny}
           onClick={() => {
-            console.log("meow??");
             if (disabled) return;
-            console.log("meow???");
 
             action();
             if (event) triggerEvent(event);
