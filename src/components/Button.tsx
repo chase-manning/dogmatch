@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import triggerEvent from "../app/trigger-event";
+import loadingIcon from "../assets/ui/loading.svg";
+
+const Spinner = styled.img`
+  height: 4rem;
+`;
 
 const StyledButton = styled.button<{
   $primary?: boolean;
@@ -82,6 +87,8 @@ interface Props {
   wide?: boolean;
   event?: string;
   tiny?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -94,6 +101,8 @@ const Button = ({
   wide,
   event,
   tiny,
+  loading,
+  disabled,
 }: Props) => {
   const isInternalLink = !link?.startsWith("http");
 
@@ -107,10 +116,11 @@ const Button = ({
           $wide={wide}
           $tiny={tiny}
           onClick={() => {
+            if (disabled) return;
             if (event) triggerEvent(event);
           }}
         >
-          {children}
+          {loading ? <Spinner src={loadingIcon} alt="loading" /> : children}
         </StyledButton>
       )}
       {action && (
@@ -120,11 +130,15 @@ const Button = ({
           $wide={wide}
           $tiny={tiny}
           onClick={() => {
+            console.log("meow??");
+            if (disabled) return;
+            console.log("meow???");
+
             action();
             if (event) triggerEvent(event);
           }}
         >
-          {children}
+          {loading ? <Spinner src={loadingIcon} alt="loading" /> : children}
         </StyledButton>
       )}
       {link && (
@@ -136,10 +150,11 @@ const Button = ({
           $wide={wide}
           $tiny={tiny}
           onClick={() => {
+            if (disabled) return;
             if (event) triggerEvent(event);
           }}
         >
-          {children}
+          {loading ? <Spinner src={loadingIcon} alt="loading" /> : children}
         </StyledLink>
       )}
     </>
