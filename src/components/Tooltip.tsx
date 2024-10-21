@@ -33,12 +33,12 @@ const TooltipText = styled.div`
   font-weight: 500;
 `;
 
-const StyledTooltip = styled.span<{ span?: boolean }>`
+const StyledTooltip = styled.span<{ $span?: boolean }>`
   position: relative;
   margin-left: 0.8rem;
   cursor: pointer;
   height: 100%;
-  display: ${({ span }) => (span ? "inline-flex" : "flex")};
+  display: ${({ $span }) => ($span ? "inline-flex" : "flex")};
   align-items: center;
   justify-content: center;
 
@@ -64,7 +64,7 @@ const Tooltip = ({ children, span }: Props) => {
 
   return (
     <StyledTooltip
-      span={span}
+      $span={span}
       ref={tooltipRef}
       onClick={() => {
         const offsetTop = tooltipRef?.current?.offsetTop || 0;
