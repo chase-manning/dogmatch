@@ -11,6 +11,19 @@ export const TOTAL_ROUNDS = 14;
 
 const SAMPLE_RANGE = Math.ceil((TOTAL_ROUNDS / 3) * 4);
 
+const Subheader = styled.div`
+  font-size: 2.4rem;
+  font-weight: 500;
+  transform: translateY(-100%);
+  height: 3.6rem;
+
+  @media (max-width: 900px) {
+    font-size: 1.6rem;
+    text-align: center;
+    height: 2.8rem;
+  }
+`;
+
 const StyledTournament = styled.div`
   position: relative;
   display: flex;
@@ -77,6 +90,23 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
   const { dogs } = useDogs();
   const [order, setOrder] = useState<string[]>([]);
   const [candidates, setCandidates] = useState<DogType[]>([]);
+  const [dogsRanked, setDogsRanked] = useState<number>(0);
+  const [subheader, setSubheader] = useState<string>("");
+
+  useEffect(() => {
+    if (dogsRanked === 1) {
+      setTimeout(() => {
+        setSubheader("Keep clicking your next favourite...");
+      }, 1000);
+    }
+    if (dogsRanked === 2) {
+      setTimeout(() => {
+        setSubheader(
+          "Keep clicking your next favourite... until all the dogs are gone!"
+        );
+      }, 1000);
+    }
+  }, [dogsRanked]);
 
   const { rounds, dogElos } = question;
 
@@ -134,70 +164,74 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
   }, [dogs.length, rounds]);
 
   return (
-    <StyledTournament>
-      {candidates.map((dog) => {
-        const disabled = order.includes(dog.id);
+    <>
+      <Subheader>{subheader}</Subheader>
+      <StyledTournament>
+        {candidates.map((dog) => {
+          const disabled = order.includes(dog.id);
 
-        const rating = dogRatings[dog.id];
-        if (!rating) throw new Error("Rating not found");
-        const dogElo = dogElos[dog.id];
-        if (!dogElo) throw new Error("Elo not found 2");
+          const rating = dogRatings[dog.id];
+          if (!rating) throw new Error("Rating not found");
+          const dogElo = dogElos[dog.id];
+          if (!dogElo) throw new Error("Elo not found 2");
 
-        return (
-          <DogButton
-            key={dog.id}
-            onClick={() => {
-              if (disabled) return;
+          return (
+            <DogButton
+              key={dog.id}
+              onClick={() => {
+                if (disabled) return;
+                setDogsRanked(dogsRanked + 1);
 
-              if (order.length < 3) {
-                setOrder([...order, dog.id]);
-              } else {
-                const newOrder = [...order, dog.id];
-                let newDogElos = { ...dogElos };
-                for (let i = 0; i < newOrder.length; i++) {
-                  const winner = newOrder[i];
-                  newDogElos[winner].rounds += 1;
-                  if (i === newOrder.length - 1) continue;
-                  for (let j = i + 1; j < newOrder.length; j++) {
-                    const loser = newOrder[j];
-                    const [newWinnerElo, newLoserElo] = getNewElo(
-                      newDogElos[winner].elo,
-                      newDogElos[loser].elo
-                    );
+                if (order.length < 3) {
+                  setOrder([...order, dog.id]);
+                } else {
+                  const newOrder = [...order, dog.id];
+                  let newDogElos = { ...dogElos };
+                  for (let i = 0; i < newOrder.length; i++) {
+                    const winner = newOrder[i];
+                    newDogElos[winner].rounds += 1;
+                    if (i === newOrder.length - 1) continue;
+                    for (let j = i + 1; j < newOrder.length; j++) {
+                      const loser = newOrder[j];
+                      const [newWinnerElo, newLoserElo] = getNewElo(
+                        newDogElos[winner].elo,
+                        newDogElos[loser].elo
+                      );
 
-                    newDogElos[winner].elo = newWinnerElo;
-                    newDogElos[loser].elo = newLoserElo;
+                      newDogElos[winner].elo = newWinnerElo;
+                      newDogElos[loser].elo = newLoserElo;
+                    }
                   }
+                  updateElos(newDogElos);
                 }
-                updateElos(newDogElos);
-              }
-            }}
-            $disabled={disabled}
-          >
-            <DogImage
-              src={
-                dogElo.rounds === 0
-                  ? dog.images.small.outdoors
-                  : dogElo.rounds === 1
-                  ? dog.images.small.indoors
-                  : dog.images.small.studio
-              }
-              alt={getImageAlt(
-                dog,
-                dogElo.rounds === 0
-                  ? "outdoors"
-                  : dogElo.rounds === 1
-                  ? "indoors"
-                  : "studio"
-              )}
-            />
-          </DogButton>
-        );
-      })}
-      {finished && (
-        <FinishedOverlay>Ready to find your dream dog!</FinishedOverlay>
-      )}
-    </StyledTournament>
+              }}
+              $disabled={disabled}
+            >
+              <DogImage
+                src={
+                  dogElo.rounds === 0
+                    ? dog.images.small.outdoors
+                    : dogElo.rounds === 1
+                    ? dog.images.small.indoors
+                    : dog.images.small.studio
+                }
+                alt={getImageAlt(
+                  dog,
+                  dogElo.rounds === 0
+                    ? "outdoors"
+                    : dogElo.rounds === 1
+                    ? "indoors"
+                    : "studio"
+                )}
+              />
+            </DogButton>
+          );
+        })}
+        {finished && (
+          <FinishedOverlay>Ready to find your dream dog!</FinishedOverlay>
+        )}
+      </StyledTournament>
+    </>
   );
 };
 
