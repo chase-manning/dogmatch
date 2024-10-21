@@ -2,9 +2,6 @@
 
 # Sorted
 
-- Add Dogmatch to open dog registry GitHub And/or site
-
-- Share on socials
 - Add filters for mobile
 - Add more dogs (Add maremma dog)
 - It's not clear that you can edit your answers or how to do that
