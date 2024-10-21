@@ -108,12 +108,14 @@ const HeaderTextContainer = styled.div`
   gap: 0.5rem;
 `;
 
-const Header = styled.div`
+const Header = styled.div<{ $center: boolean }>`
   font-size: 3.2rem;
   font-weight: 650;
 
   @media (max-width: 900px) {
     font-size: 2.8rem;
+    text-align: ${({ $center }) => ($center ? "center" : "left")};
+    max-width: ${({ $center }) => ($center ? "35rem" : "none")};
   }
 `;
 
@@ -219,7 +221,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                     )}
                   </IconContainer>
                   <HeaderTextContainer>
-                    <Header>
+                    <Header $center={isLooks}>
                       {isMobile
                         ? metadata.mobileQuestion || metadata.question
                         : metadata.question}
@@ -230,10 +232,7 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                     )}
                   </HeaderTextContainer>
                 </HeaderSection>
-                {!(
-                  metadata.type === ItemType.IMPORTANCE ||
-                  metadata.type === ItemType.TOURNAMENT
-                ) && (
+                {!(metadata.type === ItemType.TOURNAMENT) && (
                   <Button
                     tiny
                     sub

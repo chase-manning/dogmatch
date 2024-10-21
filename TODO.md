@@ -2,12 +2,6 @@
 
 # Sorted
 
-- Skip button missing on visual importance question
-
-- Confused how visual section works for first click
-- Make it more clear how to do the visual section, that they need to keep clicking
-- Update designs of visual section to match Figma
-
 - Add Dogmatch to open dog registry GitHub And/or site
 
 - Share on socials
