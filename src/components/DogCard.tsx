@@ -152,7 +152,7 @@ const DogCard = ({ dog, padding, clickCardIndicator }: Props) => {
       color: "var(--yellow)",
     },
     {
-      label: "Training Ease",
+      label: "Training Difficulty",
       value: dog?.care.trainingDifficulty ?? 0,
       color: "var(--green)",
     },
