@@ -10,6 +10,12 @@ import { getItemMetadata, ItemType } from "./item-metadata";
 const MIN_LOOKS_PERCENT = 0.05; // 5%
 const MAX_LOOKS_PERCENT = 0.5; // 50%
 
+// Geometrically-spaced weights so each step is a consistent ~50% increase.
+// Preserves the 5:1 max/min ratio (r^4 = 5, r ≈ 1.495).
+const IMPORTANCE_WEIGHTS = [1.0, 1.5, 2.24, 3.34, 5.0];
+const getImportanceWeight = (importance: number | null): number =>
+  IMPORTANCE_WEIGHTS[(importance || 3) - 1];
+
 export interface DogRatingType {
   rating: number;
   elo: number;
@@ -53,9 +59,9 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
         if (isRating) {
           const dogValue = (dogs[i] as any)[category][trait];
           if (ratingQuestion.value) {
-            const importance = question.importance || 3;
+            const weight = getImportanceWeight(question.importance);
             const closeness = 4 - Math.abs(dogValue - ratingQuestion.value);
-            dogRating.rating += closeness * importance;
+            dogRating.rating += closeness * weight;
           }
         }
 
@@ -65,16 +71,16 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
           if (selected.length > 0) {
             if (typeof dogValue === "string") {
               if (selected.includes(dogValue)) {
-                const importance = question.importance || 3;
-                dogRating.rating += importance * 2;
+                const weight = getImportanceWeight(question.importance);
+                dogRating.rating += weight * 2;
               }
             }
 
             if (Array.isArray(dogValue)) {
               for (const t of dogValue) {
                 if (selected.includes(t)) {
-                  const importance = question.importance || 3;
-                  dogRating.rating += importance;
+                  const weight = getImportanceWeight(question.importance);
+                  dogRating.rating += weight;
                 }
               }
             }
