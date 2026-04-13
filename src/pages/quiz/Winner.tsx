@@ -5,7 +5,7 @@ import DogCard from "../../components/DogCard";
 import first from "../../assets/first.svg";
 import second from "../../assets/second.svg";
 import third from "../../assets/third.svg";
-import { DogRatingType } from "../../app/dog-rating";
+import { DogRatingType, CoupleRatings } from "../../app/dog-rating";
 import { useState } from "react";
 import { BREEDS_PATH } from "../../app/paths";
 
@@ -108,6 +108,14 @@ const Match = styled.div`
   color: var(--main);
 `;
 
+const IndividualMatch = styled.div`
+  font-size: 2rem;
+  font-weight: 400;
+  font-family: "Jost", sans-serif;
+  color: var(--sub);
+  text-align: center;
+`;
+
 const DogCardContainer = styled.div<{ $show: boolean }>`
   position: relative;
   animation: ${({ $show }) => ($show ? revealCardAnimation : "none")} 0.5s
@@ -132,9 +140,11 @@ interface Props {
   dog: DogType;
   placement: Placement;
   rating: DogRatingType;
+  coupleRatings?: CoupleRatings | null;
+  names?: [string, string];
 }
 
-const Winner = ({ dog, placement, rating }: Props) => {
+const Winner = ({ dog, placement, rating, coupleRatings, names }: Props) => {
   const [show, setShow] = useState(false);
   const [showing, setShowing] = useState(false);
 
@@ -144,6 +154,14 @@ const Winner = ({ dog, placement, rating }: Props) => {
       : placement === Placement.SECOND
       ? second
       : third;
+
+  const isCouple = !!coupleRatings && !!names;
+  const p1Percent = isCouple
+    ? Math.round(coupleRatings.person1[dog.id].percent * 100)
+    : 0;
+  const p2Percent = isCouple
+    ? Math.round(coupleRatings.person2[dog.id].percent * 100)
+    : 0;
 
   return (
     <StyledWinner
@@ -168,6 +186,11 @@ const Winner = ({ dog, placement, rating }: Props) => {
             <Icon src={icon} alt="placement icon" />
             <ClickToReveal>click to reveal</ClickToReveal>
             <Match>{`${Math.round(rating.percent * 100)}% match`}</Match>
+            {isCouple && (
+              <IndividualMatch>
+                {names[0]}: {p1Percent}% · {names[1]}: {p2Percent}%
+              </IndividualMatch>
+            )}
           </GradientBg>
         </WhiteBorder>
       </CardBack>

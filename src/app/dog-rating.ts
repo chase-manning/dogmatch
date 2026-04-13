@@ -137,4 +137,39 @@ const dogRating = (dogs: DogType[], quiz: QuizType): DogRatings => {
   return dogRatings;
 };
 
+export interface CoupleRatings {
+  combined: DogRatings;
+  person1: DogRatings;
+  person2: DogRatings;
+}
+
+export const coupleDogRating = (
+  dogs: DogType[],
+  quiz: QuizType
+): CoupleRatings => {
+  const visualSection = quiz.sections[quiz.sections.length - 1];
+  const quiz1: QuizType = {
+    ...quiz,
+    sections: [...quiz.sections.slice(0, -1), visualSection],
+  };
+  const quiz2: QuizType = {
+    ...quiz,
+    sections: [...quiz.person2Sections!, visualSection],
+  };
+
+  const ratings1 = dogRating(dogs, quiz1);
+  const ratings2 = dogRating(dogs, quiz2);
+
+  const combined: DogRatings = {};
+  for (const dog of dogs) {
+    combined[dog.id] = {
+      rating: (ratings1[dog.id].rating + ratings2[dog.id].rating) / 2,
+      elo: ratings1[dog.id].elo,
+      percent: (ratings1[dog.id].percent + ratings2[dog.id].percent) / 2,
+    };
+  }
+
+  return { combined, person1: ratings1, person2: ratings2 };
+};
+
 export default dogRating;

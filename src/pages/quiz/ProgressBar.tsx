@@ -162,6 +162,13 @@ const PercentageIndicator = styled.div`
   font-family: "Jost", sans-serif;
 `;
 
+interface PhaseInfo {
+  label: string;
+  percent: number;
+  isActive: boolean;
+  isPast: boolean;
+}
+
 interface Props {
   quiz: QuizType | null;
   setQuiz: (quiz: QuizType) => void;
@@ -171,13 +178,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFixed, setIsFixed] = useState(false);
 
-  const setSectionIndex = (i: number) => {
-    if (!quiz) return;
-    let newQuiz = { ...quiz };
-    newQuiz.sectionIndex = i;
-    newQuiz.showResults = false;
-    setQuiz(newQuiz);
-  };
+  const isCouple = quiz?.mode === "couple";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -196,11 +197,220 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
     };
   }, []);
 
-  const percentComplete = quiz
-    ? quiz.showResults
+  if (!isCouple) {
+    const totalSections = quiz ? quiz.sections.length : 5;
+
+    const setSectionIndex = (i: number) => {
+      if (!quiz) return;
+      let newQuiz = { ...quiz };
+      newQuiz.sectionIndex = i;
+      newQuiz.showResults = false;
+      setQuiz(newQuiz);
+    };
+
+    const percentComplete = quiz
+      ? quiz.showResults
+        ? 1
+        : quizCompletionPercent(quiz.sections[quiz.sectionIndex])
+      : 0;
+
+    return (
+      <Container ref={containerRef}>
+        <StyledProgressBar $fixed={isFixed}>
+          <Content>
+            <ContentInner>
+              <ContentInnerInner>
+                {quiz?.sections.map((section, index) => {
+                  const sectionComplete = quiz.showResults
+                    ? 1
+                    : quiz
+                    ? quizCompletionPercent(section)
+                    : 0;
+                  return (
+                    <Line
+                      key={index}
+                      $percent={
+                        quiz.showResults
+                          ? 1
+                          : quiz.sectionIndex > index
+                          ? 1
+                          : quiz.sectionIndex < index
+                          ? 0
+                          : sectionComplete
+                      }
+                    />
+                  );
+                })}
+                {quiz?.sections.map((section, index) => {
+                  return (
+                    <Dot
+                      key={`dot-${index}`}
+                      style={{
+                        left: `${(index / totalSections) * 100}%`,
+                      }}
+                      $active={quiz.sectionIndex >= index || quiz.showResults}
+                    >
+                      {index}
+                      <Label>{section.label}</Label>
+                      <DotButton
+                        onClick={() => {
+                          setSectionIndex(index);
+                        }}
+                      />
+                    </Dot>
+                  );
+                })}
+                {quiz && (
+                  <PercentIndicatorContainer
+                    style={{
+                      left: `${
+                        quiz.showResults
+                          ? 100
+                          : ((quiz.sectionIndex || 0) / totalSections +
+                              percentComplete / totalSections) *
+                            100
+                      }%`,
+                    }}
+                  >
+                    <PercentageIndicatorImage src={drop} alt="drop" />
+                    <PercentageIndicator>
+                      {Math.round(
+                        quiz.showResults
+                          ? 100
+                          : ((quiz.sectionIndex || 0) / totalSections +
+                              percentComplete / totalSections) *
+                              100
+                      )}
+                      %
+                    </PercentageIndicator>
+                  </PercentIndicatorContainer>
+                )}
+                <Dot
+                  style={{ left: `${100}%` }}
+                  $active={!!quiz && quiz.showResults}
+                >
+                  {quiz ? quiz.sections.length : 0}
+                  <Label>Results</Label>
+                  {quiz && (
+                    <DotButton
+                      onClick={() => {
+                        let newQuiz = { ...quiz };
+                        newQuiz.showResults = true;
+                        triggerEvent(COMPLETE_QUIZ_EVENT);
+                        setQuiz(newQuiz);
+                      }}
+                    />
+                  )}
+                </Dot>
+              </ContentInnerInner>
+            </ContentInner>
+          </Content>
+        </StyledProgressBar>
+      </Container>
+    );
+  }
+
+  const nonVisualCount = quiz ? quiz.sections.length - 1 : 4;
+  const couplePhase = quiz?.couplePhase;
+  const names = quiz?.coupleNames || ["Person 1", "Person 2"];
+
+  const getCouplePhasePercent = (
+    phase: "person1" | "person2" | "visual"
+  ): number => {
+    if (!quiz) return 0;
+    if (quiz.showResults) return 1;
+    if (phase === "person1") {
+      if (couplePhase === "person1") {
+        const sectionPercent = quizCompletionPercent(
+          quiz.sections[quiz.sectionIndex]
+        );
+        return (quiz.sectionIndex + sectionPercent) / nonVisualCount;
+      }
+      return couplePhase === "person2" || couplePhase === "visual" ? 1 : 0;
+    }
+    if (phase === "person2") {
+      if (couplePhase === "person2" && quiz.person2Sections) {
+        const sectionPercent = quizCompletionPercent(
+          quiz.person2Sections[quiz.sectionIndex]
+        );
+        return (quiz.sectionIndex + sectionPercent) / nonVisualCount;
+      }
+      return couplePhase === "visual" ? 1 : 0;
+    }
+    if (phase === "visual") {
+      if (couplePhase === "visual") {
+        const visualSection = quiz.sections[quiz.sections.length - 1];
+        return quizCompletionPercent(visualSection);
+      }
+      return 0;
+    }
+    return 0;
+  };
+
+  const phases: PhaseInfo[] = [
+    {
+      label: names[0],
+      percent: getCouplePhasePercent("person1"),
+      isActive:
+        couplePhase === "person1" ||
+        couplePhase === "person2" ||
+        couplePhase === "visual" ||
+        !!quiz?.showResults,
+      isPast:
+        couplePhase === "person2" ||
+        couplePhase === "visual" ||
+        !!quiz?.showResults,
+    },
+    {
+      label: names[1],
+      percent: getCouplePhasePercent("person2"),
+      isActive:
+        couplePhase === "person2" ||
+        couplePhase === "visual" ||
+        !!quiz?.showResults,
+      isPast: couplePhase === "visual" || !!quiz?.showResults,
+    },
+    {
+      label: "Visual",
+      percent: getCouplePhasePercent("visual"),
+      isActive: couplePhase === "visual" || !!quiz?.showResults,
+      isPast: !!quiz?.showResults,
+    },
+  ];
+
+  const totalPhases = phases.length + 1;
+
+  const currentPhaseIndex =
+    couplePhase === "person1"
+      ? 0
+      : couplePhase === "person2"
       ? 1
-      : quizCompletionPercent(quiz.sections[quiz.sectionIndex])
-    : 0;
+      : couplePhase === "visual"
+      ? 2
+      : 0;
+
+  const overallPercent = quiz?.showResults
+    ? 1
+    : (currentPhaseIndex +
+        getCouplePhasePercent(couplePhase || "person1")) /
+      totalPhases;
+
+  const handlePhaseClick = (phaseIndex: number) => {
+    if (!quiz) return;
+    const newQuiz = { ...quiz };
+    newQuiz.showResults = false;
+    if (phaseIndex === 0) {
+      newQuiz.couplePhase = "person1";
+      newQuiz.sectionIndex = 0;
+    } else if (phaseIndex === 1) {
+      newQuiz.couplePhase = "person2";
+      newQuiz.sectionIndex = 0;
+    } else if (phaseIndex === 2) {
+      newQuiz.couplePhase = "visual";
+      newQuiz.sectionIndex = quiz.sections.length - 1;
+    }
+    setQuiz(newQuiz);
+  };
 
   return (
     <Container ref={containerRef}>
@@ -208,62 +418,45 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
         <Content>
           <ContentInner>
             <ContentInnerInner>
-              {quiz?.sections.map((section, index) => {
-                const sectionComplete = quiz.showResults
-                  ? 1
-                  : quiz
-                  ? quizCompletionPercent(section)
-                  : 0;
-                return (
-                  <Line
-                    key={index}
-                    $percent={
-                      quiz.showResults
-                        ? 1
-                        : quiz.sectionIndex > index
-                        ? 1
-                        : quiz.sectionIndex < index
-                        ? 0
-                        : sectionComplete
-                    }
-                  />
-                );
-              })}
-              {quiz?.sections.map((section, index) => {
-                return (
-                  <Dot
-                    key={`dot-${index}`}
-                    style={{ left: `${(index / 5) * 100}%` }}
-                    $active={quiz.sectionIndex >= index || quiz.showResults}
-                  >
-                    {index}
-                    <Label>{section.label}</Label>
-                    <DotButton
-                      onClick={() => {
-                        setSectionIndex(index);
-                      }}
-                    />
-                  </Dot>
-                );
-              })}
+              {phases.map((phase, index) => (
+                <Line
+                  key={index}
+                  $percent={
+                    quiz?.showResults
+                      ? 1
+                      : phase.isPast
+                      ? 1
+                      : phase.isActive && !phase.isPast
+                      ? phase.percent
+                      : 0
+                  }
+                />
+              ))}
+              {phases.map((phase, index) => (
+                <Dot
+                  key={`dot-${index}`}
+                  style={{
+                    left: `${(index / totalPhases) * 100}%`,
+                  }}
+                  $active={phase.isActive}
+                >
+                  {index}
+                  <Label>{phase.label}</Label>
+                  <DotButton onClick={() => handlePhaseClick(index)} />
+                </Dot>
+              ))}
               {quiz && (
                 <PercentIndicatorContainer
                   style={{
                     left: `${
-                      quiz.showResults
-                        ? 100
-                        : ((quiz.sectionIndex || 0) / 5 + percentComplete / 5) *
-                          100
+                      quiz.showResults ? 100 : overallPercent * 100
                     }%`,
                   }}
                 >
                   <PercentageIndicatorImage src={drop} alt="drop" />
                   <PercentageIndicator>
                     {Math.round(
-                      quiz.showResults
-                        ? 100
-                        : ((quiz.sectionIndex || 0) / 5 + percentComplete / 5) *
-                            100
+                      quiz.showResults ? 100 : overallPercent * 100
                     )}
                     %
                   </PercentageIndicator>
@@ -273,7 +466,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                 style={{ left: `${100}%` }}
                 $active={!!quiz && quiz.showResults}
               >
-                {quiz ? quiz.sections.length : 0}
+                {totalPhases}
                 <Label>Results</Label>
                 {quiz && (
                   <DotButton

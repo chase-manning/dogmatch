@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DogRatings } from "../../app/dog-rating";
+import { DogRatings, CoupleRatings } from "../../app/dog-rating";
 import useDogs from "../../app/use-dogs";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
@@ -49,11 +49,15 @@ interface Props {
   ratings: DogRatings;
   show: boolean;
   quiz: QuizType;
+  coupleRatings?: CoupleRatings | null;
 }
 
-const Results = ({ ratings, show, quiz }: Props) => {
+const Results = ({ ratings, show, quiz, coupleRatings }: Props) => {
   const { dogs } = useDogs();
   const [loading, setLoading] = useState(true);
+
+  const isCouple = quiz.mode === "couple" && !!coupleRatings;
+  const names = quiz.coupleNames;
 
   useEffect(() => {
     if (!show) return;
@@ -68,29 +72,47 @@ const Results = ({ ratings, show, quiz }: Props) => {
 
   if (winners.length < 10) throw new Error("Not enough winners");
 
-  if (loading) return <Loading>Calculating your perfect match...</Loading>;
+  const loadingText = isCouple
+    ? "Calculating your perfect match together..."
+    : "Calculating your perfect match...";
+
+  if (loading) return <Loading>{loadingText}</Loading>;
+
+  const headerText = isCouple
+    ? "Your perfect match together is..."
+    : "Your perfect match is...";
 
   return (
     <StyledResult>
-      <Header>Your perfect match is...</Header>
+      <Header>{headerText}</Header>
       <Winners>
         <Winner
           dog={winners[0]}
           placement={Placement.FIRST}
           rating={ratings[winners[0].id]}
+          coupleRatings={coupleRatings}
+          names={names}
         />
         <Winner
           dog={winners[1]}
           placement={Placement.SECOND}
           rating={ratings[winners[1].id]}
+          coupleRatings={coupleRatings}
+          names={names}
         />
         <Winner
           dog={winners[2]}
           placement={Placement.THIRD}
           rating={ratings[winners[2].id]}
+          coupleRatings={coupleRatings}
+          names={names}
         />
       </Winners>
-      <TopTenDogs ratings={ratings} quiz={quiz} />
+      <TopTenDogs
+        ratings={ratings}
+        quiz={quiz}
+        coupleRatings={coupleRatings}
+      />
     </StyledResult>
   );
 };

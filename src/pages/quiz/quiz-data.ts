@@ -41,6 +41,10 @@ export interface QuizType {
   showResults: boolean;
   started: boolean;
   sections: SectionType[];
+  mode: "solo" | "couple";
+  coupleNames?: [string, string];
+  couplePhase?: "person1" | "person2" | "visual";
+  person2Sections?: SectionType[];
 }
 
 const getQuizData = (dogs: DogType[]): QuizType => {
@@ -77,6 +81,7 @@ const getQuizData = (dogs: DogType[]): QuizType => {
     sectionIndex: 0,
     showResults: false,
     started: false,
+    mode: "solo",
     sections: [
       {
         label: "General",
@@ -295,6 +300,70 @@ const getQuizData = (dogs: DogType[]): QuizType => {
   };
 
   return quizData;
+};
+
+export const buildNonVisualSections = (
+  dogs: DogType[]
+): SectionType[] => {
+  const allPersonalityTraits: string[] = [];
+  const allCoatStyles: string[] = [];
+  const allCoatTextures: string[] = [];
+  for (const dog of dogs) {
+    const { personalityTraits } = dog.general;
+    const { coatStyle, coatTexture } = dog.physical;
+    if (!allCoatStyles.includes(coatStyle)) allCoatStyles.push(coatStyle);
+    if (!allCoatTextures.includes(coatTexture))
+      allCoatTextures.push(coatTexture);
+    for (const trait of personalityTraits) {
+      if (!allPersonalityTraits.includes(trait))
+        allPersonalityTraits.push(trait);
+    }
+  }
+
+  return [
+    {
+      label: "General",
+      questions: [
+        { category: "physical", trait: "size", question: { value: null }, importance: null },
+        { category: "behavior", trait: "barkingFrequency", question: { value: null }, importance: null },
+        { category: "general", trait: "personalityTraits", question: { options: allPersonalityTraits, selected: [] }, importance: null },
+        { category: "general", trait: "popularity", question: { value: null }, importance: null },
+        { category: "behavior", trait: "adaptability", question: { value: null }, importance: null },
+        { category: "custom", trait: "looksImportance", question: { value: null }, importance: null },
+      ],
+    },
+    {
+      label: "Physical",
+      questions: [
+        { category: "physical", trait: "lifespan", question: { value: null }, importance: null },
+        { category: "physical", trait: "coatStyle", question: { options: allCoatStyles, selected: [] }, importance: null },
+        { category: "physical", trait: "coatTexture", question: { options: allCoatTextures, selected: [] }, importance: null },
+        { category: "physical", trait: "coatLength", question: { value: null }, importance: null },
+        { category: "physical", trait: "droolingFrequency", question: { value: null }, importance: null },
+      ],
+    },
+    {
+      label: "Behavioral",
+      questions: [
+        { category: "behavior", trait: "familyAffection", question: { value: null }, importance: null },
+        { category: "behavior", trait: "childFriendly", question: { value: null }, importance: null },
+        { category: "behavior", trait: "dogSociability", question: { value: null }, importance: null },
+        { category: "behavior", trait: "playfulness", question: { value: null }, importance: null },
+        { category: "behavior", trait: "protectiveInstincts", question: { value: null }, importance: null },
+        { category: "behavior", trait: "friendlinessToStrangers", question: { value: null }, importance: null },
+      ],
+    },
+    {
+      label: "Care",
+      questions: [
+        { category: "care", trait: "exerciseNeeds", question: { value: null }, importance: null },
+        { category: "care", trait: "sheddingAmount", question: { value: null }, importance: null },
+        { category: "care", trait: "groomingFrequency", question: { value: null }, importance: null },
+        { category: "care", trait: "trainingDifficulty", question: { value: null }, importance: null },
+        { category: "care", trait: "mentalStimulationNeeds", question: { value: null }, importance: null },
+      ],
+    },
+  ];
 };
 
 export default getQuizData;
