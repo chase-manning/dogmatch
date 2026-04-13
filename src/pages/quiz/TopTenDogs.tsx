@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import paw from "../../assets/paw.svg";
-import { DogRatings } from "../../app/dog-rating";
+import { DogRatings, CoupleRatings } from "../../app/dog-rating";
 import useDogs from "../../app/use-dogs";
 import DogRow from "./DogRow";
 import { QuizType } from "./quiz-data";
@@ -75,9 +75,10 @@ const RowItem = styled.div<{ $flex: number }>`
 interface Props {
   ratings: DogRatings;
   quiz: QuizType;
+  coupleRatings?: CoupleRatings | null;
 }
 
-const TopTenDogs = ({ ratings, quiz }: Props) => {
+const TopTenDogs = ({ ratings, quiz, coupleRatings }: Props) => {
   const { dogs } = useDogs();
 
   if (!dogs) return null;
@@ -104,6 +105,7 @@ const TopTenDogs = ({ ratings, quiz }: Props) => {
             rating={ratings[dog.id]}
             quiz={quiz}
             place={index + 1}
+            coupleRatings={coupleRatings}
           />
         ))}
     </StyledTopTenDogs>

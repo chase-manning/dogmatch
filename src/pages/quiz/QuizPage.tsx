@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import QuizIntro from "./QuizIntro";
-import { useEffect, useState } from "react";
-import getQuizData, { QuizType } from "./quiz-data";
+import { useEffect, useMemo, useState } from "react";
+import getQuizData, { QuizType, buildNonVisualSections } from "./quiz-data";
 import useDogs from "../../app/use-dogs";
 
 import ProgressBar from "./ProgressBar";
 import Results from "./Results";
-import dogRating from "../../app/dog-rating";
+import dogRating, { coupleDogRating } from "../../app/dog-rating";
 import QuizContent from "./QuizContent";
 import { writeQuizDataCache } from "../../app/quiz-data-cache";
 import Seo from "../../components/Seo";
@@ -26,11 +26,40 @@ const QuizPage = () => {
   const [quiz, setQuiz] = useState<QuizType | null>(null);
   const [started, setStarted] = useState(false);
 
-  const dogRatings = quiz ? dogRating(dogs, quiz) : {};
+  const isCouple = quiz?.mode === "couple";
+
+  const coupleResult = useMemo(
+    () =>
+      quiz && isCouple && quiz.person2Sections
+        ? coupleDogRating(dogs, quiz)
+        : null,
+    [dogs, quiz, isCouple]
+  );
+
+  const dogRatings = quiz
+    ? coupleResult
+      ? coupleResult.combined
+      : dogRating(dogs, quiz)
+    : {};
 
   const startNewQuiz = () => {
     writeQuizDataCache(null);
     setQuiz(getQuizData(dogs));
+    setStarted(true);
+  };
+
+  const startCoupleQuiz = (names: [string, string]) => {
+    writeQuizDataCache(null);
+    const baseQuiz = getQuizData(dogs);
+    const coupleQuiz: QuizType = {
+      ...baseQuiz,
+      mode: "couple",
+      coupleNames: names,
+      couplePhase: "person1",
+      person2Sections: buildNonVisualSections(dogs),
+      started: true,
+    };
+    setQuiz(coupleQuiz);
     setStarted(true);
   };
 
@@ -63,10 +92,16 @@ const QuizPage = () => {
             setStarted(true);
           }}
           startNewQuiz={startNewQuiz}
+          startCoupleQuiz={startCoupleQuiz}
         />
       )}
       {quiz && started && quiz.showResults && (
-        <Results ratings={dogRatings} show={quiz.showResults} quiz={quiz} />
+        <Results
+          ratings={dogRatings}
+          show={quiz.showResults}
+          quiz={quiz}
+          coupleRatings={coupleResult}
+        />
       )}
     </StyledQuizPage>
   );

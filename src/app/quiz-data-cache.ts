@@ -1,6 +1,6 @@
 import { QuizType } from "../pages/quiz/quiz-data";
 
-export const QUIZ_VERSION = 1;
+export const QUIZ_VERSION = 2;
 
 const ID = `dogmatch-quiz-data-${QUIZ_VERSION}`;
 

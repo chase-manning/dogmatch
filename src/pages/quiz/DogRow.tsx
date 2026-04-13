@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { DogType } from "../../components/DogContext";
-import { DogRatingType } from "../../app/dog-rating";
+import { DogRatingType, CoupleRatings } from "../../app/dog-rating";
 import { QuizType } from "./quiz-data";
 
 import gold from "../../assets/gold.svg";
@@ -100,6 +100,11 @@ const Image = styled.img`
   }
 `;
 
+const NameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Name = styled.div`
   font-size: 3.2rem;
   font-weight: 500;
@@ -109,6 +114,14 @@ const Name = styled.div`
     font-size: 2.8rem;
     line-height: 1.2;
   }
+`;
+
+const IndividualMatch = styled.div`
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-family: "Jost", sans-serif;
+  color: var(--sub);
+  margin-top: 0.2rem;
 `;
 
 const Match = styled.div`
@@ -141,9 +154,13 @@ interface Props {
   rating: DogRatingType;
   quiz: QuizType;
   place: number;
+  coupleRatings?: CoupleRatings | null;
 }
 
-const DogRow = ({ dog, rating, quiz, place }: Props) => {
+const DogRow = ({ dog, rating, quiz, place, coupleRatings }: Props) => {
+  const isCouple = quiz.mode === "couple" && !!coupleRatings;
+  const names = quiz.coupleNames;
+
   return (
     <StyledDogRow href={`/${BREEDS_PATH}/${dog.id}`} target="_blank">
       <Background $even={place % 2 === 0} />
@@ -171,7 +188,16 @@ const DogRow = ({ dog, rating, quiz, place }: Props) => {
         />
       </Section>
       <Section $flex={4}>
-        <Name>{dog.general.name}</Name>
+        <NameContainer>
+          <Name>{dog.general.name}</Name>
+          {isCouple && names && (
+            <IndividualMatch>
+              {names[0]}: {Math.round(coupleRatings.person1[dog.id].percent * 100)}%
+              {" · "}
+              {names[1]}: {Math.round(coupleRatings.person2[dog.id].percent * 100)}%
+            </IndividualMatch>
+          )}
+        </NameContainer>
       </Section>
       <Section $flex={1}>
         <Match>{Math.round(rating.percent * 100)}%</Match>
