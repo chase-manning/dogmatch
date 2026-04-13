@@ -378,7 +378,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
     },
   ];
 
-  const totalPhases = phases.length + 1;
+  const segmentCount = phases.length;
 
   const currentPhaseIndex =
     couplePhase === "person1"
@@ -393,7 +393,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
     ? 1
     : (currentPhaseIndex +
         getCouplePhasePercent(couplePhase || "person1")) /
-      totalPhases;
+      segmentCount;
 
   const handlePhaseClick = (phaseIndex: number) => {
     if (!quiz) return;
@@ -436,7 +436,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                 <Dot
                   key={`dot-${index}`}
                   style={{
-                    left: `${(index / totalPhases) * 100}%`,
+                    left: `${(index / segmentCount) * 100}%`,
                   }}
                   $active={phase.isActive}
                 >
@@ -466,7 +466,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
                 style={{ left: `${100}%` }}
                 $active={!!quiz && quiz.showResults}
               >
-                {totalPhases}
+                {segmentCount}
                 <Label>Results</Label>
                 {quiz && (
                   <DotButton
