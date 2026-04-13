@@ -147,14 +147,20 @@ export const coupleDogRating = (
   dogs: DogType[],
   quiz: QuizType
 ): CoupleRatings => {
+  if (!quiz.person2Sections) {
+    throw new Error(
+      "coupleDogRating requires quiz.person2Sections for couple-mode quizzes"
+    );
+  }
   const visualSection = quiz.sections[quiz.sections.length - 1];
+  const person2Sections = quiz.person2Sections;
   const quiz1: QuizType = {
     ...quiz,
     sections: [...quiz.sections.slice(0, -1), visualSection],
   };
   const quiz2: QuizType = {
     ...quiz,
-    sections: [...quiz.person2Sections!, visualSection],
+    sections: [...person2Sections, visualSection],
   };
 
   const ratings1 = dogRating(dogs, quiz1);

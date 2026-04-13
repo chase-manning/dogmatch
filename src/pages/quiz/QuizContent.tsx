@@ -19,7 +19,6 @@ import { getItemMetadata, ItemType } from "../../app/item-metadata";
 import Tooltip from "../../components/Tooltip";
 import triggerEvent, { COMPLETE_QUIZ_EVENT } from "../../app/trigger-event";
 import useIsMobile from "../../app/use-is-mobile";
-import { useState } from "react";
 
 const StyledQuizContent = styled.div`
   padding: 10rem;
@@ -228,7 +227,6 @@ interface Props {
 
 const QuizContent = ({ quiz, setQuiz }: Props) => {
   const isMobile = useIsMobile();
-  const [showHandoff, setShowHandoff] = useState(false);
 
   const isCouple = quiz?.mode === "couple";
   const couplePhase = quiz?.couplePhase;
@@ -317,7 +315,9 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
 
     if (isCouple) {
       if (couplePhase === "person1" && isLastNonVisualSection) {
-        setShowHandoff(true);
+        const newQuiz = { ...quiz };
+        newQuiz.couplePhase = "handoff";
+        setQuiz(newQuiz);
         return;
       }
       if (couplePhase === "person2" && isLastNonVisualSection) {
@@ -340,10 +340,6 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
 
     if (isCouple) {
       if (couplePhase === "person2" && quiz.sectionIndex === 0) {
-        const newQuiz = { ...quiz };
-        newQuiz.couplePhase = "person1";
-        newQuiz.sectionIndex = nonVisualSectionCount - 1;
-        setQuiz(newQuiz);
         return;
       }
       if (couplePhase === "visual") {
@@ -372,10 +368,12 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
     if (!quiz) return false;
     if (!isCouple) return quiz.sectionIndex > 0;
     if (couplePhase === "person1") return quiz.sectionIndex > 0;
-    return true;
+    if (couplePhase === "person2") return quiz.sectionIndex > 0;
+    if (couplePhase === "visual") return true;
+    return false;
   })();
 
-  if (showHandoff && quiz && isCouple) {
+  if (couplePhase === "handoff" && quiz && isCouple) {
     const name1 = quiz.coupleNames?.[0] || "Person 1";
     const name2 = quiz.coupleNames?.[1] || "Person 2";
     return (
@@ -389,7 +387,6 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
           primary
           wide
           action={() => {
-            setShowHandoff(false);
             const newQuiz = { ...quiz };
             newQuiz.couplePhase = "person2";
             newQuiz.sectionIndex = 0;

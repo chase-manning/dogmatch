@@ -326,7 +326,11 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
         );
         return (quiz.sectionIndex + sectionPercent) / nonVisualCount;
       }
-      return couplePhase === "person2" || couplePhase === "visual" ? 1 : 0;
+      return couplePhase === "handoff" ||
+        couplePhase === "person2" ||
+        couplePhase === "visual"
+        ? 1
+        : 0;
     }
     if (phase === "person2") {
       if (couplePhase === "person2" && quiz.person2Sections) {
@@ -353,10 +357,12 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
       percent: getCouplePhasePercent("person1"),
       isActive:
         couplePhase === "person1" ||
+        couplePhase === "handoff" ||
         couplePhase === "person2" ||
         couplePhase === "visual" ||
         !!quiz?.showResults,
       isPast:
+        couplePhase === "handoff" ||
         couplePhase === "person2" ||
         couplePhase === "visual" ||
         !!quiz?.showResults,
@@ -381,7 +387,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
   const segmentCount = phases.length;
 
   const currentPhaseIndex =
-    couplePhase === "person1"
+    couplePhase === "person1" || couplePhase === "handoff"
       ? 0
       : couplePhase === "person2"
       ? 1
@@ -391,12 +397,23 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
 
   const overallPercent = quiz?.showResults
     ? 1
+    : couplePhase === "handoff"
+    ? 1 / segmentCount
     : (currentPhaseIndex +
         getCouplePhasePercent(couplePhase || "person1")) /
       segmentCount;
 
+  const canClickPhase = (phaseIndex: number): boolean => {
+    if (phaseIndex === currentPhaseIndex) return true;
+    if (couplePhase === "person1" || couplePhase === "handoff")
+      return phaseIndex === 0;
+    if (couplePhase === "person2") return phaseIndex === 1;
+    return phaseIndex === currentPhaseIndex;
+  };
+
   const handlePhaseClick = (phaseIndex: number) => {
     if (!quiz) return;
+    if (!canClickPhase(phaseIndex)) return;
     const newQuiz = { ...quiz };
     newQuiz.showResults = false;
     if (phaseIndex === 0) {

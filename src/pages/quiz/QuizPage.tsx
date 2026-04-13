@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import QuizIntro from "./QuizIntro";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import getQuizData, { QuizType, buildNonVisualSections } from "./quiz-data";
 import useDogs from "../../app/use-dogs";
 
 import ProgressBar from "./ProgressBar";
 import Results from "./Results";
-import dogRating, { CoupleRatings, coupleDogRating } from "../../app/dog-rating";
+import dogRating, { coupleDogRating } from "../../app/dog-rating";
 import QuizContent from "./QuizContent";
 import { writeQuizDataCache } from "../../app/quiz-data-cache";
 import Seo from "../../components/Seo";
@@ -28,16 +28,19 @@ const QuizPage = () => {
 
   const isCouple = quiz?.mode === "couple";
 
+  const coupleResult = useMemo(
+    () =>
+      quiz && isCouple && quiz.person2Sections
+        ? coupleDogRating(dogs, quiz)
+        : null,
+    [dogs, quiz, isCouple]
+  );
+
   const dogRatings = quiz
-    ? isCouple && quiz.person2Sections
-      ? coupleDogRating(dogs, quiz).combined
+    ? coupleResult
+      ? coupleResult.combined
       : dogRating(dogs, quiz)
     : {};
-
-  const coupleRatings: CoupleRatings | null =
-    quiz && isCouple && quiz.person2Sections
-      ? coupleDogRating(dogs, quiz)
-      : null;
 
   const startNewQuiz = () => {
     writeQuizDataCache(null);
@@ -97,7 +100,7 @@ const QuizPage = () => {
           ratings={dogRatings}
           show={quiz.showResults}
           quiz={quiz}
-          coupleRatings={coupleRatings}
+          coupleRatings={coupleResult}
         />
       )}
     </StyledQuizPage>
