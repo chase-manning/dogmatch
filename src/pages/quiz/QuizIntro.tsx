@@ -198,7 +198,7 @@ const QuizIntro = ({ quiz, start, startNewQuiz, startCoupleQuiz }: Props) => {
               {error ? "Error, please refresh page" : "Start quiz together"}
             </Button>
           </div>
-          <BackLink onClick={() => setShowNameEntry(false)}>Go back</BackLink>
+          <BackLink onClick={() => { setStartingCouple(false); setShowNameEntry(false); }}>Go back</BackLink>
         </NameInputContainer>
         <div />
       </StyledQuizIntro>
