@@ -152,15 +152,38 @@ export const coupleDogRating = (
       "coupleDogRating requires quiz.person2Sections for couple-mode quizzes"
     );
   }
-  const visualSection = quiz.sections[quiz.sections.length - 1];
-  const person2Sections = quiz.person2Sections;
+  if (!quiz.person2VisualSection) {
+    throw new Error(
+      "coupleDogRating requires quiz.person2VisualSection for couple-mode quizzes"
+    );
+  }
+
+  const person1NonVisual = quiz.sections.slice(0, -1);
+  const person1VisualSection = quiz.sections[quiz.sections.length - 1];
+  const person2NonVisual = quiz.person2Sections;
+  const person2VisualSection = quiz.person2VisualSection;
+
+  // Person 1's synthetic quiz: combined non-visual (P1 first so P1's "General"
+  // section is sections[0], meaning P1's looksImportance weights their own ELO)
+  // plus ONLY P1's visual section.
   const quiz1: QuizType = {
     ...quiz,
-    sections: [...quiz.sections.slice(0, -1), visualSection],
+    mode: "solo",
+    sections: [...person1NonVisual, ...person2NonVisual, person1VisualSection],
+    person2Sections: undefined,
+    person2VisualSection: undefined,
+    couplePhase: undefined,
   };
+  // Person 2's synthetic quiz: same combined non-visual but with P2's "General"
+  // section first (so P2's looksImportance drives the blend) plus ONLY P2's
+  // visual section.
   const quiz2: QuizType = {
     ...quiz,
-    sections: [...person2Sections, visualSection],
+    mode: "solo",
+    sections: [...person2NonVisual, ...person1NonVisual, person2VisualSection],
+    person2Sections: undefined,
+    person2VisualSection: undefined,
+    couplePhase: undefined,
   };
 
   const ratings1 = dogRating(dogs, quiz1);
@@ -170,7 +193,7 @@ export const coupleDogRating = (
   for (const dog of dogs) {
     combined[dog.id] = {
       rating: (ratings1[dog.id].rating + ratings2[dog.id].rating) / 2,
-      elo: ratings1[dog.id].elo,
+      elo: (ratings1[dog.id].elo + ratings2[dog.id].elo) / 2,
       percent: (ratings1[dog.id].percent + ratings2[dog.id].percent) / 2,
     };
   }

@@ -247,14 +247,24 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
   const couplePhase = quiz?.couplePhase;
   const visualSectionIndex = quiz ? quiz.sections.length - 1 : 4;
 
+  const isOnPerson1Visual = isCouple && couplePhase === "person1Visual";
+  const isOnPerson2Visual = isCouple && couplePhase === "person2Visual";
+  const visualOwner: 1 | 2 | undefined = isOnPerson1Visual
+    ? 1
+    : isOnPerson2Visual
+    ? 2
+    : undefined;
+
   const activeQuestions: SectionType | null = (() => {
     if (!quiz) return null;
     if (!isCouple) return quiz.sections[quiz.sectionIndex];
     if (couplePhase === "person1") return quiz.sections[quiz.sectionIndex];
     if (couplePhase === "person2" && quiz.person2Sections)
       return quiz.person2Sections[quiz.sectionIndex];
-    if (couplePhase === "visual")
+    if (couplePhase === "person1Visual")
       return quiz.sections[visualSectionIndex];
+    if (couplePhase === "person2Visual" && quiz.person2VisualSection)
+      return quiz.person2VisualSection;
     return quiz.sections[quiz.sectionIndex];
   })();
 
@@ -281,21 +291,50 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
       (newQuiz.person2Sections[quiz.sectionIndex].questions[questionIndex] as any)[
         field
       ] = value;
-    } else if (couplePhase === "visual") {
+    } else if (couplePhase === "person1Visual") {
       (newQuiz.sections[visualSectionIndex].questions[questionIndex] as any)[
         field
       ] = value;
+    } else if (couplePhase === "person2Visual" && newQuiz.person2VisualSection) {
+      (newQuiz.person2VisualSection.questions[questionIndex] as any)[field] =
+        value;
     }
     setQuiz(newQuiz);
   };
 
-  const looksFinished = quiz
-    ? (
+  const getVisualSectionForOwner = (owner: 1 | 2): SectionType | undefined => {
+    if (!quiz) return undefined;
+    if (owner === 1) return quiz.sections[visualSectionIndex];
+    return quiz.person2VisualSection;
+  };
+
+  const looksFinished = (() => {
+    if (!quiz) return false;
+    if (isCouple) {
+      if (couplePhase === "person1Visual") {
+        const section = getVisualSectionForOwner(1);
+        return (
+          (section?.questions[0].question as LooksType | undefined)?.rounds ===
+          TOTAL_ROUNDS
+        );
+      }
+      if (couplePhase === "person2Visual") {
+        const section = getVisualSectionForOwner(2);
+        return (
+          (section?.questions[0].question as LooksType | undefined)?.rounds ===
+          TOTAL_ROUNDS
+        );
+      }
+      return false;
+    }
+    return (
+      (
         quiz.sections.find(
           (section) => section.label.toLowerCase() === "visual"
-        )?.questions[0].question as LooksType
-      ).rounds === TOTAL_ROUNDS
-    : false;
+        )?.questions[0].question as LooksType | undefined
+      )?.rounds === TOTAL_ROUNDS
+    );
+  })();
 
   const getTotalQuestionNumber = (
     sectionIndex: number,
@@ -316,13 +355,10 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
   const isLastNonVisualSection =
     quiz !== null && quiz.sectionIndex === nonVisualSectionCount - 1;
 
-  const isOnVisualSection =
-    isCouple && couplePhase === "visual";
-
   const isOnLastSection =
     !isCouple
       ? quiz !== null && quiz.sectionIndex === quiz.sections.length - 1
-      : isOnVisualSection;
+      : isOnPerson2Visual;
 
   const handleNext = () => {
     if (!quiz) return;
@@ -331,14 +367,19 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
     if (isCouple) {
       if (couplePhase === "person1" && isLastNonVisualSection) {
         const newQuiz = { ...quiz };
-        newQuiz.couplePhase = "handoff";
+        newQuiz.couplePhase = "handoff1";
         setQuiz(newQuiz);
         return;
       }
       if (couplePhase === "person2" && isLastNonVisualSection) {
         const newQuiz = { ...quiz };
-        newQuiz.couplePhase = "visual";
-        newQuiz.sectionIndex = visualSectionIndex;
+        newQuiz.couplePhase = "handoff2";
+        setQuiz(newQuiz);
+        return;
+      }
+      if (couplePhase === "person1Visual") {
+        const newQuiz = { ...quiz };
+        newQuiz.couplePhase = "handoff3";
         setQuiz(newQuiz);
         return;
       }
@@ -355,13 +396,6 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
 
     if (isCouple) {
       if (couplePhase === "person2" && quiz.sectionIndex === 0) {
-        return;
-      }
-      if (couplePhase === "visual") {
-        const newQuiz = { ...quiz };
-        newQuiz.couplePhase = "person2";
-        newQuiz.sectionIndex = nonVisualSectionCount - 1;
-        setQuiz(newQuiz);
         return;
       }
     }
@@ -384,32 +418,67 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
     if (!isCouple) return quiz.sectionIndex > 0;
     if (couplePhase === "person1") return quiz.sectionIndex > 0;
     if (couplePhase === "person2") return quiz.sectionIndex > 0;
-    if (couplePhase === "visual") return true;
+    if (couplePhase === "person1Visual") return false;
+    if (couplePhase === "person2Visual") return false;
     return false;
   })();
 
-  if (couplePhase === "handoff" && quiz && isCouple) {
+  const isHandoff =
+    couplePhase === "handoff1" ||
+    couplePhase === "handoff2" ||
+    couplePhase === "handoff3";
+
+  if (isHandoff && quiz && isCouple) {
     const name1 = quiz.coupleNames?.[0] || "Person 1";
     const name2 = quiz.coupleNames?.[1] || "Person 2";
+
+    let title = "";
+    let subtitle = "";
+    let buttonLabel = "";
+    let onReady: () => void = () => {};
+
+    if (couplePhase === "handoff1") {
+      title = `Great job, ${name1}!`;
+      subtitle = `Now pass the device to ${name2}`;
+      buttonLabel = `${name2} is ready`;
+      onReady = () => {
+        const newQuiz = { ...quiz };
+        newQuiz.couplePhase = "person2";
+        newQuiz.sectionIndex = 0;
+        setQuiz(newQuiz);
+        window.scrollTo(0, 0);
+      };
+    } else if (couplePhase === "handoff2") {
+      title = `Thanks, ${name2}!`;
+      subtitle = `Now pass back to ${name1} for the photo round`;
+      buttonLabel = `${name1} is ready`;
+      onReady = () => {
+        const newQuiz = { ...quiz };
+        newQuiz.couplePhase = "person1Visual";
+        newQuiz.sectionIndex = visualSectionIndex;
+        setQuiz(newQuiz);
+        window.scrollTo(0, 0);
+      };
+    } else if (couplePhase === "handoff3") {
+      title = `Nice work, ${name1}!`;
+      subtitle = `Now pass to ${name2} for their photos`;
+      buttonLabel = `${name2} is ready`;
+      onReady = () => {
+        const newQuiz = { ...quiz };
+        newQuiz.couplePhase = "person2Visual";
+        newQuiz.sectionIndex = visualSectionIndex;
+        setQuiz(newQuiz);
+        window.scrollTo(0, 0);
+      };
+    }
+
     return (
       <HandoffScreen>
         <HandoffPaws src={paws} alt="paw prints" />
-        <HandoffTitle>Great job, {name1}!</HandoffTitle>
-        <HandoffSubtitle>
-          Now pass the device to {name2}
-        </HandoffSubtitle>
-        <Button
-          primary
-          wide
-          action={() => {
-            const newQuiz = { ...quiz };
-            newQuiz.couplePhase = "person2";
-            newQuiz.sectionIndex = 0;
-            setQuiz(newQuiz);
-            window.scrollTo(0, 0);
-          }}
-        >
-          {name2} is ready
+        <HandoffTitle>{title}</HandoffTitle>
+        <HandoffSubtitle>{subtitle}</HandoffSubtitle>
+        <Button primary wide action={onReady}>
+          {buttonLabel}
         </Button>
       </HandoffScreen>
     );
@@ -420,7 +489,8 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
     const [n1, n2] = quiz.coupleNames;
     if (couplePhase === "person1") return `${n1}'s turn`;
     if (couplePhase === "person2") return `${n2}'s turn`;
-    if (couplePhase === "visual") return `${n1} & ${n2} together`;
+    if (couplePhase === "person1Visual") return `${n1}'s photos`;
+    if (couplePhase === "person2Visual") return `${n2}'s photos`;
     return null;
   })();
 
@@ -505,11 +575,6 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                           index
                         ].question as RatingType
                       ).value = value;
-                    } else if (couplePhase === "visual") {
-                      (
-                        newQuiz.sections[visualSectionIndex].questions[index]
-                          .question as RatingType
-                      ).value = value;
                     }
                     setQuiz(newQuiz);
                   }}
@@ -558,16 +623,21 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
               {isLooks && (
                 <Tournament
                   quiz={quiz}
+                  visualOwner={visualOwner}
                   updateElos={(elos: DogElos) => {
                     const newQuiz = { ...quiz };
-                    (
-                      newQuiz.sections[visualSectionIndex].questions[index]
-                        .question as LooksType
-                    ).dogElos = elos;
-                    (
-                      newQuiz.sections[visualSectionIndex].questions[index]
-                        .question as LooksType
-                    ).rounds++;
+                    if (isOnPerson2Visual && newQuiz.person2VisualSection) {
+                      const q = newQuiz.person2VisualSection.questions[index]
+                        .question as LooksType;
+                      q.dogElos = elos;
+                      q.rounds++;
+                    } else {
+                      const q = newQuiz.sections[visualSectionIndex].questions[
+                        index
+                      ].question as LooksType;
+                      q.dogElos = elos;
+                      q.rounds++;
+                    }
                     setQuiz(newQuiz);
                   }}
                   question={looksQuestion}
@@ -623,7 +693,17 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
           <div />
         )}
         {quiz ? (
-          isOnLastSection ? (
+          isOnPerson1Visual ? (
+            looksFinished ? (
+              <Button primary sub action={handleNext}>
+                Next section
+              </Button>
+            ) : (
+              <Button sub action={handleNext}>
+                Skip visual section
+              </Button>
+            )
+          ) : isOnLastSection ? (
             looksFinished ? (
               <Button primary sub action={handleFinish}>
                 Find your dream dog!

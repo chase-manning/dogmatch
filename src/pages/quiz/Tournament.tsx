@@ -84,9 +84,10 @@ interface Props {
   quiz: QuizType;
   updateElos: (elos: DogElos) => void;
   question: LooksType;
+  visualOwner?: 1 | 2;
 }
 
-const Tournament = ({ quiz, updateElos, question }: Props) => {
+const Tournament = ({ quiz, updateElos, question, visualOwner }: Props) => {
   const { dogs } = useDogs();
   const [order, setOrder] = useState<string[]>([]);
   const [candidates, setCandidates] = useState<DogType[]>([]);
@@ -110,7 +111,39 @@ const Tournament = ({ quiz, updateElos, question }: Props) => {
 
   const { rounds, dogElos } = question;
 
-  const dogRatings = dogRating(dogs, quiz);
+  // In couple mode, build a synthetic solo quiz containing both persons'
+  // non-visual answers plus ONLY the current person's visual section. This
+  // ensures the candidate pool sort does not see the other person's ELO
+  // adjustments, so person A's photo votes cannot alter the dogs that
+  // person B gets to see.
+  //
+  // The current visual owner's non-visual sections are placed FIRST because
+  // dogRating() reads looksImportance from quiz.sections[0] — so person 2's
+  // own looksImportance drives the blend during person 2's photo round.
+  const ratingQuiz: QuizType =
+    visualOwner !== undefined
+      ? {
+          ...quiz,
+          mode: "solo",
+          sections:
+            visualOwner === 1
+              ? [
+                  ...quiz.sections.slice(0, -1),
+                  ...(quiz.person2Sections ?? []),
+                  quiz.sections[quiz.sections.length - 1],
+                ]
+              : [
+                  ...(quiz.person2Sections ?? []),
+                  ...quiz.sections.slice(0, -1),
+                  quiz.person2VisualSection!,
+                ],
+          person2Sections: undefined,
+          person2VisualSection: undefined,
+          couplePhase: undefined,
+        }
+      : quiz;
+
+  const dogRatings = dogRating(dogs, ratingQuiz);
 
   const finished = rounds === TOTAL_ROUNDS;
 

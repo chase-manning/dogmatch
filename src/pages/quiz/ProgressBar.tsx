@@ -314,8 +314,30 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
   const couplePhase = quiz?.couplePhase;
   const names = quiz?.coupleNames || ["Person 1", "Person 2"];
 
+  const isAfter = (
+    phase: "person1" | "person2" | "person1Visual" | "person2Visual"
+  ): boolean => {
+    if (!couplePhase) return false;
+    const order: Record<string, number> = {
+      person1: 0,
+      handoff1: 1,
+      person2: 2,
+      handoff2: 3,
+      person1Visual: 4,
+      handoff3: 5,
+      person2Visual: 6,
+    };
+    const targetCompleted: Record<string, number> = {
+      person1: 1,
+      person2: 3,
+      person1Visual: 5,
+      person2Visual: 7,
+    };
+    return order[couplePhase] >= targetCompleted[phase];
+  };
+
   const getCouplePhasePercent = (
-    phase: "person1" | "person2" | "visual"
+    phase: "person1" | "person2" | "person1Visual" | "person2Visual"
   ): number => {
     if (!quiz) return 0;
     if (quiz.showResults) return 1;
@@ -326,11 +348,7 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
         );
         return (quiz.sectionIndex + sectionPercent) / nonVisualCount;
       }
-      return couplePhase === "handoff" ||
-        couplePhase === "person2" ||
-        couplePhase === "visual"
-        ? 1
-        : 0;
+      return isAfter("person1") ? 1 : 0;
     }
     if (phase === "person2") {
       if (couplePhase === "person2" && quiz.person2Sections) {
@@ -339,14 +357,20 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
         );
         return (quiz.sectionIndex + sectionPercent) / nonVisualCount;
       }
-      return couplePhase === "visual" ? 1 : 0;
+      return isAfter("person2") ? 1 : 0;
     }
-    if (phase === "visual") {
-      if (couplePhase === "visual") {
+    if (phase === "person1Visual") {
+      if (couplePhase === "person1Visual") {
         const visualSection = quiz.sections[quiz.sections.length - 1];
         return quizCompletionPercent(visualSection);
       }
-      return 0;
+      return isAfter("person1Visual") ? 1 : 0;
+    }
+    if (phase === "person2Visual") {
+      if (couplePhase === "person2Visual" && quiz.person2VisualSection) {
+        return quizCompletionPercent(quiz.person2VisualSection);
+      }
+      return isAfter("person2Visual") ? 1 : 0;
     }
     return 0;
   };
@@ -357,29 +381,33 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
       percent: getCouplePhasePercent("person1"),
       isActive:
         couplePhase === "person1" ||
-        couplePhase === "handoff" ||
-        couplePhase === "person2" ||
-        couplePhase === "visual" ||
+        isAfter("person1") ||
         !!quiz?.showResults,
-      isPast:
-        couplePhase === "handoff" ||
-        couplePhase === "person2" ||
-        couplePhase === "visual" ||
-        !!quiz?.showResults,
+      isPast: isAfter("person1") || !!quiz?.showResults,
     },
     {
       label: names[1],
       percent: getCouplePhasePercent("person2"),
       isActive:
         couplePhase === "person2" ||
-        couplePhase === "visual" ||
+        isAfter("person2") ||
         !!quiz?.showResults,
-      isPast: couplePhase === "visual" || !!quiz?.showResults,
+      isPast: isAfter("person2") || !!quiz?.showResults,
     },
     {
-      label: "Visual",
-      percent: getCouplePhasePercent("visual"),
-      isActive: couplePhase === "visual" || !!quiz?.showResults,
+      label: `${names[0]} photos`,
+      percent: getCouplePhasePercent("person1Visual"),
+      isActive:
+        couplePhase === "person1Visual" ||
+        isAfter("person1Visual") ||
+        !!quiz?.showResults,
+      isPast: isAfter("person1Visual") || !!quiz?.showResults,
+    },
+    {
+      label: `${names[1]} photos`,
+      percent: getCouplePhasePercent("person2Visual"),
+      isActive:
+        couplePhase === "person2Visual" || !!quiz?.showResults,
       isPast: !!quiz?.showResults,
     },
   ];
@@ -387,27 +415,45 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
   const segmentCount = phases.length;
 
   const currentPhaseIndex =
-    couplePhase === "person1" || couplePhase === "handoff"
+    couplePhase === "person1" || couplePhase === "handoff1"
       ? 0
-      : couplePhase === "person2"
+      : couplePhase === "person2" || couplePhase === "handoff2"
       ? 1
-      : couplePhase === "visual"
+      : couplePhase === "person1Visual" || couplePhase === "handoff3"
       ? 2
+      : couplePhase === "person2Visual"
+      ? 3
       : 0;
+
+  const currentPhaseKey: "person1" | "person2" | "person1Visual" | "person2Visual" =
+    currentPhaseIndex === 0
+      ? "person1"
+      : currentPhaseIndex === 1
+      ? "person2"
+      : currentPhaseIndex === 2
+      ? "person1Visual"
+      : "person2Visual";
+
+  const isOnHandoff =
+    couplePhase === "handoff1" ||
+    couplePhase === "handoff2" ||
+    couplePhase === "handoff3";
 
   const overallPercent = quiz?.showResults
     ? 1
-    : couplePhase === "handoff"
-    ? 1 / segmentCount
-    : (currentPhaseIndex +
-        getCouplePhasePercent(couplePhase || "person1")) /
+    : isOnHandoff
+    ? (currentPhaseIndex + 1) / segmentCount
+    : (currentPhaseIndex + getCouplePhasePercent(currentPhaseKey)) /
       segmentCount;
 
   const canClickPhase = (phaseIndex: number): boolean => {
     if (phaseIndex === currentPhaseIndex) return true;
-    if (couplePhase === "person1" || couplePhase === "handoff")
+    if (couplePhase === "person1" || couplePhase === "handoff1")
       return phaseIndex === 0;
-    if (couplePhase === "person2") return phaseIndex === 1;
+    if (couplePhase === "person2" || couplePhase === "handoff2")
+      return phaseIndex === 1;
+    if (couplePhase === "person1Visual" || couplePhase === "handoff3")
+      return phaseIndex === 2;
     return phaseIndex === currentPhaseIndex;
   };
 
@@ -423,7 +469,10 @@ const ProgressBar = ({ quiz, setQuiz }: Props) => {
       newQuiz.couplePhase = "person2";
       newQuiz.sectionIndex = 0;
     } else if (phaseIndex === 2) {
-      newQuiz.couplePhase = "visual";
+      newQuiz.couplePhase = "person1Visual";
+      newQuiz.sectionIndex = quiz.sections.length - 1;
+    } else if (phaseIndex === 3) {
+      newQuiz.couplePhase = "person2Visual";
       newQuiz.sectionIndex = quiz.sections.length - 1;
     }
     setQuiz(newQuiz);

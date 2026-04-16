@@ -35,6 +35,15 @@ export interface SectionType {
   questions: QuestionType[];
 }
 
+export type CouplePhase =
+  | "person1"
+  | "handoff1"
+  | "person2"
+  | "handoff2"
+  | "person1Visual"
+  | "handoff3"
+  | "person2Visual";
+
 export interface QuizType {
   version: number;
   sectionIndex: number;
@@ -43,8 +52,9 @@ export interface QuizType {
   sections: SectionType[];
   mode: "solo" | "couple";
   coupleNames?: [string, string];
-  couplePhase?: "person1" | "handoff" | "person2" | "visual";
+  couplePhase?: CouplePhase;
   person2Sections?: SectionType[];
+  person2VisualSection?: SectionType;
 }
 
 export const buildNonVisualSections = (
@@ -111,7 +121,7 @@ export const buildNonVisualSections = (
   ];
 };
 
-const buildVisualSection = (dogs: DogType[]): SectionType => {
+export const buildVisualSection = (dogs: DogType[]): SectionType => {
   const dogElos: DogElos = {};
   for (const dog of dogs) {
     dogElos[dog.id] = { elo: 1500, rounds: 0 };
