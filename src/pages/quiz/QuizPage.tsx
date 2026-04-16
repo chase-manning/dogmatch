@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import QuizIntro from "./QuizIntro";
 import { useEffect, useMemo, useState } from "react";
-import getQuizData, { QuizType, buildNonVisualSections } from "./quiz-data";
+import getQuizData, {
+  QuizType,
+  buildNonVisualSections,
+  buildVisualSection,
+} from "./quiz-data";
 import useDogs from "../../app/use-dogs";
 
 import ProgressBar from "./ProgressBar";
@@ -57,6 +61,7 @@ const QuizPage = () => {
       coupleNames: names,
       couplePhase: "person1",
       person2Sections: buildNonVisualSections(dogs),
+      person2VisualSection: buildVisualSection(dogs),
       started: true,
     };
     setQuiz(coupleQuiz);
