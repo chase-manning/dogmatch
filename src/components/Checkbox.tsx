@@ -25,14 +25,17 @@ const Row = styled.div`
   }
 `;
 
-const StyledCheckbox = styled.button<{ $selected: boolean }>`
-  height: 6.1rem;
+const StyledCheckbox = styled.button<{ $selected: boolean; $hasImage: boolean }>`
+  height: ${(props) => (props.$hasImage ? "auto" : "6.1rem")};
+  padding: ${(props) => (props.$hasImage ? "1.5rem" : "0")};
   border-radius: 1rem;
   font-size: 3rem;
   font-weight: 600;
   display: flex;
+  flex-direction: ${(props) => (props.$hasImage ? "column" : "row")};
   align-items: center;
   justify-content: center;
+  gap: ${(props) => (props.$hasImage ? "1rem" : "0")};
   cursor: pointer;
   width: 25.5rem;
   font-family: "Jost", sans-serif;
@@ -45,18 +48,28 @@ const StyledCheckbox = styled.button<{ $selected: boolean }>`
 
   @media (max-width: 900px) {
     font-size: 2.8rem;
-    height: 5.5rem;
+    height: ${(props) => (props.$hasImage ? "auto" : "5.5rem")};
     width: 23rem;
+    padding: ${(props) => (props.$hasImage ? "1rem" : "0")};
   }
+`;
+
+const OptionImage = styled.img`
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.6rem;
+  display: block;
 `;
 
 interface Props {
   options: string[];
   selected: string[];
   toggle: (option: string) => void;
+  images?: Record<string, string>;
 }
 
-const Checkbox = ({ options, selected, toggle }: Props) => {
+const Checkbox = ({ options, selected, toggle, images }: Props) => {
   const isMobile = useIsMobile();
 
   const rows: { option: string; selected: boolean }[][] = [];
@@ -81,15 +94,20 @@ const Checkbox = ({ options, selected, toggle }: Props) => {
     <Container>
       {rows.map((row, index) => (
         <Row key={index}>
-          {row.map(({ option, selected }) => (
-            <StyledCheckbox
-              key={option}
-              $selected={selected}
-              onClick={() => toggle(option)}
-            >
-              {option.toLowerCase()}
-            </StyledCheckbox>
-          ))}
+          {row.map(({ option, selected }) => {
+            const image = images?.[option];
+            return (
+              <StyledCheckbox
+                key={option}
+                $selected={selected}
+                $hasImage={!!image}
+                onClick={() => toggle(option)}
+              >
+                {image && <OptionImage src={image} alt={option} />}
+                {option.toLowerCase()}
+              </StyledCheckbox>
+            );
+          })}
         </Row>
       ))}
     </Container>

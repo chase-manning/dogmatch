@@ -11,6 +11,12 @@ import {
 import paw from "../../assets/stats/paw.svg";
 import lightPaw from "../../assets/paw.svg";
 import paws from "../../assets/paws.svg";
+import cordedCoat from "../../assets/coat-style/corded.png";
+import curlyCoat from "../../assets/coat-style/curly.png";
+import hairlessCoat from "../../assets/coat-style/hairless.png";
+import straightCoat from "../../assets/coat-style/straight.png";
+import wavyCoat from "../../assets/coat-style/wavy.png";
+import wiryCoat from "../../assets/coat-style/wiry.png";
 import Scale from "../../components/Scale";
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
@@ -19,6 +25,15 @@ import { getItemMetadata, ItemType } from "../../app/item-metadata";
 import Tooltip from "../../components/Tooltip";
 import triggerEvent, { COMPLETE_QUIZ_EVENT } from "../../app/trigger-event";
 import useIsMobile from "../../app/use-is-mobile";
+
+const COAT_STYLE_IMAGES: Record<string, string> = {
+  Corded: cordedCoat,
+  Curly: curlyCoat,
+  Hairless: hairlessCoat,
+  Straight: straightCoat,
+  Wavy: wavyCoat,
+  Wire: wiryCoat,
+};
 
 const StyledQuizContent = styled.div`
   padding: 10rem;
@@ -505,6 +520,11 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
                 <Checkbox
                   options={checkboxQuestion.options}
                   selected={checkboxQuestion.selected}
+                  images={
+                    question.trait === "coatStyle"
+                      ? COAT_STYLE_IMAGES
+                      : undefined
+                  }
                   toggle={(option) => {
                     const newQuiz = { ...quiz };
                     const newSelected = checkboxQuestion.selected.includes(
