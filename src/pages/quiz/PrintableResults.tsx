@@ -10,8 +10,8 @@ import bronze from "../../assets/bronze.svg";
 import white from "../../assets/white.svg";
 import paw from "../../assets/paw.svg";
 
-// Fixed-dimension A4-ish sheet (portrait, 96dpi: 794 x 1123). We render
-// slightly taller and let jsPDF paginate vertically if the content overflows.
+// Fixed-dimension A4-ish sheet (portrait, 96dpi: 794 x 1123) sized for
+// single-page export, with the rendered content scaled to fit the page.
 const SHEET_WIDTH = 794;
 
 const Sheet = styled.div`

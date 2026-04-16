@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DogRatings, CoupleRatings } from "../../app/dog-rating";
 import { DogType } from "../../components/DogContext";
@@ -80,10 +80,12 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+const IMAGE_WAIT_TIMEOUT_MS = 8000;
+
 const waitForImages = (element: HTMLElement): Promise<void> => {
   const images = Array.from(element.querySelectorAll("img"));
   const pending = images
-    .filter((img) => !img.complete || img.naturalWidth === 0)
+    .filter((img) => !img.complete)
     .map(
       (img) =>
         new Promise<void>((resolve) => {
@@ -92,7 +94,11 @@ const waitForImages = (element: HTMLElement): Promise<void> => {
           img.addEventListener("error", done, { once: true });
         })
     );
-  return Promise.all(pending).then(() => undefined);
+  const allLoaded = Promise.all(pending).then(() => undefined);
+  const timeout = new Promise<void>((resolve) =>
+    setTimeout(resolve, IMAGE_WAIT_TIMEOUT_MS)
+  );
+  return Promise.race([allLoaded, timeout]);
 };
 
 interface Props {
@@ -111,15 +117,26 @@ const ExportResultsButton = ({
   topBreedName,
 }: Props) => {
   const printableRef = useRef<HTMLDivElement>(null);
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [rendering, setRendering] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [toast, setToast] = useState<{ message: string; isError: boolean } | null>(
     null
   );
 
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
+
   const showToast = (message: string, isError = false) => {
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     setToast({ message, isError });
-    setTimeout(() => setToast(null), 3500);
+    toastTimeoutRef.current = setTimeout(() => {
+      setToast(null);
+      toastTimeoutRef.current = null;
+    }, 3500);
   };
 
   const handleExport = async () => {
@@ -146,7 +163,7 @@ const ExportResultsButton = ({
       const canvas = await html2canvas(node, {
         scale: 2,
         useCORS: true,
-        allowTaint: true,
+        allowTaint: false,
         backgroundColor: "#ffffff",
         logging: false,
       });
@@ -231,7 +248,16 @@ const ExportResultsButton = ({
         </HiddenWrapper>
       )}
 
-      {toast && <Toast $isError={toast.isError}>{toast.message}</Toast>}
+      {toast && (
+        <Toast
+          $isError={toast.isError}
+          role={toast.isError ? "alert" : "status"}
+          aria-live={toast.isError ? "assertive" : "polite"}
+          aria-atomic="true"
+        >
+          {toast.message}
+        </Toast>
+      )}
     </>
   );
 };
