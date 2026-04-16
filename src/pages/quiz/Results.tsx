@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import Winner, { Placement } from "./Winner";
 import TopTenDogs from "./TopTenDogs";
 import { QuizType } from "./quiz-data";
+import ExportResultsButton from "./ExportResultsButton";
 
 const StyledResult = styled.div`
   width: 100%;
@@ -21,15 +22,27 @@ const StyledResult = styled.div`
   }
 `;
 
+const HeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 3rem;
+  margin-bottom: 8rem;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    margin-bottom: 3.5rem;
+    gap: 2.5rem;
+  }
+`;
+
 const Header = styled.div`
   font-size: 4.6rem;
   font-weight: 650;
-  margin-bottom: 8rem;
-  width: 100%;
 
   @media (max-width: 900px) {
     font-size: 4rem;
-    margin-bottom: 3.5rem;
     text-align: center;
   }
 `;
@@ -84,7 +97,16 @@ const Results = ({ ratings, show, quiz, coupleRatings }: Props) => {
 
   return (
     <StyledResult>
-      <Header>{headerText}</Header>
+      <HeaderRow>
+        <Header>{headerText}</Header>
+        <ExportResultsButton
+          ratings={ratings}
+          quiz={quiz}
+          coupleRatings={coupleRatings}
+          dogs={dogs}
+          topBreedName={winners[0].general.name}
+        />
+      </HeaderRow>
       <Winners>
         <Winner
           dog={winners[0]}
