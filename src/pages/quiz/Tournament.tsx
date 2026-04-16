@@ -116,18 +116,27 @@ const Tournament = ({ quiz, updateElos, question, visualOwner }: Props) => {
   // ensures the candidate pool sort does not see the other person's ELO
   // adjustments, so person A's photo votes cannot alter the dogs that
   // person B gets to see.
+  //
+  // The current visual owner's non-visual sections are placed FIRST because
+  // dogRating() reads looksImportance from quiz.sections[0] — so person 2's
+  // own looksImportance drives the blend during person 2's photo round.
   const ratingQuiz: QuizType =
     visualOwner !== undefined
       ? {
           ...quiz,
           mode: "solo",
-          sections: [
-            ...quiz.sections.slice(0, -1),
-            ...(quiz.person2Sections ?? []),
+          sections:
             visualOwner === 1
-              ? quiz.sections[quiz.sections.length - 1]
-              : quiz.person2VisualSection!,
-          ],
+              ? [
+                  ...quiz.sections.slice(0, -1),
+                  ...(quiz.person2Sections ?? []),
+                  quiz.sections[quiz.sections.length - 1],
+                ]
+              : [
+                  ...(quiz.person2Sections ?? []),
+                  ...quiz.sections.slice(0, -1),
+                  quiz.person2VisualSection!,
+                ],
           person2Sections: undefined,
           person2VisualSection: undefined,
           couplePhase: undefined,

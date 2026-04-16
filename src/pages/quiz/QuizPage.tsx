@@ -34,7 +34,7 @@ const QuizPage = () => {
 
   const coupleResult = useMemo(
     () =>
-      quiz && isCouple && quiz.person2Sections
+      quiz && isCouple && quiz.person2Sections && quiz.person2VisualSection
         ? coupleDogRating(dogs, quiz)
         : null,
     [dogs, quiz, isCouple]

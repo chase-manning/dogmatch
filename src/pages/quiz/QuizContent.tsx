@@ -383,20 +383,6 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
       if (couplePhase === "person2" && quiz.sectionIndex === 0) {
         return;
       }
-      if (couplePhase === "person1Visual") {
-        const newQuiz = { ...quiz };
-        newQuiz.couplePhase = "person2";
-        newQuiz.sectionIndex = nonVisualSectionCount - 1;
-        setQuiz(newQuiz);
-        return;
-      }
-      if (couplePhase === "person2Visual") {
-        const newQuiz = { ...quiz };
-        newQuiz.couplePhase = "person1Visual";
-        newQuiz.sectionIndex = visualSectionIndex;
-        setQuiz(newQuiz);
-        return;
-      }
     }
 
     const newQuiz = { ...quiz };
@@ -687,7 +673,17 @@ const QuizContent = ({ quiz, setQuiz }: Props) => {
           <div />
         )}
         {quiz ? (
-          isOnLastSection ? (
+          isOnPerson1Visual ? (
+            looksFinished ? (
+              <Button primary sub action={handleNext}>
+                Next section
+              </Button>
+            ) : (
+              <Button sub action={handleNext}>
+                Skip visual section
+              </Button>
+            )
+          ) : isOnLastSection ? (
             looksFinished ? (
               <Button primary sub action={handleFinish}>
                 Find your dream dog!
